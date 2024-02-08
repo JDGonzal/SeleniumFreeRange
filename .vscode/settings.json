@@ -1,5 +1,3 @@
 {
-    "gradle.disableConfirmations": true,
-    "gradle.debug": true,
-    "gradle.allowParallelRun": true
+
 }
