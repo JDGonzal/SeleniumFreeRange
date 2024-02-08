@@ -1,22 +1,5 @@
 # Java-Cucumber-01
 https://perficient.udemy.com/course/selenium-con-java-y-cucumber-el-curso-definitivo/learn/lecture/41595708#overview
-## Prerrequisitos
-1. Tener "Visual Studio Code", como editor
-2. Tener Instalado "JAVA", "GRADLE", "GROOVY" y "MAVEN".
-3. Instalar Estas Extensiones en el "Visual Studio Code":
-* code-groovy  de Marlon Franca.
-* Cucumber de Cucumber.
-* Cucumber (Gherking) Full de Alex Krechik.
-* Debugger for Java de Microsoft.
-* Extension Pack for Java de Microsoft.
-* Gradle for Java de Microsoft.
-* Gradle Language Support de Narco Siren.
-* Groovy Lint, Fromat and de Nicolas Vuillamy.
-* Language Support for Java de Red Hot.
-* Maven for Java de Microsoft.
-* Project Manager for Java de Microsoft.
-* Snipets and Sintax High de Euclidity.
-* Test Runner for Java de Microsoft.
 
 ## Paso 07
 1. Crear un Proyecto con "Gradle: Create a Gradle Java Project".
@@ -30,25 +13,3 @@ https://perficient.udemy.com/course/selenium-con-java-y-cucumber-el-curso-defini
 6. Borramos la carpeta "app" y lo q tiene por dentro.
 7. Borramos el archivo "App.java" dentro de "/src/main/java/java/cucumber".
 8. Borramos el archivo "AppTest.java" dentro de "src/test/java/java/cucumber".
-
-## Paso 09
-1. Del archivo **build.gradle** borramos la sección "application".
-2. Del sitio [Maven Repository](https://mvnrepository.com/) buscamos "Selenium Java".
-3. Seleccionamos la última (para este ejercicio fue 4.17).
-4. Seleccionamos el "Gradle (Short)", con el click, esto queda en la memoria para darle "pegar" en cualquier parte.
-5. Lo pegamos en la sección "dependencies" de **build.gradle**.
-6. En el mismo sitio donde tomamos las dependencias, buscamos "TestNG", va en la version 7.9, mismo copiar para "dependencies" de **build.gradle**.
-7. En el mismo sitio donde tomamos las dependencias, buscamos "Cucumber JVM: Java", va en la version 7.15, mismo copiar para "dependencies" de **build.gradle**.
-8. En el mismo sitio donde tomamos las dependencias, buscamos "Cucumber JVM: JUnit 4", va en la version 7.15, mismo copiar para "dependencies" de **build.gradle**. 
-> **Note**
-> Las versiones de "Cucumber JVM: Java" y "Cucumber JVM: JUnit 4", **TIENEN** q ser iguales.
-16. Borramos de "Depencies" el de "google.guava".
-17. Ejecutamos un comando en la terminal llamado
-```bash
-gradle build
-```
-Y esto baja todas las dependencias, al final debe mostrar algo parecido a esto:
-```dos
-BUILD SUCCESSFUL in 29s
-4 actionable tasks: 4 executed
-```
