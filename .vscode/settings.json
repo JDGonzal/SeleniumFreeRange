@@ -1,5 +1,4 @@
 {
-    "gradle.disableConfirmations": true,
-    "gradle.debug": true,
-    "gradle.allowParallelRun": true
+    "java.compile.nullAnalysis.mode": "disabled",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
