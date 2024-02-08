@@ -1,5 +1,23 @@
 # Java-Cucumber-01
 https://perficient.udemy.com/course/selenium-con-java-y-cucumber-el-curso-definitivo/learn/lecture/41595708#overview
+## Prerrequisitos
+1. Tener "Visual Studio Code", como editor
+2. Tener Instalado "JAVA", "GRADLE", "GROOVY" y "MAVEN".
+3. Instalar Estas Extensiones en el "Visual Studio Code":
+* code-groovy  de Marlon Franca.
+* Cucumber de Cucumber.
+* Cucumber (Gherking) Full de Alex Krechik.
+* Debugger for Java de Microsoft.
+* Extension Pack for Java de Microsoft.
+* Gradle for Java de Microsoft.
+* Gradle Language Support de Narco Siren.
+* Groovy Lint, Fromat and de Nicolas Vuillamy.
+* Language Support for Java de Red Hot.
+* Maven for Java de Microsoft.
+* Project Manager for Java de Microsoft.
+* Snipets and Sintax High de Euclidity.
+* Test Runner for Java de Microsoft.
+
 ## Paso 07
 1. Crear un Proyecto con "Gradle: Create a Gradle Java Project".
 2. Seleccionamos la carpeta en:
@@ -145,4 +163,5 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 ```
-
+## Paso 14
+1. Instalamos otra Extensión 
