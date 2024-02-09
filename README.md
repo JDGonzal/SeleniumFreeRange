@@ -163,5 +163,3 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 ```
-## Paso 14
-1. Instalamos otra Extensión 
