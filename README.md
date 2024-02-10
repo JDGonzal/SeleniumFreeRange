@@ -163,3 +163,93 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 ```
+
+## Paso 18
+> **Note**  
+> Veamos que es el Page Object Model (POM)  
+> Pasando de esto:
+
+|Page Object Class|Tests|
+|---|---|
+|Elemento Boton| Click Botón|
+||Validar botón habilitado|
+|Elemento Campo Texto||
+|Click Botón||
+
+
+> A esto
+
+|Page Object Class|Steps Def|Feature|
+|---|---|---|
+|Elemento Boton| Click Botón||
+||Validar botón habilitado||
+|Elemento Campo Texto|||
+|Click Botón|||
+|||Dado que hago algo|
+|||Cuando miro|
+|||Paso lo q esperaba|
+
+1. Completamos en **FreeRangeTest.java** un método llamado `test1`, con lo siguiente:
+```java
+    @Test
+    public void test1() { 
+        // Navega a la página web
+        driver.get("https://www.freerangetesters.com");
+        // Encuentra un elemento utilizando si ID
+        WebElement elementoPorId = driver.findElement(By.id("idDelElemento"));
+        elementoPorId.click();
+    }
+```
+2. Creamos en "src/test/resources/" un archivo llamado **FreeRangeNavegation.feature**.
+3. Creamos en "src/test/runner/" un archivo llamado **TestRunner.java**.
+4. Colocamos `fea`dentro del archivo **FreeRangeNavegation.feature**, y el snippet completa el resto, similar a esto:
+```feature
+Feature: Feature name
+    In order to value
+    As a role
+    I want reature 
+```
+5. Colocamos `sce`dentro del archivo **FreeRangeNavegation.feature**, y el snippet completa el resto, similar a esto:
+```feature
+Scenario: title
+    Given context
+    When event
+    Then outcome
+```
+6. Coloco datos para corre dentro de **TestTunner.java**:
+```java
+@RunWith(Cucumber.class)
+@CucumberOptions(
+    features = "src/test/resources",  //Directorio de archivos .feature
+    glue = "src/test/java/steps",  //Paquete de las Clases de los pasos del feature
+    plugin = {"pretty", "html:target/cucumber-reports"}
+)  
+```
+7. En la `TERMINAL`, simplemente ejecuto el comando:
+```bash
+gradle test
+```
+y mi respuesta es similar a esto:
+```dos
+BUILD SUCCESSFUL in 8s
+3 actionable tasks: 3 executed
+```
+8. Del archivo **build.gradle**, cambiamos la última linea de `tasks.named('test') {`, por esta:
+```gradle
+tasks.named('test') {
+    systemProperty "cucumber.options", System.getProperty("cucumber.options")
+}
+```
+9. En la `TERMINAL`, simplemente ejecuto el comando:
+```bash
+gradle test
+```
+y mi respuesta es similar a esto, debe salir una falla:
+```dos
+BUILD FAILED in 2s
+3 actionable tasks: 1 executed, 2 up-to-date
+```
+10. Borramos del archivo **settings.gradle** la última linea
+```gradle
+include('app')
+```
