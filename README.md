@@ -253,3 +253,40 @@ BUILD FAILED in 2s
 ```gradle
 include('app')
 ```
+## Paso 20
+1. Borramos las dos últimas líneas del archivo **FreeRangeNavegation.feature**, dejando solo esto:
+```feature
+Feature: Navigation bar
+    To see the subpages
+    Without logging in
+    I can click the navigation bar links
+ 
+Scenario: I can access the subpages through the navigation bar 
+    Given I navigate to www.freerangetesters.com 
+```
+2. Creamos un archivo en "src/test/java/pages" llamado **BasePage.java**, 
+allí se crea la instancia de la *webPage*, que será exclusiva de este archivo 
+y los demás podrán utilizar el `WebDriver`.
+3. Creamos una variable estática llamada `driver` de tipo `WebDriver`. El solito debe importar el faltante `import org.openqa.selenium.WebDriver;`.
+4. Añadimos un `WebDriverWait` en una variable `wait`, iniciando la instancia. El importará `import org.openqa.selenium.support.ui.WebDriverWait;`.
+5. Esta misma fórmula requiere un `Duration.ofSeconds(5)`, por ende esta la importará así `import java.time.Duration;`.
+6. Creamos un bloque estático, sin nombre como este:
+```java
+    static {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+    }
+```
+El debió de importar lo siguiente: `import io.github.bonigarcia.wdm.WebDriverManager;` y `import org.openqa.selenium.chrome.ChromeDriver;`.
+7. Cuando se esté utilizando esta página heredada, se va a requerir el constructor y sea vista por otras clases:
+```java
+    public BasePage(WebDriver driver){
+        BasePage.driver = driver;
+    }
+```
+8. Creamos una función dentro del mismo archivo **BasePage.java**, para poder acceder al respectivo sitio o URL, requerido:
+```java
+    public static void  navigateTo( String url){
+        driver.get(url);
+    }
+```
