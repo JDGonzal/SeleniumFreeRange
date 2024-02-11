@@ -253,6 +253,7 @@ BUILD FAILED in 2s
 ```gradle
 include('app')
 ```
+
 ## Paso 20
 1. Borramos las dos últimas líneas del archivo **FreeRangeNavegation.feature**, dejando solo esto:
 ```feature
@@ -289,4 +290,42 @@ El debió de importar lo siguiente: `import io.github.bonigarcia.wdm.WebDriverMa
     public static void  navigateTo( String url){
         driver.get(url);
     }
+```
+
+## Paso 22
+1. Creamos archivo **PaginaPrincipal.java**, dentro de "src/test/java/pages".
+2. Conectamos la **BasePage.jave** mediante un `extends`.
+3. Creamos un constructor:
+```java
+    public PaginaPrincipal(){
+        // Se llama el Constructor Padre
+        super(driver);
+    }
+```
+4. Creamos un método para navegar a `www.freerangetesters.com`:
+```java
+    public void navigateToFreeRangeTesters(){
+        navigateTo("https://www.freerangetesters.com");
+    }
+```
+5. Ahora si creamos los *steps* conel archivo **FreeRangeSteps.java** dentro de "src/test/java/steps".
+6. Basado en el arcivo **FreeRangeNavegation.feature** Escribimos el paso tal cual, letra por letra : 
+`@Given ("I navigate to www.freerangetesters.com")`, 
+el luego importará `import io.cucumber.java.en.Given;`.
+7. Creamos un método, para luego ser utilizado:
+`public void iNavigateToFRT(){}`.
+8. Importamos del archivo **PaginaPrincipal.java** , el valor en una instancia llamada `landingPage`.
+```java
+PaginaPrincipal landingPage = new PaginaPrincipal();
+```
+9. Usando `landingPage`, llamamos métodos como el de `navigateToFreeRangeTesters()`.
+10. Del archivo **TestRunner.java** , cambiamos el glue a solo `steps`.
+11. ejecutamos en la `TERMINAL`, el comando siguiente:
+```bash
+gradle test
+```
+Y el resultado obtenido debe ser, una ejecución exitosa:
+```dos
+BUILD SUCCESSFUL in 11s
+3 actionable tasks: 3 executed
 ```
