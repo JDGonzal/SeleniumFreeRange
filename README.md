@@ -1,8 +1,8 @@
 # Java-Cucumber-01
 https://perficient.udemy.com/course/selenium-con-java-y-cucumber-el-curso-definitivo/learn/lecture/41595708#overview
 ## Prerrequisitos
-1. Tener "Visual Studio Code", como editor
-2. Tener Instalado "JAVA", "GRADLE", "GROOVY" y "MAVEN".
+1. Tener "[Visual Studio Code](https://code.visualstudio.com/download)", como editor
+2. Tener Instalado "[JAVA Version 11.0.2](https://jdk.java.net/archive/)", "[GRADLE](https://gradle.org/install/)", "[GROOVY](https://groovy.apache.org/download.html)" y "[MAVEN](https://maven.apache.org/download.cgi)".
 3. Instalar Estas Extensiones en el "Visual Studio Code":
 * code-groovy  de Marlon Franca.
 * Cucumber de Cucumber.
@@ -365,8 +365,30 @@ con el valor del xpath del botón "Ver curso" de "selenium-y-cucumber-java".
 ```bash
 gradle test
 ```
-Que nos abre la página y da click en el botón deseado , finalizando en la página esperada, y dándonos una respuesa exitosa:
+Que nos abre la página y da click en el botón deseado , finalizando en la página esperada, y dándonos una respuesta exitosa:
 ```diff
 + BUILD SUCCESSFUL in 19s
 3 actionable tasks: 3 executed
 ```
+
+## Paso 27
+1. En el archivo **BasePage.java**, vamos a implementar el cierre del browser:
+```java
+    public static void closeBrowser(){
+        driver.quit();
+    }
+```
+2. En el archivo **TestRunner.java** implementarmos un `@AfterClass`, 
+ usamos el de junit `import org.junit.AfterClass;`:
+```java
+public class TestRunner {
+@AfterClass
+    public static void cleanDriver(){
+        BasePage.closeBrowser();
+    }
+    
+}
+```
+3. Lo podemos probar corriendo en el triángulo verde dentro de **TestRunner.java**
+o ejecutando el comando en la `TERMINAL` de `gradle test`.
+ 

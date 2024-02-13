@@ -39,6 +39,11 @@ public class BasePage {
         driver.get(url);
     }
 
+    // Método estático para cerrar el Browser
+    public static void closeBrowser(){
+        driver.quit();
+    }
+
     // Creamos un elemento privado de Tipo WebElement llamado `Find`
     private WebElement Find(String locator){
         return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
