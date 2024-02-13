@@ -2,8 +2,11 @@ package pages;
 
 import java.time.Duration;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -34,6 +37,17 @@ public class BasePage {
     // Método estático para navegar a una URL.
     public static void  navigateTo( String url){
         driver.get(url);
+    }
+
+    // Creamos un elemento privado de Tipo WebElement llamado `Find`
+    private WebElement Find(String locator){
+        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    }
+
+    // Con un método público podemos usar el `Find` privado
+    public void clickElement(String locator){
+        // Hacemos Click en el elemento `Find` 
+        Find(locator).click(); 
     }
     
 }

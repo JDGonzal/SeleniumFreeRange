@@ -48,8 +48,8 @@ https://perficient.udemy.com/course/selenium-con-java-y-cucumber-el-curso-defini
 gradle build
 ```
 Y esto baja todas las dependencias, al final debe mostrar algo parecido a esto:
-```dos
-BUILD SUCCESSFUL in 29s
+```diff
++ BUILD SUCCESSFUL in 29s
 4 actionable tasks: 4 executed
 ```
 ## Paso 11
@@ -119,7 +119,7 @@ public class FreeRangeTest {
 ```
 6. Presionamos el triángulo verde dentro del archivo **FreeRangeTest.java**, corre y prueba q abre el navegador y luego lo cierra.  
 En el `DEBUG CONSOLE`, debe aparecer una respuesta similar a este:
-```bash
+```dos
 ===============================================
 Default Suite
 Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
@@ -230,8 +230,8 @@ Scenario: title
 gradle test
 ```
 y mi respuesta es similar a esto:
-```dos
-BUILD SUCCESSFUL in 8s
+```diff
++ BUILD SUCCESSFUL in 8s
 3 actionable tasks: 3 executed
 ```
 8. Del archivo **build.gradle**, cambiamos la última linea de `tasks.named('test') {`, por esta:
@@ -245,9 +245,9 @@ tasks.named('test') {
 gradle test
 ```
 y mi respuesta es similar a esto, debe salir una falla:
-```dos
-BUILD FAILED in 2s
-3 actionable tasks: 1 executed, 2 up-to-date
+```diff
+- BUILD FAILED in 2s
+ 3 actionable tasks: 1 executed, 2 up-to-date
 ```
 10. Borramos del archivo **settings.gradle** la última linea
 ```gradle
@@ -325,7 +325,48 @@ PaginaPrincipal landingPage = new PaginaPrincipal();
 gradle test
 ```
 Y el resultado obtenido debe ser, una ejecución exitosa:
-```dos
-BUILD SUCCESSFUL in 11s
+```diff
++ BUILD SUCCESSFUL in 11s
+ 3 actionable tasks: 3 executed
+```
+
+## Paso 24
+> **Note**  
+> Descargamos para Chrome y/o FireFox una extensión llamado **selectorsHub**, 
+> luego ubicándonos en el botón requerido, click derecho, SelctorsHub
+> y `Copy Relative XPath`, el contenido lo usaremos en el paso siguiente.
+
+## Paso 25
+> **Note**  
+> Vamos a enfocarnos en el archivo **BasePage.java**, dado q no pertenece a ninguna página en particular, 
+> utilizándose como un genérico para el Page Object Class (POC),
+> como vamos a interactuar con elementos Web, habrá q poner esperas. 
+> 
+
+1. En el archivo **BasePage.java** creamos un elemento del tipo `WebElement` con el nombre `Find` y un argumento de tipo `String`, luego se importó esto: `import org.openqa.selenium.WebElement;`.
+2. Retornamos con la espera `wait` un `ExpectedConditions`, finalmente con un `by.xpath`, se importaran estos: `import org.openqa.selenium.support.ui.ExpectedConditions;` y `import org.openqa.selenium.By;`, y este sería el elemento:
+```java
+    private WebElement Find(String locator){
+        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    }
+```
+3. Con un método público podemos usar el `Find` privado:
+```java
+    public void clickElement(String locator){
+        // Hacemos Click en el elemento `Find`
+        Find(locator).click();
+    }
+```
+4. En el archivo **PaginPrincipal.java** añadimos una variable `searchButton`,
+con el valor del xpath del botón "Ver curso" de "selenium-y-cucumber-java".
+5. Usamos ese botón justo después de haber abierto la pagina WEB:
+`clickElement(searchButton);`.
+6. Probamos corriendo en la `TERMINAL`, el comando:
+```bash
+gradle test
+```
+Que nos abre la página y da click en el botón deseado , finalizando en la página esperada, y dándonos una respuesa exitosa:
+```diff
++ BUILD SUCCESSFUL in 19s
 3 actionable tasks: 3 executed
 ```
