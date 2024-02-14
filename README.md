@@ -15,7 +15,7 @@ https://perficient.udemy.com/course/selenium-con-java-y-cucumber-el-curso-defini
 * Language Support for Java de Red Hot.
 * Maven for Java de Microsoft.
 * Project Manager for Java de Microsoft.
-* Snipets and Sintax High de Euclidity.
+* Snippets and Sintax High de Euclidity.
 * Test Runner for Java de Microsoft.
 
 ## Paso 07
@@ -40,7 +40,7 @@ https://perficient.udemy.com/course/selenium-con-java-y-cucumber-el-curso-defini
 6. En el mismo sitio donde tomamos las dependencias, buscamos "TestNG", va en la version 7.9, mismo copiar para "dependencies" de **build.gradle**.
 7. En el mismo sitio donde tomamos las dependencias, buscamos "Cucumber JVM: Java", va en la version 7.15, mismo copiar para "dependencies" de **build.gradle**.
 8. En el mismo sitio donde tomamos las dependencias, buscamos "Cucumber JVM: JUnit 4", va en la version 7.15, mismo copiar para "dependencies" de **build.gradle**. 
-> **Note**
+> [!NOTE]  
 > Las versiones de "Cucumber JVM: Java" y "Cucumber JVM: JUnit 4", **TIENEN** q ser iguales.
 16. Borramos de "Depencies" el de "google.guava".
 17. Ejecutamos un comando en la `TERMINAL` llamado
@@ -53,7 +53,7 @@ Y esto baja todas las dependencias, al final debe mostrar algo parecido a esto:
 4 actionable tasks: 4 executed
 ```
 ## Paso 11
-> **Note**
+> [!NOTE]  
 >Tenemos 2 arquitecturas  
 > Opción 1  
 
@@ -165,7 +165,7 @@ tasks.named('test') {
 ```
 
 ## Paso 18
-> **Note**  
+> [!NOTE]  
 > Veamos que es el Page Object Model (POM)  
 > Pasando de esto:
 
@@ -331,13 +331,13 @@ Y el resultado obtenido debe ser, una ejecución exitosa:
 ```
 
 ## Paso 24
-> **Note**  
+> [!NOTE]  
 > Descargamos para Chrome y/o FireFox una extensión llamado **selectorsHub**, 
 > luego ubicándonos en el botón requerido, click derecho, SelctorsHub
 > y `Copy Relative XPath`, el contenido lo usaremos en el paso siguiente.
 
 ## Paso 25
-> **Note**  
+> [!NOTE]  
 > Vamos a enfocarnos en el archivo **BasePage.java**, dado q no pertenece a ninguna página en particular, 
 > utilizándose como un genérico para el Page Object Class (POC),
 > como vamos a interactuar con elementos Web, habrá q poner esperas. 
@@ -402,11 +402,11 @@ o ejecutando el comando en la `TERMINAL` de `gradle test`.
         Find(locator).sendKeys(keysToSend);
     }
 ``` 
-> **Note** 
+> [!NOTE] 
 > Definimos el `writeElement`, pero no lo usamos aún.
 
 ## Paso 31
-> **Note** 
+> [!NOTE]  
 > Elegimos de un *Dropdown* o por el valor del elemento o por su índice. 
 
 1. Creamos un método en **BasePage.java** para elegir de un dropdown
@@ -426,5 +426,73 @@ de elementos que tiene un drowdown, llamado `dropdownSize`.
 Se debe importar lo siguiente `import java.util.List;`.
 10. Ahora si devolvemos el tamaño `return dropdownOptions.size();`.
 
-> **Note** 
+> [!NOTE]  
 > Definimos estos tres nuevos métodos, pero no lo usamos aún.
+
+## Paso 33
+1. Añadimos a **FreeRangeNavigation.feature** lo siguiente:
+```feature
+        When I go to a section using the navigation bar
+```
+2. Añadimos en **FreeRangeSteps.java**  un `@When` e importamos 
+`import io.cucumber.java.en.When;`:
+```java
+@When ("When I go to a section using the navigation bar")
+    public void navigationBarUse(){
+        
+    }
+```
+3. Otra importación q se sugiere es todo de `cucumber.java`, como lo siguiente
+`import io.cucumber.java.en.*`.
+4. En el archivo **PaginaPrincipal.java**, creamos una función o método 
+llamado `clickOnSectionNavigationBar()`.
+5. Del sitio [freerangetesters.com](https://www.freerangetesters.com/), en la 
+parte superior, la barra de navegación, damos click derecho sobre `Recursos` y seleccionamos 
+'SelectorsHub' y `Copy Relative XPath`.
+6. Creamos una variable en **PaginaPrincipal.java**, llamada `sectionLink`, 
+de valor le asignamos lo cargado en memoria del xPath Relativo.
+7. De este valor inicial `//a[@class='sc-iqHXzD bOSpzC sc-crrtmM sc-dFJsne jBPSqi cBBApE'][normalize-space()='Recursos']`, se sugiere cambiar a :
+`//a[normalize-space()='Recursos' and @href]`.
+
+> [!NOTE]  
+> Hay elementos que se vuelven comentarios pues no los vamos a usar en el ejercicio, como `private String searchButton` y `clickElement(searchButton)`.
+
+8. En el archivo **FreeRangeSteps.java** agregamos el `landingPage`,
+con el nuevo método llamado `clickOnSectionNavigationBar()`, del punto 4.
+9. Lo podemos ejecutar desde **TestRunner.java** o el comando `gradle test`.
+
+> [!WARNING]  
+> Maximizar la Página para un resultado Correcto.
+
+10. Adicioné al momento de alcanzar la página, un Maximizar de la Ventana
+en el archivo **BasePage.java** en el método `navigateTo`, porque sino
+obtengo un menú tipo Hamburguesa y para la prueba requiero el menú o barra
+de navegación completo.
+
+> [!NOTE]  
+> Dado que queremos usar todas las opciones de la Barra de navegación, 
+> Vamos a parametrizarlas cada elemento.
+
+11. Cambiamos en **FreeRangeNavigation.feature** , el uso de el simple `Scenario`, 
+por uno llamado `Scenario Outline`.
+12. La palabra `section` dentro del `When`, la encerramos entre símbolos 
+mayor que y menor que, así `<section>`. Tambien quitamos la partícula `a`.
+13. Escribimos `exam` y dejamos q complete el snippet para `Examples`, en
+plural.
+14. Cambiamos el primer valor por `|section|` y debajo todos las opciones
+que queremos q seleccione: 
+`| Cursos | | Recursos | | Udemy | | Mentorías | | Newsletter |`.
+15. Corregimos la definicon del paso en **FreeRangeSteps.java**, asi:
+`@When ("I go to {word} using the navigation bar")`.
+
+> [!TIP]  
+> Ojo que son Corchetes `{}`.
+
+16. Para el método `navigationBarUse` le añadimos el parámetro de la `section`.
+17. Lo añadimos como parámetro a `clickOnSectionNavigationBar` en **FreeRangeSteps.java**.
+18. En **PaginaPrincipal.java** añadimos el argumento o parámetro faltante.
+19. Cambiamos de `sectionLink` el valor de `'Recursos'` por `'%s'`.
+20. Reemplaza el marcador de posición en sectionLink con el nombre
+ `String xpathSection = String.format(sectionLink, section);` y el clic con el 
+ nuevo elemento `clickElement(xpathSection);`.
+21. Lo podemos ejecutar desde **TestRunner.java** o el comando `gradle test`. 

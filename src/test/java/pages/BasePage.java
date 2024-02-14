@@ -38,7 +38,10 @@ public class BasePage {
 
     // Método estático para navegar a una URL.
     public static void  navigateTo( String url){
+        // Navigate to a website
         driver.get(url);
+        //Mazimize current window
+        driver.manage().window().maximize();
     }
 
     // Método estático para cerrar el Browser
