@@ -1,12 +1,14 @@
 package pages;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -55,12 +57,38 @@ public class BasePage {
         Find(locator).click(); 
     }
 
-    // Método público para ewcribir usando el `Find`
+    // Método público para escribir usando el `Find`
     public void writeElement(String locator, String keysToSend){
         // Se limpia el contenido
         Find(locator).clear();
         // Luego se escribe el texto en el sitio
         Find(locator).sendKeys(keysToSend);
+    }
+
+    // Método para Elegir de un dropdown por Valor
+    public void selectFromDropdownByValue(String locator, String value){
+        // Nicitamos crear un objeto de la instancia Select
+        Select dropdown = new Select(Find(locator));
+        // Usamos la nueva variable con el valor requerido
+        dropdown.selectByValue(value);
+    }
+
+    // Método para Elegir de un dropdown por Índice
+    public void selectFromDropdownByIndex(String locator, Integer value){
+        // Nicitamos crear un objeto de la instancia Select
+        Select dropdown = new Select(Find(locator));
+        // Usamos la nueva variable con el valor requerido
+        dropdown.selectByIndex(value);
+    }
+
+    // Método para saber la cantidad de elementos q tiene un dropdown
+    public int dropdownSize(String locator){
+        // Nicitamos crear un objeto de la instancia Select
+        Select dropdown = new Select(Find(locator));
+        // Creamos una lista de `WebElements`
+        List<WebElement> dropdownOptions = dropdown.getOptions();
+        // Ahora si devolvemos el tamaño
+        return dropdownOptions.size();
     }
     
 }

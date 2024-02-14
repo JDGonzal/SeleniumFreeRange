@@ -404,3 +404,27 @@ o ejecutando el comando en la `TERMINAL` de `gradle test`.
 ``` 
 > **Note** 
 > Definimos el `writeElement`, pero no lo usamos aún.
+
+## Paso 31
+> **Note** 
+> Elegimos de un *Dropdown* o por el valor del elemento o por su índice. 
+
+1. Creamos un método en **BasePage.java** para elegir de un dropdown
+por valor, llamado `selectFromDropdownByValue`.
+2. Instanciamos un objeto llamada `dropdown` como `Select dropdown = new Select(Find(locator));`,
+el debe de importar esto `import org.openqa.selenium.support.ui.Select;`.
+3. Usamos la nueva variable con el valor requerido: `dropdown.selectByValue(value);`.
+4. Creamos otro método en **BasePage.java** para elegir de un dropdown
+por índice, llamado `selectFromDropdownByIndex`.
+5. Instanciamos un objeto llamada `dropdown` como `Select dropdown = new Select(Find(locator));`.
+6. Usamos la nueva variable con el valor requerido: `dropdown.selectByIndex(value);`.
+7. Creamos otro método en **BasePage.java** para validar la cantidad 
+de elementos que tiene un drowdown, llamado `dropdownSize`. 
+8. Instanciamos un objeto llamada `dropdown` como `Select dropdown = new Select(Find(locator));`.
+9. Creamos una lista de `WebElement` como: 
+`List<WebElement> dropdownOptions = dropdown.getOptions();`. 
+Se debe importar lo siguiente `import java.util.List;`.
+10. Ahora si devolvemos el tamaño `return dropdownOptions.size();`.
+
+> **Note** 
+> Definimos estos tres nuevos métodos, pero no lo usamos aún.
