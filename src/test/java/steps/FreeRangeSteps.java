@@ -1,6 +1,9 @@
 package steps;
 
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
+// Importación sugerida para traer todo de `cucumber.java`
+// import io.cucumber.java.en.*
 import pages.PaginaPrincipal;
 
 public class FreeRangeSteps {
@@ -12,4 +15,8 @@ public class FreeRangeSteps {
         landingPage.navigateToFreeRangeTesters();
     }
     
+    @When ("I go to {word} using the navigation bar")
+    public void navigationBarUse(String section){
+        landingPage.clickOnSectionNavigationBar(section);
+    }
 }
