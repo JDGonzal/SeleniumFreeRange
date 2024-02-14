@@ -54,5 +54,13 @@ public class BasePage {
         // Hacemos Click en el elemento `Find` 
         Find(locator).click(); 
     }
+
+    // Método público para ewcribir usando el `Find`
+    public void writeElement(String locator, String keysToSend){
+        // Se limpia el contenido
+        Find(locator).clear();
+        // Luego se escribe el texto en el sitio
+        Find(locator).sendKeys(keysToSend);
+    }
     
 }

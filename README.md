@@ -22,7 +22,7 @@ https://perficient.udemy.com/course/selenium-con-java-y-cucumber-el-curso-defini
 1. Crear un Proyecto con "Gradle: Create a Gradle Java Project".
 2. Seleccionamos la carpeta en:
 ```dos
- E:\Development\tutorials\java\cucumber\Java-Cucumber-01\
+ E:\Development\tutorials\java\cucumber\SeleniumFreeRange
  ```
 3. Seleccionamos "Groovy".
 4. Dejamos el nombre por defecto.
@@ -43,7 +43,7 @@ https://perficient.udemy.com/course/selenium-con-java-y-cucumber-el-curso-defini
 > **Note**
 > Las versiones de "Cucumber JVM: Java" y "Cucumber JVM: JUnit 4", **TIENEN** q ser iguales.
 16. Borramos de "Depencies" el de "google.guava".
-17. Ejecutamos un comando en la terminal llamado
+17. Ejecutamos un comando en la `TERMINAL` llamado
 ```bash
 gradle build
 ```
@@ -72,7 +72,7 @@ Y esto baja todas las dependencias, al final debe mostrar algo parecido a esto:
 || * Pages |
 || * Runner |
 
-> Se sugiere utilizar la opción 2, por tanto la carpeta "Main" pued ser borrada.
+> Se sugiere utilizar la opción 2, por tanto la carpeta "Main" puede ser borrada.
 
 1. Borrar la carpeta "Main" dentro de "src".
 2. Adicionar la carpeta "features" dentro de "/src/test/resources".
@@ -126,7 +126,7 @@ Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
 ===============================================
 ```
 
-7. Por confirmar este es el archivo **build.gradle**:
+7. Para confirmar este debe ser el archivo **build.gradle**:
 ```gradle
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
@@ -279,7 +279,7 @@ y los demás podrán utilizar el `WebDriver`.
     }
 ```
 El debió de importar lo siguiente: `import io.github.bonigarcia.wdm.WebDriverManager;` y `import org.openqa.selenium.chrome.ChromeDriver;`.
-7. Cuando se esté utilizando esta página heredada, se va a requerir el constructor y sea vista por otras clases:
+7. Cuando se esté utilizando esta página heredada, se va a requerir el constructor y q sea vista por otras clases:
 ```java
     public BasePage(WebDriver driver){
         BasePage.driver = driver;
@@ -294,7 +294,7 @@ El debió de importar lo siguiente: `import io.github.bonigarcia.wdm.WebDriverMa
 
 ## Paso 22
 1. Creamos archivo **PaginaPrincipal.java**, dentro de "src/test/java/pages".
-2. Conectamos la **BasePage.jave** mediante un `extends`.
+2. Conectamos la **BasePage.java** mediante un `extends`.
 3. Creamos un constructor:
 ```java
     public PaginaPrincipal(){
@@ -308,7 +308,7 @@ El debió de importar lo siguiente: `import io.github.bonigarcia.wdm.WebDriverMa
         navigateTo("https://www.freerangetesters.com");
     }
 ```
-5. Ahora si creamos los *steps* conel archivo **FreeRangeSteps.java** dentro de "src/test/java/steps".
+5. Ahora si creamos los *steps* con el archivo **FreeRangeSteps.java** dentro de "src/test/java/steps".
 6. Basado en el arcivo **FreeRangeNavegation.feature** Escribimos el paso tal cual, letra por letra : 
 `@Given ("I navigate to www.freerangetesters.com")`, 
 el luego importará `import io.cucumber.java.en.Given;`.
@@ -392,3 +392,15 @@ public class TestRunner {
 3. Lo podemos probar corriendo en el triángulo verde dentro de **TestRunner.java**
 o ejecutando el comando en la `TERMINAL` de `gradle test`.
  
+## Paso 29
+1. Creamos un método en **BasePage.java**, llamado `writeElement` para escribir en un elemento, con `sendKeys`:
+```java
+    public void writeElement(String locator, String keysToSend){
+        // Se limpia el contenido
+        Find(locator).clear();
+        // Luego se escribe el texto en el sitio
+        Find(locator).sendKeys(keysToSend);
+    }
+``` 
+> **Note** 
+> Definimos el `writeElement`, pero no lo usamos aún.
