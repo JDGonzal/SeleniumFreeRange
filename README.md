@@ -40,7 +40,7 @@ https://perficient.udemy.com/course/selenium-con-java-y-cucumber-el-curso-defini
 6. En el mismo sitio donde tomamos las dependencias, buscamos "TestNG", va en la version 7.9, mismo copiar para "dependencies" de **build.gradle**.
 7. En el mismo sitio donde tomamos las dependencias, buscamos "Cucumber JVM: Java", va en la version 7.15, mismo copiar para "dependencies" de **build.gradle**.
 8. En el mismo sitio donde tomamos las dependencias, buscamos "Cucumber JVM: JUnit 4", va en la version 7.15, mismo copiar para "dependencies" de **build.gradle**. 
-> [!NOTE]  
+> [!IMPORTANT]  
 > Las versiones de "Cucumber JVM: Java" y "Cucumber JVM: JUnit 4", **TIENEN** q ser iguales.
 16. Borramos de "Depencies" el de "google.guava".
 17. Ejecutamos un comando en la `TERMINAL` llamado
@@ -331,7 +331,7 @@ Y el resultado obtenido debe ser, una ejecución exitosa:
 ```
 
 ## Paso 24
-> [!NOTE]  
+> [!TIP]  
 > Descargamos para Chrome y/o FireFox una extensión llamado **selectorsHub**, 
 > luego ubicándonos en el botón requerido, click derecho, SelctorsHub
 > y `Copy Relative XPath`, el contenido lo usaremos en el paso siguiente.
@@ -461,7 +461,7 @@ de valor le asignamos lo cargado en memoria del xPath Relativo.
 con el nuevo método llamado `clickOnSectionNavigationBar()`, del punto 4.
 9. Lo podemos ejecutar desde **TestRunner.java** o el comando `gradle test`.
 
-> [!WARNING]  
+> [!IMPORTANT]  
 > Maximizar la Página para un resultado Correcto.
 
 10. Adicioné al momento de alcanzar la página, un Maximizar de la Ventana
@@ -495,4 +495,97 @@ que queremos q seleccione:
 20. Reemplaza el marcador de posición en sectionLink con el nombre
  `String xpathSection = String.format(sectionLink, section);` y el clic con el 
  nuevo elemento `clickElement(xpathSection);`.
-21. Lo podemos ejecutar desde **TestRunner.java** o el comando `gradle test`. 
+21. Lo podemos ejecutar desde **TestRunner.java** o el comando `gradle test`.
+
+> [!TIP]  
+> Si agrego en **FreeRangeNavegation.feature** en el `Scenario Outline`, la 
+> palabra `<section>`, esta también aparecerá el momento de ejectutar por
+> el triángulo verde (run) de **TestRunner.java**.
+```feature
+Scenario Outline: I can access the subpages through the navigation bar: <section>
+```
+
+## Paso 35
+1. Comentamos del **FreeRangeNavigation.feature** todo el `Scenario`:
+```feature
+# Scenario Outline: I can access the subpages through the navigation bar: <section>
+#     Given I navigate to www.freerangetesters.com 
+#     When I go to <section> using the navigation bar
+#     Examples:
+#         | section    |
+#             | Cursos     |
+#             | Recursos   |
+#             | Udemy      |
+#             | Mentorías  |
+#             | Newsletter |
+```
+2. Creamos en **FreeRangeNavigation.feature** un `Scenario` como este:
+```feature
+Scenario: Courses are presented correctly to potential customers
+    Given I navigate to www.freerangetesters.com 
+    When I go to Cursos using the navigation bar
+    And select Introduction to Testing
+```
+
+> [!TIP]  
+> Prefiero dejar todo en Inglés, también se evitan los acentos o tildes.
+
+3. Agregamos en **FreeRangeSteps.java** un `@And`:
+```java
+    @And("select Introduction to Testing")
+    public void navigateToIntro(){
+        
+    }
+```
+4. Creamos un archivo PaginaCursos.java en 'src/test/java/pages':
+5. Del archivo **PaginaCursos.java** extendemos de `BasePage`.
+6. Añadimos el Constructor basado en el padre.
+7. Creamos una variable llamada `fundamentosTestingLink`, basado en
+**PaginaPrincipal.java**, sería así la definición de la variable:
+`private String fundamentosTestingLink = "//a[normalize-space()='Fundamentos del Testing' and @href]";`.
+8. Creamos un método para hacer el click en el link, llamada `clickFundamentosTestingLink`:
+```java
+    public void clickFundamentosTestingLink(){
+        // Click en el link de fundamentos Testing
+        clickElement(fundamentosTestingLink);
+    }
+```
+9. Instanciamos en **FreeRangeSteps.java** la nueva página de Cursos, e importamos 
+`import pages.PaginaCursos;` y este sería el proceso:
+```java
+    PaginaCursos cursosPage = new PaginaCursos();
+```
+10. Lo podemos añadir en el método `navigateToIntro` de **FreeRangeSteps.java**, el
+`cursosPage.clickFundamentosTestingLink();`.
+11. Como ese click en este link, nos va a llevar a otra página, debemos crear un archivo 
+**PaginaFundamentosTesting.java** en 'src/test/java/pages'.
+12. En el archivo **PaginaFundamentosTesting.java** extendemos de `BasePage`.
+13. Añadimos el Constructor basado en el padre.
+14. Creamos una variable llamada `introduccionTestingLink`, basado en
+**PaginaCursos.java.java**, sería así la definición de la variable:
+`private String introduccionTestingLink = "//a[normalize-space()='Introducción al Testing de Software' and @href]";`.
+
+> [!CAUTION]  
+> Hay problemas con utilizar acentos o tildes entonces se cambia el xPath por otro sin acentos.
+
+15. Corrección de la variable `introduccionTestingLink` en **PaginaFundamentosTesting.java**
+```java
+    // Variable para acceder al link
+    private String introduccionTestingLink = "//a[@href='/introduccion-al-testing-de-software']";
+```
+16. Creamos un método para hacer el click en el link, llamada `clickIntroduccionTestingLink`:
+```java
+    public void clickIntroduccionTestingLink(){
+        // Click en el link Introduccion al Testing
+        clickElement(introduccionTestingLink);
+    }
+```
+17. Instanciamos en **FreeRangeSteps.java** la nueva página de Fundamentos, e importamos 
+`import pages.PaginaFuncamentosTesting;` y este sería el proceso:
+```java
+    PaginaCursos cursosPage = new PaginaCursos();
+```
+18. Lo podemos añadir en el método `navigateToIntro` de **FreeRangeSteps.java**, el
+`fundamentosPage.clickIntroduccionTestingLink();`.
+18. Podemos correr la prueba ejecutando en la `TERMINAL` el `gradle test` o el triángulo
+verde del archivo **TestRunner.java**.

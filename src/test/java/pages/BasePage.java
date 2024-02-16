@@ -76,7 +76,7 @@ public class BasePage {
         dropdown.selectByValue(value);
     }
 
-    // Método para Elegir de un dropdown por Índice
+    // Método para Elegir de un dropdown por índice
     public void selectFromDropdownByIndex(String locator, Integer value){
         // Nicitamos crear un objeto de la instancia Select
         Select dropdown = new Select(Find(locator));
