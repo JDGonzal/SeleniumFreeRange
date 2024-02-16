@@ -7,6 +7,9 @@ public class PaginaPrincipal extends BasePage{
 
     // Definimos searchButton como un xpath del botón "Ver curso" de "selenium-y-cucumber-java"
     // private String searchButton = "//a[@href='/selenium-y-cucumber-java'][normalize-space()='Ver curso']";
+
+    // Definimos elegirUnPlanButton con el texto de 'Elegir Plan' y q sea un `href`
+    private String elegirUnPlanButton = "//a[normalize-space()='Elegir Plan' and @href]";
     
     public PaginaPrincipal(){
         // Se llama el Constructor Padre
@@ -27,5 +30,11 @@ public class PaginaPrincipal extends BasePage{
         String xpathSection = String.format(sectionLink, section);
         // Click en el elemento de la barra del navegador
         clickElement(xpathSection);
+    }
+
+    // Método para dar clic en Plan Nuevo
+    public void clickOnElegirPlanButton(){
+        // Clic en el botón de Plan nuevo
+        clickElement(elegirUnPlanButton);
     }
 }

@@ -537,7 +537,7 @@ Scenario: Courses are presented correctly to potential customers
         
     }
 ```
-4. Creamos un archivo PaginaCursos.java en 'src/test/java/pages':
+4. Creamos un archivo **PaginaCursos.java** en 'src/test/java/pages':
 5. Del archivo **PaginaCursos.java** extendemos de `BasePage`.
 6. Añadimos el Constructor basado en el padre.
 7. Creamos una variable llamada `fundamentosTestingLink`, basado en
@@ -588,4 +588,32 @@ Scenario: Courses are presented correctly to potential customers
 18. Lo podemos añadir en el método `navigateToIntro` de **FreeRangeSteps.java**, el
 `fundamentosPage.clickIntroduccionTestingLink();`.
 18. Podemos correr la prueba ejecutando en la `TERMINAL` el `gradle test` o el triángulo
+verde del archivo **TestRunner.java**.
+
+## Paso 37
+1. Volvemos a comentar en el archivo **FreeRangeNavigation.feature** todo el `Scenario`:
+```feature
+# Scenario: Courses are presented correctly to potential customers
+#     Given I navigate to www.freerangetesters.com
+#     When I go to Cursos using the navigation bar
+#     And select Introduction to Testing
+```
+2. Ponemos otro `Scenario`:
+```feature
+Scenario: Users can select a plan when signing up
+    Given I navigate to www.freerangetesters.com
+    When I select Elegir Plan
+
+```
+3. Creamos una variable `elegirPlanButton` en **PaginaPrincipal.java**: 
+`private String elegirUnPlanButton = "//a[normalize-space()='Elegir Plan' and @href]";`.
+4. Generamos el método q use esta nueva variable en `clickOnElegirPlanButton`.
+5. En el archivo **FreeRangeSteps.java** definimos el nuevo `@When`:
+```java
+    @When("I select Elegir Plan")
+    public void selectElegirPlan() {
+        landingPage.clickOnElegirPlanButton();
+    }
+```
+6. Podemos correr la prueba ejecutando en la `TERMINAL` el `gradle test` o el triángulo
 verde del archivo **TestRunner.java**.
