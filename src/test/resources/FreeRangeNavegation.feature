@@ -22,4 +22,4 @@ Feature: Navigation bar
 Scenario: Users can select a plan when signing up
     Given I navigate to www.freerangetesters.com
     When I select Elegir Plan
-
+    Then I can validate the options in the checkout page

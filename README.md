@@ -617,3 +617,124 @@ Scenario: Users can select a plan when signing up
 ```
 6. Podemos correr la prueba ejecutando en la `TERMINAL` el `gradle test` o el triángulo
 verde del archivo **TestRunner.java**.
+
+## Paso 39
+
+> [!NOTE]  
+> Empezaremos a utilizar lo relacionado con dropdowns del archivo **BasePage.java**.
+
+1. Creamos en **BasePage.java** un método`getDropdownValues` q devuelva una lista pública:
+```java
+    public List<String> getDropdownValues( String locator){
+
+    }
+```
+2. Nicitamos crear un objeto de la instancia Select `Select dropdown = new Select(Find(locator));`.
+3. Cargamos una varialbe de tipo List de las opciones del dropdown
+`List<WebElement> dropdownOptions = dropdown.getOptions();`.
+4. Creamos una List instanciandola de un arreglo `List<String> values = new  ArrayList<>();`, 
+el debe importar `import java.util.ArrayList;`.
+5. Vamos a iterar dentro de `for` los elementos del dropdownOptions
+```java
+        for(WebElement option: dropdownOptions){
+            // Adicionamos a `values` lo de dropdownOptions(option)
+            values.add(option.getText());
+        }
+```
+6. Por último retornamos el valor de `values`: `return values;`.
+7. En el **FreeRangeNavegation.feature** definimos un nuevo paso:
+```feature
+        Then I can validate the options in the checkout page
+```
+8. En el archivo **FreeRangeSteps.java** definimos el `@Then`
+```java
+    @Then ("I can validate the options in the checkout page")
+    public void validateCheckoutPlans(){
+        
+    }
+```
+9. En el archivo **FreeRangeSteps.java** ya tenemos muchas importaciones de la misma librería, 
+entonces lo convertimos en un asterisco `*`, y comentamos el resto:
+```java
+import io.cucumber.java.en.*;
+// import io.cucumber.java.en.And;
+// import io.cucumber.java.en.Given;
+// import io.cucumber.java.en.Then;
+// import io.cucumber.java.en.When;
+```
+10. Creamos una pagina llamada **PaginaRegistro.java**, con el `extends` de `BasePage` y
+el constructor basado en el padre.
+```java
+package pages;
+
+public class PaginaRegistro extends BasePage{
+
+        // Añadimos el Constructor basado en el padre
+        public PaginaRegistro() {
+            super(driver);
+        }
+    
+}
+```
+11. Creamos una variable llamada `planDropdown` y le cargamos el `Relative XPath`:
+`private String planDropdown = "//select[@id='cart_cart_item_attributes_plan_with_interval']";`.
+12. Creamos una lista con el nombre `returnPlanDropdownValues`, esto importará
+`import java.util.List;`, en el archivo **PaginaRegistro.java**:
+```java
+    public List<String> returnPlanDropdownValues() {
+        return getDropdownValues(planDropdown);
+    }
+```
+13. En el archivo **FreeRangeStesp.java**, instanciamos la `PaginaRegistro` y la importamos.
+14. Dentro del método `validateCheckoutPlans` definimos una variable llamada `lista` con los valores
+de `returnPlanDropdownValues`, tambien importamos `import java.util.List;`.
+```java
+    List<String> lista = registro.returnPlanDropdownValues();
+```
+15. En el archivo **FreeRangeSteps.java**, creamos otra lista llamada `listaEsperada`, e
+importamos `import java.util.Arrays;`:
+```java
+        List<String> listaEsperada = Arrays.asList(
+            "Academia: $16.99 / mes • 11 productos",
+            "Academia: $176 / año • 11 productos",
+            "Free: Gratis • 1 producto");
+```
+
+> [!NOTE]  
+> A veces el editor te va a mostrar un dato como `...a:`, pero es solo visual, no afecta el proceso.
+
+16. Creamos un `Assert` y lo importamos de `import org.testng.Assert;`:
+```java
+        Assert.assertEquals(lista, listaEsperada);
+```
+17. Lo podemos ejecutar desde **TestRunner.java** o el comando `gradle test`.
+
+> [!CAUTION]  
+> El sistema ha arrojado errores debido a los caracteres en castellano y el caracter 
+> separador, haciendo lo siguiente:
+> * He buscado el "encoding" para tranformar el UTF-8 en ISO-8859 como ejemplo esta
+> página [Encode a String to UTF-8 in Java](https://www.baeldung.com/java-string-encode-utf-8).
+> * Consulté alterar el archivo **settings.json** tanto el de Visual Studio Code como el
+> del proyecto.
+>
+> Luego de varias opciones la solución fue simple en esta página [UTF-8 Encoding Debugging Chart](https://www.i18nqa.com/debug/utf8-debug.html), en el paso siguiente la solución.
+
+18. En el archivo **FreeRangeSteps.java**, modificamos`listaEsperada`: así:
+```java
+        List<String> listaEsperada = Arrays.asList(
+                "Academia: $16.99 / mes \u2022 11 productos",
+                "Academia: $176 / a\u00F1o \u2022 11 productos",
+                "Free: Gratis \u2022 1 producto");
+```
+
+> [!TIP]  
+> El símbolo "backslash" seguido de la letra "u" es para mostrar un caracter unicode, 
+> con base en esta tabla: [Table of UTF-8](https://www.i18nqa.com/debug/utf8-debug.html).
+
+19. Lo podemos ejecutar desde **TestRunner.java** o el comando `gradle test` y ahora si el 
+`Assert` si tendrá una respuesta positiva, siendo iguales la `lista` (14) y la 
+`listaEsperada` (18).
+```diff
++ BUILD SUCCESSFUL in 19s
+3 actionable tasks: 3 executed
+```
