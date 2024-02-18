@@ -1,6 +1,7 @@
 package pages;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -92,6 +93,25 @@ public class BasePage {
         List<WebElement> dropdownOptions = dropdown.getOptions();
         // Ahora si devolvemos el tamaño
         return dropdownOptions.size();
+    }
+
+    // Creamos un método`getDropdownValues` q devuelva una lista pública  
+    public List<String> getDropdownValues( String locator){
+        // Nicitamos crear un objeto de la instancia Select
+        Select dropdown = new Select(Find(locator));
+        // Cargamos una varialbe de tipo List de las opciones del dropdown
+        List<WebElement> dropdownOptions = dropdown.getOptions();
+        // Creamos una List instanciandola de un arreglo
+        List<String> values = new  ArrayList<>();
+        // Vamos a iterar dentro de `for` los elementos del dropdownOptions
+        System.out.println("getDropdownValues");
+        for(WebElement option: dropdownOptions){
+            // Adicionamos a `values` lo de dropdownOptions(option)
+            System.out.println(option.getText());
+            values.add(option.getText());
+        }
+        // Por último retornamos el valor de `values`:
+        return values;
     }
     
 }
