@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.testng.Assert;
+// import org.testng.asserts.SoftAssert;
 
 // Importación sugerida para traer todo de `cucumber.java`
 import io.cucumber.java.en.*;
@@ -19,6 +20,8 @@ import pages.PaginaPrincipal;
 import pages.PaginaRegistro;
 
 public class FreeRangeSteps {
+
+    // SoftAssert soft = new SoftAssert();
 
     PaginaPrincipal landingPage = new PaginaPrincipal();
     PaginaCursos cursosPage = new PaginaCursos();
