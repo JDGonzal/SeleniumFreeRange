@@ -738,3 +738,73 @@ importamos `import java.util.Arrays;`:
 + BUILD SUCCESSFUL in 19s
 3 actionable tasks: 3 executed
 ```
+
+## Paso 41
+
+> [!NOTE]  
+> Vamos a ahondar en el tema de las `Assert` que nos proporciona el `TestNG`.
+>
+> ### Tipos de Assertions con TestNG: Recurso
+>Las verificaciones son una parte fundamental a la hora de automatizar. Vamos a necesitar verificar que el estado de un sistema y sus elementos es el esperado y para eso vamos a usar la librería Assert de TestNG. 
+>
+>Acá les dejo los tipos más usados de Assertions y las que vimos en el video: 
+>
+>TestNG proporciona una serie de métodos de aserción a través de la clase Assert para verificar que las condiciones de las pruebas sean cumplidas. Estas aserciones son esenciales para validar el comportamiento esperado de la aplicación bajo prueba. A continuación, te detallo algunas de las aserciones más comunes y te proporciono ejemplos utilizando Selenium y Java:
+>
+>#### 1. assertEquals
+>
+>Verifica que dos valores sean iguales.
+```java
+  Assert.assertEquals(actualTitle, expectedTitle, "El título de la página no es el esperado.");
+```
+>#### 2. assertNotEquals
+>
+>Verifica que dos valores no sean iguales.
+```java
+   Assert.assertNotEquals(actualTitle, incorrectTitle, "El título de la página no debería ser este.");
+```
+>#### 3. assertTrue
+>
+>Verifica que una condición sea verdadera.
+```java
+  Assert.assertTrue(isElementPresent, "El elemento debería estar presente.");
+```
+>#### 4. assertFalse
+>
+>Verifica que una condición sea falsa.
+```java
+   Assert.assertFalse(isElementPresent, "El elemento no debería estar presente.");
+```
+>
+>Estos son solo ejemplos básicos pero de los más usados. Tengan en cuenta lo que ya vimos en las clases, especialmente lo relacionado a cómo Selenium interactúa con elementos web y cómo nos "traemos" información de ellos para poder validar.
+
+## Paso 43 
+
+> Los `SoftAssert` de `TestNG`.
+> ### Las Soft Assertions: Una parte muy conveniente de la librería TestNG: Recurso
+>Van a haber momentos en los que van a tener que validar muchas pequeñas cosas que no son como para hacer un scenario por cada una. Digamos, por ejemplo, un formulario con muchos campos. 
+>
+>Queremos tener un test que valide que los campos están presentes y en el estado que los requerimientos dicen, pero no vamos a hacer 25 tests distintos para cada campo. Ahí es donde entran las Soft Assertions. A continuación, dejo cómo implementarlas y un ejemplo: 
+>
+>Primero el import:
+```java
+import org.testng.asserts.SoftAssert;
+```
+>Segundo crear la instancia del objeto SoftAssert
+```java
+SoftAssert soft = new SoftAssert();
+Y así se ven (exactamente como las assertions comunes, pero con el potente assertAll(); al final!
+public void Ejemplulis() {
+        String palabraEsperada = "Pepe";
+        String palabraEncontrada = "Papa";
+ 
+        // Soft Assertions: No detienen la ejecución al fallar. Ideal para verificar
+        // muchas cosas pequeñas a la vez.
+        soft.assertEquals(palabraEsperada, palabraEncontrada);
+        soft.assertTrue(palabraEncontrada.contains(palabraEsperada));
+        soft.assertNotEquals(palabraEncontrada,palabraEsperada);
+ 
+        soft.assertAll();
+ 
+    }
+```
