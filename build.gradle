@@ -38,4 +38,5 @@ dependencies {
 
 tasks.named('test') {
     systemProperty "cucumber.options", System.getProperty("cucumber.options")
+    systemProperties System.getProperties();
 }
