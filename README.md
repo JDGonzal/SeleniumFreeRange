@@ -834,43 +834,95 @@ tasks.named('test') {
     systemProperties System.getProperties();
 }
 ```
-6. De mnuevo en la `TERMINAL` el comando va a cambier de la siguiente manera:
+6. Cambiamos el `tags` de **TestRunner.java** a `= "@None"`.
+7. De nuevo en la `TERMINAL` el comando va a cambier de la siguiente manera:
 ```bash
 gradle test -Dcucumber.filter.tags="@Plans"
 ```
 
 > [!WARNING]  
-> Esto solo funciona en la `TERMINAL` llamada `Git Bash`, no funciona en `Powershell` y
+> Esto solo funciona en la `TERMINAL` llamada [`Git Bash`](https://git-scm.com/downloads), no funciona en `Powershell` y
 > menos en `Command Prompt`, el tema de añadir el parametro `-D` y el resto q apunta a 
 > cucumber (_Si alguien conoce la respuesta por favor comentarla_).
 
-7. En el archivo **FreeRangeNavigation.deature** arriba de 
+8. En el archivo **FreeRangeNavigation.feature** arriba de 
 `Scenario: Users can select a plan when signing up` añaddimos esto
 ```feature
     @Plans @Courses
     Scenario: Users can select a plan when signing up
 ```
-8. En el archivo **FreeRangeNavigation.deature** arriba de
+9. En el archivo **FreeRangeNavigation.feature** arriba de
 `Scenario: Courses are presented correctly to potential customers` añadimos esto
 ```feature
     @Courses
     Scenario: Courses are presented correctly to potential customers
 ```
-9. En la `TERMINAL` de `bash`, al ejecutar el comando, va a correr los excenarios q **NO**
+10. En la `TERMINAL` de `bash`, al ejecutar el comando, va a correr los excenarios q **NO**
 tengan `"@Plans"`. El `not` es totalmente en minúsculas.
 ```bash
 gradle test -Dcucumber.filter.tags="not @Plans"
 ```
-10. En la `TERMINAL` de `bash`, al ejecutar el comando, va a correr todos los scenarios que
+11. En la `TERMINAL` de `bash`, al ejecutar el comando, va a correr todos los scenarios que
  tengan ambos, `"@Plan"` y `"@Courses"` tags al mismo tiempo.
  ```bash
  gradle test -Dcucumber.filter.tags="@Plans and @Courses"
  ```
-11. En la `TERMINAL` de `bash`, al ejecutar el comando, va a correr los scenarios que tengan los tags `"@Plans"` o `"@Courses"` (osea...todos los scenarios que tengan uno u otro).
+12. En la `TERMINAL` de `bash`, al ejecutar el comando, va a correr los scenarios que tengan los tags `"@Plans"` o `"@Courses"` (osea...todos los scenarios que tengan uno u otro).
 ```bash
 gradle test -Dcucumber.filter.tags="@Plans or @Courses"
 ```
-12. En la `TERMINAL` de `bash`, al ejecutar el comando, va a correr todos los scenarios que tengan el tag `"@Plans"` y no tengan `"@Courses"`.
+13. En la `TERMINAL` de `bash`, al ejecutar el comando, va a correr todos los scenarios que tengan el tag `"@Plans"` y no tengan `"@Courses"`.
 ```bash
 gradle test -Dcucumber.filter.tags="@Plans and not @Courses"
 ```
+
+> [!NOTE]  
+> Lista de parámetros hallado en este sitio [Cucumber Reference](https://cucumber.io/docs/cucumber/api/?lang=java), como el ejemplo de 
+> `gradle test -Dcucumber.filter.tags="@smoke"`
+>|Propiedad|Ejemplo|
+>|---|---|
+>|cucumber.ansi-colors.disabled=  |# true or false. default: false|
+>|cucumber.execution.dry-run=     |# true or false. default: false|
+>|cucumber.execution.limit=       |# number of scenarios to execute (CLI only).|
+>|cucumber.execution.order=       |# lexical, reverse, random or random:[seed]| (CLI only). default: lexical|
+>|cucumber.execution.wip=         |# true or false. default: false.|
+>|cucumber.features=              |# comma separated paths to feature files. |example: path/to/example.feature, path/to/other.feature
+>|cucumber.filter.name=           |# regex. example: .*Hello.*|
+>|cucumber.filter.tags=           |# tag expression. example: @smoke and not @slow|
+>|cucumber.glue=                  |# comma separated package names. example: com.example.glue|
+>|cucumber.plugin=                |# comma separated plugin strings. example: pretty, json:path/to/report.json|
+>|cucumber.object-factory=        |# object factory class name. example: com.example.MyObjectFactory|
+>|cucumber.snippet-type=          |# underscore or camelcase. default: underscore|
+
+## Paso 47
+
+>[!NOTE]  
+> **Backgrounds**: Serían como prerrequisitos o pre-steps, o un conjunto de 
+> steps, q son comunes a las pruebas realizadas.
+
+1. En el archivo **FreRangeNavegation.feature**, agrego antes del primer 
+`Scenario` el siguiente texto:
+```feature
+Background: I am on the Free Range Testers web without logging in.
+    Given I navigate to www.freerangetesters.com
+```
+2. Puedo Comentar o eliminar lo otros `Given`, dado q el `Background`, lo maneja todos.
+3. En el archivo **FreRangeNavegation.feature**, agrego como primera linea el
+siguiente texto:`@Navigation`.
+4. En el archivo **TestRunner.java** cambio el tag por `"@Navigation"`.
+5. Lo podemos probar ejecutando desde **TestRunner.java** o el comando 
+`gradle test` en cualquier `TERMINAL`.
+```diff
++BUILD SUCCESSFUL in 34s
+3 actionable tasks: 2 executed, 1 up-to-date
+```
+6. Recuerda revisar el archivo de tu proyecto en esta ruta
+ "build/reports/tests/test", llamado **index.html**.
+7. Ese **index.html** visto en un browser, le damos clic en el botón del medio
+Llamado `Classes` y luego al link de abajo llamado `Navigation bar`:
+ ![Class Navigation bar](images/section08-step_47-index_html.png)
+ Pueden jugar con los botones de esta página.
+
+>[!TIP]  
+> Los `Background` no deben tener mas de dos steps, sino hay un problema de
+> estructuración.
