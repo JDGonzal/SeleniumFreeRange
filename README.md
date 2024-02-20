@@ -780,6 +780,7 @@ importamos `import java.util.Arrays;`:
 
 ## Paso 43 
 
+> [!NOTE]  
 > Los `SoftAssert` de `TestNG`.
 > ### Las Soft Assertions: Una parte muy conveniente de la librería TestNG: Recurso
 >Van a haber momentos en los que van a tener que validar muchas pequeñas cosas que no son como para hacer un scenario por cada una. Digamos, por ejemplo, un formulario con muchos campos. 
@@ -807,4 +808,69 @@ public void Ejemplulis() {
         soft.assertAll();
  
     }
+```
+
+## Paso 45
+1. del archivo **FreeRangeNavegation.feature** quitamos los comentarios.
+2. Justo arriga de `Scenario: Users can select a plan when signing up`, agregamos un espacio
+y el *tag* llamado `@Plans`.
+3. En el archivo **TestRunner.java** al final de 
+`plugin = {"pretty", "html:target/cucumber-reports}"`agregamos una coma, el [Enter] y el
+texto `tags=` para completar con `"@Plans"`:
+```java
+@CucumberOptions(
+    features = "src/test/resources",  //Directorio de archivos .feature
+    glue = "steps",  //Paquete de las Clases de los pasos del feature
+    plugin = {"pretty", "html:target/cucumber-reports"},
+    tags = "@Plans"
+) 
+```
+4. Ejecutamos en la `TERMINAL`  el comando `gradle test` y el va a correr solo el que
+tiene el *tag*, llamado `@Plans`.
+5. Añadimos al final de **build.gradle** lo siguiente:
+```gradle
+tasks.named('test') {
+    systemProperty "cucumber.options", System.getProperty("cucumber.options")
+    systemProperties System.getProperties();
+}
+```
+6. De mnuevo en la `TERMINAL` el comando va a cambier de la siguiente manera:
+```bash
+gradle test -Dcucumber.filter.tags="@Plans"
+```
+
+> [!WARNING]  
+> Esto solo funciona en la `TERMINAL` llamada `Git Bash`, no funciona en `Powershell` y
+> menos en `Command Prompt`, el tema de añadir el parametro `-D` y el resto q apunta a 
+> cucumber (_Si alguien conoce la respuesta por favor comentarla_).
+
+7. En el archivo **FreeRangeNavigation.deature** arriba de 
+`Scenario: Users can select a plan when signing up` añaddimos esto
+```feature
+    @Plans @Courses
+    Scenario: Users can select a plan when signing up
+```
+8. En el archivo **FreeRangeNavigation.deature** arriba de
+`Scenario: Courses are presented correctly to potential customers` añadimos esto
+```feature
+    @Courses
+    Scenario: Courses are presented correctly to potential customers
+```
+9. En la `TERMINAL` de `bash`, al ejecutar el comando, va a correr los excenarios q **NO**
+tengan `"@Plans"`. El `not` es totalmente en minúsculas.
+```bash
+gradle test -Dcucumber.filter.tags="not @Plans"
+```
+10. En la `TERMINAL` de `bash`, al ejecutar el comando, va a correr todos los scenarios que
+ tengan ambos, `"@Plan"` y `"@Courses"` tags al mismo tiempo.
+ ```bash
+ gradle test -Dcucumber.filter.tags="@Plans and @Courses"
+ ```
+11. En la `TERMINAL` de `bash`, al ejecutar el comando, va a correr los scenarios que tengan los tags `"@Plans"` o `"@Courses"` (osea...todos los scenarios que tengan uno u otro).
+```bash
+gradle test -Dcucumber.filter.tags="@Plans or @Courses"
+```
+12. En la `TERMINAL` de `bash`, al ejecutar el comando, va a correr todos los scenarios que tengan el tag `"@Plans"` y no tengan `"@Courses"`.
+```bash
+gradle test -Dcucumber.filter.tags="@Plans and not @Courses"
 ```
