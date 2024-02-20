@@ -12,7 +12,7 @@ import pages.BasePage;
     features = "src/test/resources",  //Directorio de archivos .feature
     glue = "steps",  //Paquete de las Clases de los pasos del feature
     plugin = {"pretty", "html:target/cucumber-reports"},
-    tags = "@None"
+    tags = "@Navigation"
 )   
 
 public class TestRunner {
