@@ -38,19 +38,19 @@ public class FreeRangeSteps {
         landingPage.clickOnSectionNavigationBar(section);
     }
 
-    @When("I select Elegir Plan")
-    public void selectElegirPlan() {
+    @When("(I|The user|The client) (select|selects) Elegir Plan")
+    public void selectElegirPlan() throws Exception{
         landingPage.clickOnElegirPlanButton();
     }
 
-    @And("select Introduction to Testing")
-    public void navigateToIntro() {
+    @And("(I|The user|The client) (select|selects) Introduction to Testing")
+    public void navigateToIntro() throws Exception{
         cursosPage.clickFundamentosTestingLink();
         fundamentosPage.clickIntroduccionTestingLink();
     }
 
-    @Then("I can validate the options in the checkout page")
-    public void validateCheckoutPlans() {
+    @Then("(I|The user|The client) can validate the options in the checkout page")
+    public void validateCheckoutPlans() throws Exception{
         List<String> lista = registro.returnPlanDropdownValues();
         System.out.println("lista Esperada •\u2022");
         List<String> listaEsperada = Arrays.asList(
