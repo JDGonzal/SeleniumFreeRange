@@ -979,3 +979,32 @@ requiero ejecutar los q he hecho cambios.
 >```
 > Despues de estos cambios se debe cerrar y abrir el Visual Studio Code.
 
+## Paso 51
+
+>[!NOTE]  
+> Resulta q hasta acá el no va a ejecutar de forma satisfactoria las pruebas
+> con las nuevas expresiones regulares, entonces en este, vamos a buscar como
+> poner a funcionar estas pruebas.
+
+1. En el Archivo **FreeRangeSteps.java**, añadimos a la expresión regular
+un signo de prgunta y dos puntos `?:`.
+2. En el mismo **FreeRangeSteps.java**, cambiamos `(select|selects)` por
+`selects?`.
+3. Añadimos antes del `(?:)` un símbolo llamado *circunflejo* `^` y al final
+ un signo *pesos* `$`, quedando así las líneas donde está la expresión regular:
+ ```java
+     @When("^(?:I|The user|The client) selects? Elegir Plan$")
+    ...
+
+    @And("^(?:I|The user|The client) selects? Introduction to Testing$")
+    ...
+
+    @Then("^(?:I|The user|The client) can validate the options in the checkout page$")
+    ...
+ ```
+4. Lo podemos probar ejecutando desde **TestRunner.java** o el comando 
+`gradle test` en cualquier `TERMINAL`.
+```diff
++BUILD SUCCESSFUL in 20s
+3 actionable tasks: 2 executed, 1 up-to-date
+```

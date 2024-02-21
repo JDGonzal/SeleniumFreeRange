@@ -20,9 +20,9 @@ Scenario Outline: I can access the subpages through the navigation bar: <section
 @Courses
 Scenario: Courses are presented correctly to potential customers
     When I go to Cursos using the navigation bar
-    And The user selects Introduction to Testing
+    And I select Introduction to Testing
 
 @Plans @Courses
 Scenario: I can select a plan when signing up
-    When The user selects Elegir Plan
+    When The client selects Elegir Plan
     Then The client can validate the options in the checkout page
