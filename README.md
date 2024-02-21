@@ -846,7 +846,7 @@ gradle test -Dcucumber.filter.tags="@Plans"
 > cucumber (_Si alguien conoce la respuesta por favor comentarla_).
 
 8. En el archivo **FreeRangeNavigation.feature** arriba de 
-`Scenario: Users can select a plan when signing up` añaddimos esto
+`Scenario: Users can select a plan when signing up` añadimos esto
 ```feature
     @Plans @Courses
     Scenario: Users can select a plan when signing up
@@ -926,3 +926,56 @@ Llamado `Classes` y luego al link de abajo llamado `Navigation bar`:
 >[!TIP]  
 > Los `Background` no deben tener mas de dos steps, sino hay un problema de
 > estructuración.
+
+## Paso 49
+>[!NOTE]  
+>Mejorar los steps permitiendo usar uno u otro texto.
+
+1. En el archivo **FreeRangeSteps.java**, cambiar esto:
+`@And("I select Introduction to Testing")`, por esto:
+`@And("(I|The user|The client) (select|selects) Introduction to Testing")`.
+2. En el archivo **FreeRangeSteps.java**, cambiar esto:
+`@Then("I can validate the options in the checkout page")` por esto:
+`@Then("(I|The user|The client) can validate the options in the checkout page")`.
+3. En el archivo **FreeRangeSteps.java**, cambiar esto:
+`@When("I select Elegir Plan")` por esto:
+`@When("(I|The user|The client) (select|selects) Elegir Plan")`.
+4. Podemos jugar en el archivo **FreeRangeNavigation.feature** y cambiar
+esto: `And I select Introduction to Testing`, por esto:
+`And The user select Introduction to Testing`.
+5. Tambien podemos cambiar en el archivo **FreeRangeNavigation.feature** esto:
+ `Then The client can validate the options in the checkout page`, por esto:
+`Then The client can validate the options in the checkout page`.
+6. Cambie en **TestRunner.java** el `tag`por este:`tags = "@Courses"`, solo
+requiero ejecutar los q he hecho cambios.
+7. Lo podemos probar ejecutando desde **TestRunner.java** o el comando 
+`gradle test` en cualquier `TERMINAL`.
+
+>[!CAUTION]  
+>Hasta acá tengo errores y no reconoce los cambios hechos. Páginas consultadas
+>* [Gherkin: Grouping the steps using | (pipe symbol) ](https://self-learning-java-tutorial.blogspot.com/2018/05/gherkin-grouping-steps-using-pipe-symbol.html).
+>* [Cucumber and Scenario](https://www.baeldung.com/cucumber-scenario-outline).
+
+>[!TIP]  
+> Hice cambios en el **settings.json**
+>```json
+>    "cucumberautocomplete.strictGherkinCompletion": true,
+>    "cucumberautocomplete.strictGherkinValidation": false,
+>    "cucumberautocomplete.gherkinDefinitionPart": "(Given|When|Then|And)\\(",
+>    "cucumberautocomplete.smartSnippets": true,
+>    "cucumberautocomplete.stepsInvariants": true,
+>    "cucumberautocomplete.skipDocStringsFormat": true,
+>    "cucumberautocomplete.formatConfOverride": {
+>        "And": 3,
+>        "But": "relative",
+>    },
+>    "cucumberautocomplete.onTypeFormat": true,
+>    "cucumberautocomplete.customParameters": [
+>        {
+>            "parameter":"$",
+>            "value":"\\$"
+>        }
+>    ],
+>```
+> Despues de estos cambios se debe cerrar y abrir el Visual Studio Code.
+
