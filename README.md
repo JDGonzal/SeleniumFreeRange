@@ -1008,3 +1008,82 @@ un signo de prgunta y dos puntos `?:`.
 +BUILD SUCCESSFUL in 20s
 3 actionable tasks: 2 executed, 1 up-to-date
 ```
+
+## Paso 53
+
+>[!NOTE]  
+> Es probable q el reporte a ver basado en una API, no esté disponible para
+> ser utilizado por todas las empresas, y puede estar bloqueado.
+
+1. Ingresa a este sitio [Cucumber Reports](https://reports.cucumber.io/).
+2. Establecer un login con la cuenta de [GitHub](https://github.com/).
+
+>[!TIP]  
+> Si no tienes cuenta en GitHub, crear una nueva usando tu correo personal
+> puede ser tu correo personal de *gmail*, ejemplos de ayuda:
+>* [Como crear una cuenta de github 2023](https://www.youtube.com/watch?v=Y1zoHt1UMq0&t=20s).
+>* [CÓMO CREAR una cuenta de GITHUB](https://www.youtube.com/watch?v=jwFSIEi_d7E&t=74s).
+
+3. Proceder con la autorización a "SmartBear"
+![Authorize Cucumber Reports](images/section09-step_53-Authorize-Cucumber-Reports.png)
+
+4. Debe llegar a esta página despues de un rato de espera
+![Request Collections](images/section09-step_53-Request-Collections.png)
+
+5. Escribir en el cuadro de "Name" de las Collections el texto: 
+"SeleniumFreeRange" y presionar el botón de **"Create new Collection"**.
+6. El te lleva a una página donde te muestra un TOKEN, por favor almacenarlo aparte. Se sugiere crear un archivo llamado **.env** y almacenar dicha
+ información ahí.
+
+>[!CAUTION]  
+> Se puede almacenar el TOKEN en el archivo llamado **.env** y tener
+> la precaución de __NO SUBIR__ ⬆️ este  al repositorio.  
+> Este TOKEN es secreto y no debe ser compartido por error.
+![Cucumber Token](images/section09-step_53-Cucumber-token.png) 
+
+>[!TIP]  
+> En el archivo **.gitignore**, le agregué esto para evitar se suba por 
+>equivocación el archivo **.env** donde almacené el TOKEN:
+>```dotenv
+># dotenv environment variable files
+>.env
+>.env.development.local
+>.env.test.local
+>.env.production.local
+>.env.local
+>```
+
+7. Como estamos utilizando Windows como sistema Operativo, añadimos a las variables de Ambiente una nueva llamada `CUCUMBER_PUBLISH_TOKEN` y le asignamos el valor del TOKEN obtenido en la página anterior.
+8. Pasos luego de abrir las "Variables de Ambiente" o "Environment...":
+    1. Dar el **New** en la parte de abajo (System variables).
+    2. Escribir el nombre y el TOKEN.
+    3. Dar **OK**.
+    4. Dar el **OK** final de **`Environment Variables`**.
+    5. Y Dar el último **OK** de la ventana de **`System Properties`**.
+![Environment Variables](images/section09-step_53-Environment-Variables.png)
+
+9. Cerramos y reabrimos el "Visual Studio Code", y dependiendo de la terminal escribimos el comando:  
+    >`Powershell`
+    ```powhershell
+    $env:CUCUMBER_PUBLISH_TOKEN
+    ```
+    >`Command Prompt`
+    ```dos
+    echo %CUCUMBER_PUBLISH_TOKEN%
+    ```
+    >`bash`
+    ```bash
+    echo $CUCUMBER_PUBLISH_TOKEN
+    ```
+
+10. Creamos un archivo llamado **cucumber.properties**, dentro de la carpeta 
+"src/test/resources", con el texto:
+```xml
+cucumber.publish.enabled=true
+```
+11. Ejecuto la prueba desde cualquier `TERMINAL` con el comando de 
+`gradle test` o desde el triángulo de **TestRunner.java** y luego voy a la
+página [Cucumber Reports](https://reports.cucumber.io/) e ingresamos a la
+colección q bautizamos como: "SeleniumFreeRange", nos aparece nuestro primer
+reporte.  
+Jugamos y le damos click en varias partes para conocer este nuevo reporte.
