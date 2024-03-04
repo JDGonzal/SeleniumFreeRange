@@ -1146,4 +1146,26 @@ reciente reporte.
 
 ![ReportFail_Screenshot](images/section09-step_55-ReportFail_Screenshot.png)
 
+## Paso 57 a Paso 67
+>[!NOTE]  
+> Esto es un breve repaso de todos los pasos q hicimos anteriormente
+> Precondiciones:
+> * Java 11 instalado
+> * Gradle instalado
+> * Visual Studio Code
+>
+> De otro lado el proceso totalmente manual de configuración de 
+>**build.gradle**.
+> Lo mismo q los *Troubleshootings* entre VSCode y JDK/Gradle.  
+> Voy a crear de nuevo el proyecto
 
+1. Borro todo el contenido de la carpeta "SeleniumFreeRange"
+2. Creo un nuevo proyecto con [Shift][Ctrl][P]
+3. Seleccionar `Java: Create JAva Project`.
+4. Seleccionamos "Gradle"
+5. La carpeta es la misma de "SeleniumFreeRange".
+6. Después "Groovy".
+7. Y el nombre de "SeleniumFreeRange".
+8. Corremos en la `TERMINAL` el `gradle clean` y luego el 
+`gradle build`.
+9. De nuevo [Shift][Ctrl][P], para ver `java: Configure Java Runtime`.
