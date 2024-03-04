@@ -54,7 +54,7 @@ public class FreeRangeSteps {
         List<String> lista = registro.returnPlanDropdownValues();
         System.out.println("lista Esperada •\u2022");
         List<String> listaEsperada = Arrays.asList(
-                "Academia: $16.99 / mes \u2022 11 productos",
+                "Academia: $26.99 / mes \u2022 11 productos",
                 "Academia: $176 / a\u00F1o \u2022 11 productos",
                 "Free: Gratis \u2022 1 producto");
         Assert.assertEquals(lista, listaEsperada);

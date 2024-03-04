@@ -1024,10 +1024,10 @@ un signo de prgunta y dos puntos `?:`.
 >* [Como crear una cuenta de github 2023](https://www.youtube.com/watch?v=Y1zoHt1UMq0&t=20s).
 >* [CÓMO CREAR una cuenta de GITHUB](https://www.youtube.com/watch?v=jwFSIEi_d7E&t=74s).
 
-3. Proceder con la autorización a "SmartBear"
+3. Proceder con la autorización a "SmartBear"  
 ![Authorize Cucumber Reports](images/section09-step_53-Authorize-Cucumber-Reports.png)
 
-4. Debe llegar a esta página despues de un rato de espera
+4. Debe llegar a esta página despues de un rato de espera  
 ![Request Collections](images/section09-step_53-Request-Collections.png)
 
 5. Escribir en el cuadro de "Name" de las Collections el texto: 
@@ -1038,7 +1038,7 @@ un signo de prgunta y dos puntos `?:`.
 >[!CAUTION]  
 > Se puede almacenar el TOKEN en el archivo llamado **.env** y tener
 > la precaución de __NO SUBIR__ ⬆️ este  al repositorio.  
-> Este TOKEN es secreto y no debe ser compartido por error.
+> Este TOKEN es secreto y no debe ser compartido por error.  
 ![Cucumber Token](images/section09-step_53-Cucumber-token.png) 
 
 >[!TIP]  
@@ -1059,7 +1059,7 @@ un signo de prgunta y dos puntos `?:`.
     2. Escribir el nombre y el TOKEN.
     3. Dar **OK**.
     4. Dar el **OK** final de **`Environment Variables`**.
-    5. Y Dar el último **OK** de la ventana de **`System Properties`**.
+    5. Y Dar el último **OK** de la ventana de **`System Properties`**.  
 ![Environment Variables](images/section09-step_53-Environment-Variables.png)
 
 9. Cerramos y reabrimos el "Visual Studio Code", y dependiendo de la terminal escribimos el comando:  
@@ -1087,3 +1087,63 @@ página [Cucumber Reports](https://reports.cucumber.io/) e ingresamos a la
 colección q bautizamos como: "SeleniumFreeRange", nos aparece nuestro primer
 reporte.  
 Jugamos y le damos click en varias partes para conocer este nuevo reporte.
+
+## Paso 55
+
+1. Creamos un archivo llamado **Hooks.java** dentro de la carpeta 
+"src/test/java/steps".
+2. Extendemos de `BasePage`, por ende el importa `import pages.BasePage;`:
+```java
+public class Hooks extends BasePage {
+  
+}
+```
+3. Añadimos dentro de esta clase el constructor:
+```java
+  public Hooks(){
+    super(driver);
+  }
+```
+4. Invocamos un proceso para ser ejecutado al final es decir un `@After`, 
+el va a importar `import io.cucumber.java.After;`, con una funcion llamada
+`tearDown` y un parámetro de tipo `Scenario` e importar 
+`import io.cucumber.java.Scenario;`:
+```java
+  @After
+  public void tearDown(Scenario scenario){
+  } 
+```
+5. Ponemos una condicional basado en el parámetro `scenario`:
+```java
+    if (scenario.isFailed()){
+    }
+```
+6. Y dentro de la condicional, solo mostramos un log: `scenario.log("Scenario failing, please refer to the image attached to this report");`.
+7. Finalizamod con una variable de tipo `byte[]` llamada `screenshot`, el
+ debe de importar dos `import org.openqa.selenium.OutputType;`y 
+`import org.openqa.selenium.TakesScreenshot;`:
+```java
+      final byte[] screenshot = ((TakesScreenshot) driver)
+          .getScreenshotAs(OutputType.BYTES);
+```
+8. Añadir al `scenario` el valor de la imagen obtenida:
+```java
+     scenario.attach(screenshot, "image/png", "Screenshot of the error");
+```
+9. Hacemos un cambio en **FreeRangeSteps.java** en la linea 57, cambiando
+ esto: `"Academia: $16.99 / mes \u2022 11 productos",`, por esto:
+ `"Academia: $26.99 / mes \u2022 11 productos",`.
+
+10. Ejecuto la prueba desde cualquier `TERMINAL` con el comando de 
+`gradle test` o desde el triángulo de **TestRunner.java** y luego voy a la
+página [Cucumber Reports](https://reports.cucumber.io/) e ingresamos a la
+colección q bautizamos como: "SeleniumFreeRange", y revisamos el mas
+reciente reporte.
+```diff
+-BUILD FAILED in 26s
+3 actionable tasks: 3 executed
+```
+
+![ReportFail_Screenshot](images/section09-step_55-ReportFail_Screenshot.png)
+
+
