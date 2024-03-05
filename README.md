@@ -1411,3 +1411,16 @@ extendemos la herencia de `BasePage.`.
 **GoogleSteps.java**.
 11. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser a
 google y ya.
+
+## Paso 73
+>[!TIP]  
+> Como puede solucionar JVM (Java) desde la pagina de [Visual Studio Code](https://code.visualstudio.com/docs/java/java-tutorial).
+> Luego dentro de Visual Studio Code instalamos las extensiones faltantes:
+> * **Extension Pack for Java** de Microsoft.
+> * **Gradle Extension Pack** de Richard Wills.
+>
+> Instalar el Gradle de esta página [Gradle](https://gradle.org/install/).
+>
+> Si el problema es q no aparece en **runner.java** la flecha verde o el 
+> cículo para ejecutar, persionar las teclas [Ctrl][Shift][P], y seleccionar
+> `Java: Clean Java Language Server Workspace`.
