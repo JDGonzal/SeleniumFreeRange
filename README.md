@@ -1344,3 +1344,70 @@ Previo a la creación la clase principal en la próxima clase, sobre la que las 
 >8. Presionen Enter para confirmar.
 >
 >Para chequear que quedó bien, cierren y vuelvan a abrir la terminal y ejecuten "echo $PATH". Deberían poder el nuevo path que agregaron junto a los otros.
+
+## Paso 72
+1. Crear el archivo **BasePage.java** dentro de "src/test/java".
+2. Creamos la variable `driver` de tipo `WebDriver`, e importa 
+`import org.openqa.selenium.WebDriver;`.
+3. Creamos la variable `wait` de tipo `WebDriverWait`, e importa
+`import org.openqa.selenium.support.ui.WebDriverWait;`.
+4. Creamos un elemento estático llamado `chromeOptions` e importa
+`import org.openqa.selenium.chrome.ChromeOptions;`.
+5. Al `driver` le asignamos el `ChromeDriver` y al `wait` se le
+asigna el `WebDriverWait`.
+6. Creamos el `Constructor`, asi sería el resultaodo hasta el momento de
+**BasePage.java**:
+```java
+package pages;
+
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class BasePage {
+
+  // Definicón de las variables a utilizar
+  protected static WebDriver driver;
+  private static WebDriverWait wait;
+
+  // Instanciamos las variables
+  static {
+    ChromeOptions chromeOptions = new ChromeOptions();
+    driver = new ChromeDriver(chromeOptions);
+    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  }
+
+  // Definición del Constructor
+  public BasePage(WebDriver driver){
+    BasePage.driver = driver;
+    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+  }
+
+  public static void navigateTo(String url){
+    driver.get(url);
+  }
+}
+```
+7. Creamos el archivo **GooglePage.java** en "src/test/java/pages", y 
+extendemos la herencia de `BasePage.`.
+8. Ponemos el contructor basado en `BasePage`:
+```java
+  public GooglePage(){
+    super(driver);
+  }
+```
+9. Relizamos la Navegación
+```java
+  public void navigateToGoogle(){
+    navigateTo("https://www.google.com");
+  }
+```
+10. En **GoogleSteps.java** instanciamos el `GooglePage` e importar 
+`import pages.GooglePage;`.
+11. Añadimos `google.navigateToGoogle();` al `@Given` del archivo
+**GoogleSteps.java**.
+11. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser a
+google y ya.
