@@ -1216,3 +1216,101 @@ dependencies {
 2 actionable tasks: 2 executed
 ```
 
+## Paso 69
+1. Ajusto el archivo **Google.feature**:
+```feature
+Feature: Test Google seach functionality
+
+Scenario: As a user I enter a search criteria in Google
+  Given I am on the Google seach page
+  When I enter a search criteria
+  And click on the seach button
+  Then the results match the criteria
+```
+2. En la carpeta "src/test/java", crear dos carpetas "pages" y "steps".
+3. Mover el archivo **Google.feature** a una nueva carpeta en 
+"src/test/resources/features".
+4. Crear el archivo **GoogleSteps.java** dentro de "src/test/java/steps", 
+con este contenido inicial:
+```java
+package steps;
+
+public class GoogleSteps {
+  
+}
+```
+5. Colocamos un `@Given` e importamos `import io.cucumber.java.en.Given;`,
+dentro de **GoogleSteps.java**
+6. Añadimos al **build.gradle** dos dependencias mas:
+```gradle
+    // https://mvnrepository.com/artifact/junit/junit
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.12'
+```
+7. Completamos en **GoogleSteps.java** la sintaxis del `@Given`:
+```java
+  @Given("^I am on the Google seach page$")
+  public void navigateToGoogle(){
+
+  }
+```
+8. En **GoogleSteps.java** completemos los demás `@When`, `@And` y `@Then`:
+```java
+  @When("^I enter a search criteria$")
+  public void enterSearchCriteria(){
+
+  }
+
+  @And("^click on the seach button$")
+  public void clickSearchButton(){
+
+  }
+
+  @Then("^the results match the criteria$")
+  public void validateResults(){
+
+  }
+```
+9. Cambiamos la importación de cada uno de `import io.cucumber.java.en`,
+por uno solo de todo `import io.cucumber.java.en.*;`.
+10. Creamos una carpeta llamada "runner" dentre de "src\test\java".
+11. Creamos el archivo **Runner.java** dentro de "src/test/java/runner".
+12. Del archivo **Runner.java** añadimos antes de `class`:
+```java
+package runner;
+
+import org.junit.runner.RunWith;
+
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+  features = "src/test/resources/features",
+  glue = "src/test/java/steps"
+)
+
+public class Runner {
+  
+}
+```
+13. Al lado izquierdo en **Runner.java** nos aparece un triángulo verde, 
+para que podamos hacer `run` o `debug`.
+
+>[!WARNING]  
+> Recuerden q como tenemos una variable de ambiente llamada 
+> `CUCUMBER_PUBLISH_TOKEN`, el reporte pasa al sitio 
+> [Cucumber Reports](https://reports.cucumber.io/), si lo quieren local
+> simplemente borren esa variable de ambiente y reinicien el Visual Studio
+> Code.
+
+14. Debido a una advertencia q sale en el `DEBUG CONSOLE`, se cambia el 
+`glue` a este mas sencillo, dado q lo busca basado en el `package`:
+```java
+@CucumberOptions(
+  features = "src/test/resources/features",
+  // glue = "src/test/java/steps"
+  glue = "steps"
+)
+```
