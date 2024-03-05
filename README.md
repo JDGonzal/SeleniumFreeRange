@@ -1160,12 +1160,59 @@ reciente reporte.
 > Voy a crear de nuevo el proyecto
 
 1. Borro todo el contenido de la carpeta "SeleniumFreeRange"
-2. Creo un nuevo proyecto con [Shift][Ctrl][P]
-3. Seleccionar `Java: Create JAva Project`.
-4. Seleccionamos "Gradle"
+2. Creo un nuevo proyecto con [Ctrl][Shift][P].
+3. Seleccionar `Java: Create Java Project`.
+4. Seleccionamos "Gradle".
 5. La carpeta es la misma de "SeleniumFreeRange".
 6. Después "Groovy".
 7. Y el nombre de "SeleniumFreeRange".
 8. Corremos en la `TERMINAL` el `gradle clean` y luego el 
 `gradle build`.
-9. De nuevo [Shift][Ctrl][P], para ver `java: Configure Java Runtime`.
+9. De nuevo [Ctrl][Shift][P], para ver `java: Configure Java Runtime`.
+
+## Paso 68
+1. Sacamos la carpeta "src" y el archivo **build.gradle** a la raiz del proyecto y borramos la carpeta sobrante "app".
+2. Creamos el archivo **Google.feature** dentro de la carpeta 
+"src/test/resources", con este texto:
+```feature
+Feature: Probar la busqueda en Google
+
+  Scenario: Busco algo en Google
+  Given navegar a google
+  When busco algo
+  Then obtengo resultados
+```
+3. Corregimos el **build.gradle** de la siguiente manera:
+```gradle
+plugins {
+    id 'java'
+}
+
+group 'CursoUdemy'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.18.1'
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-java
+    implementation group: 'io.cucumber', name: 'cucumber-java', version: '7.15.0'
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: '7.15.0'
+
+}
+```
+4. Dentro de "src\test\java" borramos la carpeta "seleniumfreerange".
+5. Dentro de "src\main\java" borramos la carpeta "seleniumfreerange".
+6. En la `TERMINAL` ejecutamos el `gradle clean` y luego el 
+`gradle build`.
+```diff
++BUILD SUCCESSFUL in 1s
+2 actionable tasks: 2 executed
+```
+
