@@ -1314,3 +1314,33 @@ para que podamos hacer `run` o `debug`.
   glue = "steps"
 )
 ```
+
+## Paso 70
+>[!NOTE]  
+> Explicación del P.O.M. Page Object Model, como patrón de diseño.
+
+## Paso 71
+>[!NOTE]  
+Configuración de ChromeDriver en Windows y MacOS.
+Previo a la creación la clase principal en la próxima clase, sobre la que las demás clases de nuestro Page Object Model van a descansar y heredar, tienen que prestar atención a esta clase sobre cómo configurar ChromeDriver tanto en Windows como Mac! 
+>
+>Una nota rápida para los usuarios de Windows y Mac sobre cómo especificar la ruta al ChromeDriver.
+>
+>**En Windows:**
+>Dentro del bloque estático que creamos en BasePage.java, añadan la siguiente línea: 
+>```java
+>System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+>```
+>Solo tienen que cambiar la ruta a donde tienen descargado el chromedriver!
+>
+>**En MacOS:**
+>1. Abran la Terminal.
+>2. Ejecuten "sudo nano /etc/paths".
+>3. Les va a pedir la contraseña, pónganla.
+>4. Vayan al final del archivo y agreguen el path de, en este caso, WebDriver.
+>5. En mi caso es "/users/MiNombre/Documents/WebDriver"
+>6. Hagan Control + x para salir.
+>7. Presionen `Y`  para salvar.
+>8. Presionen Enter para confirmar.
+>
+>Para chequear que quedó bien, cierren y vuelvan a abrir la terminal y ejecuten "echo $PATH". Deberían poder el nuevo path que agregaron junto a los otros.
