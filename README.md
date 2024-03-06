@@ -1424,3 +1424,26 @@ google y ya.
 > Si el problema es q no aparece en **runner.java** la flecha verde o el 
 > cículo para ejecutar, persionar las teclas [Ctrl][Shift][P], y seleccionar
 > `Java: Clean Java Language Server Workspace`.
+
+## Paso 74
+>[!NOTE]  
+> Explicación de que es un WebElement, y para mas información aquí:
+>[Elements](https://www.selenium.dev/documentation/webdriver/elements/).
+
+## Paso 75
+>[!NOTE]  
+> Explicación de Locators, y el recurso en español no está disponible, pero
+> se puede acceder a este otro: [Locators](https://www.selenium.dev/documentation/webdriver/elements/locators/).
+
+## Paso 76 a  80 
+>[!NOTE]  
+> Jugando con los WebElements de cualquier página HTML.
+> * Locators por ID.
+> * Locators por NAME.
+> * Locators por CSS.
+> * Locators por XPATH.
+
+## Paso 81
+> [!NOTE]  
+> Extensión de Chrome se llama [ChroPath](https://addons.mozilla.org/es/firefox/addon/chropath-for-firefox/) , pero ya hemos usado antes una 
+> extensión llamada [SelectorsHub](https://selectorshub.com/selectorshub/), que es mucho mejor. 
