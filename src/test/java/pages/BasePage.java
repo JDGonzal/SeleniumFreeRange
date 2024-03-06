@@ -41,6 +41,12 @@ public class BasePage {
 
   // Usando el `Find` empezamos a aprovecharlo en un Click:
   public void clickElement(String locator){
-    Find(locator);
+    Find(locator).click();
+  }
+
+  // Usando el `Find` empezamos a aprovecharlo para un Write
+  public void writeElement(String locator, String textToWrite){
+    Find(locator).clear();
+    Find(locator).sendKeys(textToWrite);
   }
 }

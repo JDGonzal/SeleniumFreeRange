@@ -1459,7 +1459,7 @@ que devolverá un `WebElement` y que sea `private`:
 2. Usando el `Find` empezamos a aprovecharlo en un Click:
 ```java
   public void clickElement(String locator){
-    Find(locator);
+    Find(locator).click();
   }
 ```
 3. Creamos en **GooglePage.java** una variable `private` y de tipo `String`
@@ -1470,7 +1470,49 @@ llamada `searchButton` y le asignamos el valor `xPath` de ese botón.
     clickElement(searchButton);
   }
 ```
-5. Añadimos en **GoogleSteps.java**, el llamdo al método de `clickGoogleSearch`.
+5. Añadimos en **GoogleSteps.java**, el llamado al método de
+ `clickGoogleSearch`.
 6. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser a
-google, hacer el clik (no se ve nada nuevo, pues no hemos escrito que buscar) y
+google, hacer el click (no se ve nada nuevo, pues no hemos escrito que buscar) y
  deja abierto el browser.
+
+## Paso 83
+1. Creamos en **BasePage.java** un método `public` llamado `writeElement`:
+```java
+  public void writeElement(String locator, String textToWrite){
+    Find(locator).clear();
+    Find(locator).sendKeys(textToWrite);
+  }
+```
+2. Creamos en **GooglePage.java** una variable `private` y de tipo `String`
+llamada `searchTextField` y le asignamos el valor `xPath` del criterio de
+ búsqueda.
+3. Añadimos un método en **GooglePaga.java**, de llamado `enterSeachCriteria`,
+con un argumento para el texto a buscar:
+```java
+  public void enterSeachCriteria(String criteria){
+    writeElement(searchTextField, criteria);
+  }
+```
+4. Corregimos el `xPath` de `searchButton` en **GooglePage.java**.
+5. En el archivo **GoogleSteps.java** añadimos el llamado al método de
+`enterSeachCriteria` con el argumento `"Google"`, así quedan el `@Given`,
+`@When` y `@And`:
+```java
+  @Given("^I am on the Google seach page$")
+  public void navigateToGoogle(){
+    google.navigateToGoogle();
+  }
+
+  @When("^I enter a search criteria$")
+  public void enterSearchCriteria(){
+    google.enterSeachCriteria("Google");
+  }
+
+  @And("^click on the seach button$")
+  public void clickSearchButton(){
+    google.clickGoogleSearch();
+  }
+```
+6. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser a
+google, escribir el texto, hacer el click y dejar abierto el browser.

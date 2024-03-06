@@ -3,7 +3,11 @@ package pages;
 
 public class GooglePage extends BasePage {
   // el locator del botón de Search
-  private String searchButton = "//div[@class='FPdoLc lJ9FBc']//input[@name='btnK']";
+  // private String searchButton = "//div[@class='FPdoLc lJ9FBc']//input[@name='btnK']";
+  // Corregimos el locator para el botón, dado q aparece otro al escribir el texto
+  private String searchButton = "//div[@class='lJ9FBc']//input[@name='btnK']";
+  // El locator para el texto
+  private String searchTextField ="//textarea[@id='APjFqb']";
 
   // Usamos el Contructor del padre
   public GooglePage(){
@@ -18,6 +22,11 @@ public class GooglePage extends BasePage {
   // Hacemos un click en el botón de Search
   public void clickGoogleSearch(){
     clickElement(searchButton);
+  }
+
+  // Llenamos el criterio de búsqueda
+  public void enterSeachCriteria(String criteria){
+    writeElement(searchTextField, criteria);
   }
   
 }
