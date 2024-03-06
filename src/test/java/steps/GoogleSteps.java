@@ -14,6 +14,7 @@ public class GoogleSteps {
   @Given("^I am on the Google seach page$")
   public void navigateToGoogle(){
     google.navigateToGoogle();
+    google.clickGoogleSearch();
   }
 
   @When("^I enter a search criteria$")

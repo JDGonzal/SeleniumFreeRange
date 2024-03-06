@@ -2,9 +2,12 @@ package pages;
 
 import java.time.Duration;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
@@ -26,7 +29,18 @@ public class BasePage {
     wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   }
 
+  // La navegación Genérica a cualquier página
   public static void navigateTo(String url){
     driver.get(url);
+  }
+
+  // Creamos un método para devolver el `WebElement`
+  private WebElement Find(String locator){
+    return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+  }
+
+  // Usando el `Find` empezamos a aprovecharlo en un Click:
+  public void clickElement(String locator){
+    Find(locator);
   }
 }

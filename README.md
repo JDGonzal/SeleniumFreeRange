@@ -1447,3 +1447,30 @@ google y ya.
 > [!NOTE]  
 > Extensión de Chrome se llama [ChroPath](https://addons.mozilla.org/es/firefox/addon/chropath-for-firefox/) , pero ya hemos usado antes una 
 > extensión llamada [SelectorsHub](https://selectorshub.com/selectorshub/), que es mucho mejor. 
+
+## Paso 82
+1. En el archivo **BasePage.java**, creamos un método llamado `Find` 
+que devolverá un `WebElement` y que sea `private`:
+```java
+  private WebElement Find(String locator){
+    return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+  }
+```
+2. Usando el `Find` empezamos a aprovecharlo en un Click:
+```java
+  public void clickElement(String locator){
+    Find(locator);
+  }
+```
+3. Creamos en **GooglePage.java** una variable `private` y de tipo `String`
+llamada `searchButton` y le asignamos el valor `xPath` de ese botón.
+4. En el Archivo **GooglePage.java**, aprovechamos el nuevo método del Click:
+```java
+  public void clickGoogleSearch(){
+    clickElement(searchButton);
+  }
+```
+5. Añadimos en **GoogleSteps.java**, el llamdo al método de `clickGoogleSearch`.
+6. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser a
+google, hacer el clik (no se ve nada nuevo, pues no hemos escrito que buscar) y
+ deja abierto el browser.
