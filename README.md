@@ -1516,3 +1516,112 @@ con un argumento para el texto a buscar:
 ```
 6. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser a
 google, escribir el texto, hacer el click y dejar abierto el browser.
+
+## Paso 84
+1. En el archivo **BasePage.java** creamos un método para el manejo de 
+dropdows, llamado `selectDropDownByValue`.
+2. En el nuevo método, seleccionamos el elemento en la variable
+`dropdown` y se importa `import org.openqa.selenium.support.ui.Select;`.
+3. Usamos el `dropdown` para seleccionar por valor:
+```java
+  public void selectDropDownByValue(String locator, String valueToSelect){
+    // Instanciamos el elemento del dropdown
+    Select dropdown = new Select(Find(locator));
+    // Usamos el dropdown
+    dropdown.selectByValue(valueToSelect);
+  }
+```
+4. En el archivo **BasePage.java** creamos un método para el manejo de 
+dropdows, llamado `selectDropDownByIndex`.
+5. Instanciamos la variable `dropdown` basada en el tipo `Select`.ñ
+6. Usamos el `dropdown` para seleccionar por Índice:
+```java
+  public void selectDropDownByIndex(String locator, int index) {
+    // Instanciamos el elemento del dropdown
+    Select dropdown = new Select(Find(locator));
+    // Usamos el dropdown
+    dropdown.selectByIndex(index);
+  }
+```
+7. Repetimos un nuevo método pero esta vez por texto:
+```java
+  public void selectDropDownByText(String locator, String valueToSelect) {
+    // Instanciamos el elemento del dropdown
+    Select dropdown = new Select(Find(locator));
+    // Usamos el dropdown
+    dropdown.selectByVisibleText(valueToSelect);
+  }
+```
+
+>[!TIP]  
+> Dado q en esta lección vamos a crear varios archivos para interactuar con una
+>página de ejemplos de uso de automatización, el sitio que muestra el 
+> instructor [Test and Quiz](https://testandquiz.com/selenium/testing.html)
+>ya no existe, se sugiere esta otra página [Sample webpage](https://artoftesting.com/samplesiteforselenium).
+
+8. Creamos el archivo **Sandbox.feature** en "src/test/resources/features":
+```feature
+@Test
+Feature: Test different actions on a sandbox page.
+
+Scenario: As a Test Engineer, I try out different actions on a sandbox page.
+  Given I navigate to the sandbox page
+  And select a value from the dropwdown
+```
+9. Creamos el archivo **TestSandBox.java** en "src/test/java/pages":
+```java
+package pages;
+
+public class TestSandBox extends BasePage {
+
+    // El locator para el dropdown
+    private String dropdown ="//select[@id='testingDropdown']";
+
+  // Usamos el Contructor del padre
+  public TestSandBox() {
+    super(driver);
+  }
+
+  // Vamos a relizar la Navegación
+  public void navigateToSandbox() {
+    navigateTo("https://artoftesting.com/samplesiteforselenium");
+  }
+
+    // Cambiamos del dropdown
+    public void selectCategory(String text){
+      selectDropDownByValue(dropdown, text);
+    }
+}
+```
+10. Creamos el archivo **TestSandboxSteps.java** en "src/test/java/steps":
+```java
+package steps;
+
+import io.cucumber.java.en.*;
+import pages.TestSandBox;
+
+public class TestSandboxSteps {
+  TestSandBox sandboxPage = new TestSandBox();
+
+  @Given("^I navigate to the sandbox page$")
+  public void navigateToTheSandboxSite() {
+    sandboxPage.navigateToSandbox();
+  }
+
+  @And("select a value from the dropwdown$")
+  public void selectState() {
+    sandboxPage.selectCategory("Manual");
+  }
+}
+```
+11. En el archivo **Runner.java**, en las `@CucumberOptions`, añadimos un `tags`
+```java
+@CucumberOptions(
+  features = "src/test/resources/features",
+  // glue = "src/test/java/steps"
+  glue = "steps",
+  tags = "@Test"
+)
+```
+12. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al 
+sitio de pruebas y cambiar el dropdown y ya.
