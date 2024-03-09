@@ -1625,3 +1625,27 @@ public class TestSandboxSteps {
 ```
 12. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al 
 sitio de pruebas y cambiar el dropdown y ya.
+
+## Paso 85
+1. En el archivo **BasePage.java**, creamos una variable llamada `action` del
+tipo `Actions` y se importa `import org.openqa.selenium.interactions.Actions`.
+2. Añadimos un método en **BasePage.java**, llamado `hoverOverElement`.
+3. Dentro de `hoverOverElement`, añadimos un `action`:
+```java
+  public void hoverOverElement(String locator) {
+    //Agreamos un `action`
+    action.moveToElement(Find(locator));
+  }
+```
+4. Añadimos un método en **BasePage.java**, llamado `doubleClickElement`.
+5. dentro de `doubleClickElement`, añadimos un `action`:
+```java
+  public void doubleClickElement(String locator){
+    // Agregamos el `action`
+    action.doubleClick(Find(locator));
+  }
+``` 
+6. Añadimos un método en **BasePage.java**, llamado `rightClickElement`.
+7. dentro de `rightClickElement`, añadimos un `action`:
+```java
+```
