@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,6 +17,7 @@ public class BasePage {
   // Definicón de las variables a utilizar
   protected static WebDriver driver;
   private static WebDriverWait wait;
+  private static Actions action;
 
   // Instanciamos las variables
   static {
@@ -76,5 +78,23 @@ public class BasePage {
     Select dropdown = new Select(Find(locator));
     // Usamos el dropdown
     dropdown.selectByVisibleText(valueToSelect);
+  }
+
+  // Usando el `Find` empezamos a aprovecharlo para un Hover Over
+  public void hoverOverElement(String locator) {
+    // Agreamos un `action`
+    action.moveToElement(Find(locator));
+  }
+
+  // Usando el `Find` empezamos a aprovecharlo para un doble click
+  public void doubleClickElement(String locator){
+    // Agregamos el `action`
+    action.doubleClick(Find(locator));
+  }
+
+  // Usando el `Find` empezamos a aprovecharlo para un click derecho
+  public void rightClickElement(String locator){
+    // Agregamos el `action`
+    action.contextClick(Find(locator));
   }
 }
