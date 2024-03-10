@@ -87,14 +87,30 @@ public class BasePage {
   }
 
   // Usando el `Find` empezamos a aprovecharlo para un doble click
-  public void doubleClickElement(String locator){
+  public void doubleClickElement(String locator) {
     // Agregamos el `action`
     action.doubleClick(Find(locator));
   }
 
   // Usando el `Find` empezamos a aprovecharlo para un click derecho
-  public void rightClickElement(String locator){
+  public void rightClickElement(String locator) {
     // Agregamos el `action`
     action.contextClick(Find(locator));
   }
+
+  // Usando el `Find` empezamos a aprovecharlo para obtener un dato de una tabla
+  public String getValueFromTable(String locator, int row, int column) {
+    // Encadenamos junto con el `locator` lo requerido para el dato en cuestión
+    String cellINeed = locator + "/table/tbody/tr[" + row + "]/td [" + column + "]";
+    // Devolvemos el texto interno
+    return Find(cellINeed).getText();
+  }
+
+  // Usando el `Find` empezamos a aprovecharlo para llenar un dato de una tabla
+  public void setValueOnTable(String locator, int row, int column, String text2Send){
+     // Encadenamos junto con el `locator` lo requerido para el dato en cuestión
+     String cell2Fill = locator + "/table/tbody/tr[" + row + "]/td [" + column + "]";
+     // Llenamos la celda
+     Find(cell2Fill).sendKeys(text2Send);
+  } 
 }
