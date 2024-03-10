@@ -1735,3 +1735,83 @@ en `DEBUG CONSOLE`:
      Find(cell2Fill).sendKeys(text2Send);
   } 
 ```
+
+## Paso 87
+>[!NOTE]  
+> Lo que hicimos en el archivo **BasePage.java** con este tema: 
+>`wait.until(ExpectedConditions.visibilityOfElementLocated(...));`
+> es una **ESPERA EXPLÍCITA**, que espera el tiempo hasta q aparezca el elemento.
+>
+> Una **ESPERA IMPLÍCITA** obliga a esperar un tiempo determinado en todo,
+> en este ejemplo `driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);`, siempre va a esperar 10 segundos en cada paso,
+> pero genera un error:  
+> `The method implicitlyWait(long, TimeUnit) from the type WebDriver.Timeouts is deprecated`.
+
+## Paso 88
+>[!NOTE]  
+> La espera prohibida es el **SLEEP**, ejemplo este `Thread.sleep(2000);`,
+> se va a qiuedar esperando 2 segundos donde lo invoques, y el sugiere encerrar
+> esto entre un try/catch, quedando así
+>```java
+>    try {
+>      Thread.sleep(2000);
+>    } catch (InterruptedException e) {
+>      // TODO Auto-generated catch block
+>      e.printStackTrace();
+>    }
+>```
+
+## Paso 89
+>[NOTE]  
+> ## Subir archivos en nuestra aplicación web con Selenium.
+>Bienvenidos a una nueva clase! En este caso, al ser rápido y sin mucho concepto que explicar, voy a dejar este atípico caso que quizás les toque alguna vez y no muchos saben cómo resolver. Uno de mis padawans preguntó porque le tocó en el trabajo y es, a ciencia cierta, uno de esos momentos en los que al comienzo decís "me sentía confiado con esto de Automation pero...no tengo idea cómo resolver esto!".
+>
+>A qué me refiero? A hacer el upload de un archivo en una página. Y por qué es tan trágico? Porque una vez que hicimos el click con Selenium en el botoncito de Upload, nos aparece la ventana de Windows o Mac para buscar nuestro archivo. Y saben qué le dice esa ventanita a Selenium y su WebDriver?  
+![You have no powers here](images/section12_step_89.jpeg).
+>Pero...por qué es esto? Y mejor aún...cómo lo resolvemos? Eso vamos a aprender en esta clase!
+>
+> ## Selenium está muy perdido fuera del DOM.
+>Como ustedes sabrán, Selenium es muy bueno para interactuar con elementos en páginas web. Tenemos muchas herramientas y maneras de localizarlos, enviar acciones sobre ellos y mucho más. Lamentablemente, esta ventana que acabamos de hacer aparecer al hacer click en el botón de Upload no pertenece al DOM, a la página web, sino que pertenece al sistema operativo de turno en el que nos encontremos trabajando.
+>
+>Selenium está atado de pies y manos. Es más...se va a tarar todo y no va a ser capaz de seguir ni de cerrar la instancia del browser, porque va a estar esta bendita pantalla en frente. Cómo solucionarlo? Bueno...prepárense porque esto no va a ser sencillo.
+>
+>### Primera solución: No siempre posible pero la más rápida.
+>El caso más feliz que nos podemos encontrar (y el menos probable diría), es que el botón que nos lleva a la fatídica ventana del sistema operativo tenga como tipo "file" y sea un elemento "input".
+>Este caso es el de Filebin por ejemplo.  
+![Filebin](images/section12-step_89-filebin.png)
+>En estos casos vamos a tener que hacer algo que no suena para nada intuitivo y nos va a tener dando vueltas en círculos si no se enteraban de cómo hacerlo.
+>
+>En estos casos lo único que vamos a necesitar es crear el webelement como ya vimos en los tutoriales y enviarle, con el método "sendKeys" de Selenium, el path definitivo del archivo. Si, ya se lo que están pensando. No tiene un campo de texto, a qué le estamos mandando entonces el texto?
+>
+>Lo que pasa acá es que cuando el sitio detecta que se le está mandando una ubicación de archivo (del tipo C:/MiCurriculum.docx), al elemento del tipo File, automáticamente procede a hacer el upload. Loco, no? Pero el problema es que el Type=File suele estar oculto y no vamos a tener cómo implementar esta solución. La alternativa? JavaScript. Si señores, para ser un Test Engineer todo terreno hay que saber un poco de todo. Así que ahora vamos a hacer uso de JavaScript para ejecutar lo necesario para hacer visible ese atributo!
+>
+>Vamos a tener que inyectar unos scripts para habilitar ese atributo, y para eso vamos a tener que usar la clase JavaScriptExecutor, la cual va a trabajar en sincronía con nuestro Driver de Selenium. El código se va a ver así:  
+![](images/section12-step_89-filebin-code.png)
+>Esto suele ser suficiente. Pero...cada maestro con su librito, y cada Dev puede tener diferentes maneras de esconder este elemento y molestar a Selenium, el cual es incapaz de encontrar al WebElement en caso de:
+>
+>* No estar visible.
+>* No tener valores de ancho o alto.
+>* Tener otro elemento cubriendo al que queremos acceder.
+>
+>Para eso tenemos que tirarle con todo lo que podamos usando JavaScript. Le tiras todas las inyecciones que tengas, no una porque vas a ser hábil Automation Tester y te comes un garrón de la san flauta.
+>
+>Vos estabas en un estado de codeo violento y locura. Lo reventaste a JS, le vaciaste todas los posibles argumentos de la función, le metes comentarios a todo y le ponés nombre de capítulos de Mi Familia es un Dibujo a toda variable y función para demostrar tu estado de locura y de inconsciencia temporal, me explico?
+>
+>Además tenés que tener un café de esos bien horribles de máquina que hay en toda empresa, te tomás 2 al hilo fríos y si tenés una jarra con caramelos en el box te la bajás. Vas así a la daily...sos inimputable hermano, en 10 días estás pusheando código directo al master de nuevo.
+>
+>Perdón, me fui por las ramas, les dejo todo lo que podemos ejecutar para intentar sortear lo que los devs hacen para esconder estos web elements con su tipo:
+>
+>*("#fileField").style.visibility="visible";*  
+>*("#fileField").style.display="block";*  
+>*("#fileField").style.width="200px";*  
+>*("#fileField").style.height="200px";*  
+>*("#fileField").style.position="fixed";*  
+>*("#fileField").style.overflow="visible";*  
+>*("#fileField").style.zIndex="999999";*  
+>*("#fileField").style.top="500px";*  
+>*("#fileField").style.bottom="500px";*  
+>*("#fileField").style.left="500px";*  
+>*("#fileField").style.right="500px";*  
+>*("#fileField").style.marginBottom="100px";*  
+>
+>Creo que no me olvido de ninguno. Esta es una solución con la que di hace un tiempo en la comunidad Dev y me salvó las papas, como ahora espero les sirva a ustedes!
