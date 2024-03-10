@@ -1648,4 +1648,90 @@ tipo `Actions` y se importa `import org.openqa.selenium.interactions.Actions`.
 6. Añadimos un método en **BasePage.java**, llamado `rightClickElement`.
 7. dentro de `rightClickElement`, añadimos un `action`:
 ```java
+  public void rightClickElement(String locator){
+    // Agregamos el `action`
+    action.contextClick(Find(locator));
+  }
+```
+## Paso 86
+1. Quitamos de **Sandbox.feature**, el primer `@Test` (línea 1).
+2. Adiciono un nuevo Escenario en **Sandbox.feature**:
+```feture
+@Test
+Scenario: As a Test Engineer, I want to retrieve the value of an static table.
+  Given I navigate to the static table Then I can return the value I wanted
+  Then I can return the value I wanted
+```
+3. Adicionar un método en **BasePage.java**, llamado `getValueFromTable`:
+```java
+  public String getValueFromTable(String locator, int row, int column) {
+    // Encadenamos junto con el `locator` lo requerido para el dato en cuestión
+    String cellINeed = locator + "/table/tbody/tr[" + row + "]/td [" + column + "]";
+    // Devolvemos el texto interno
+    return Find(cellINeed).getText();
+  }
+```
+4. Crear un archivo **GridPage.java** en "src/test/java/pages":
+```java
+package pages;
+
+public class GridPage extends BasePage {
+
+  String grid = "//*[@id='root']/div/";
+
+  // Usamos el Contructor del padre
+  public GridPage(){
+      super(driver);
+    }
+
+  public void navigateToGrid() {
+    // Esta URL existe y es del sitio https://codesandbox.io/
+    navigateTo("https://1v2njkypo4.csb.app/");
+  }
+
+  public String getValueFromGrid(int row, int col) {
+    return getValueFromTable(grid, row, col);
+  }
+}
+```
+
+>[!TIP]  
+> El sitio [simple-html-table-example(https://1v2njkypo4.csb.app/)](https://1v2njkypo4.csb.app/), se origina en [Sandbox](https://codesandbox.io/).
+
+5. Crear un archivo **GridTestSteps.java** en "src/test/java/steps":
+```java
+package steps;
+
+import cucumber.api.java.en.*;
+import pages.GridPage;
+
+public class GridTestSteps {
+
+  GridPage grid = new GridPage();
+
+  @Given("^I navigate to the static table Then I can return the value I wanted$")
+  public void navigateToGridPage() {
+    grid.navigateToGrid();
+  }
+
+  @Then("^I can return the value I wanted$")
+  public void returnValue() {
+    String value = grid.getValueFromGrid(3, 2);
+    System.out.println(value);
+  }
+}
+```
+6. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al
+sitio de https://codesandbox.io/, luego el dato obtenido lo debes buscar abajo
+en `DEBUG CONSOLE`:  
+![Debug-Console](images/section12-step_86-ResultPrint.png)
+
+7. Adicionamos un método en **BasePage.java**, llamado `setValueOnTable`:
+```java
+  public void setValueOnTable(String locator, int row, int column, String text2Send){
+     // Encadenamos junto con el `locator` lo requerido para el dato en cuestión
+     String cell2Fill = locator + "/table/tbody/tr[" + row + "]/td [" + column + "]";
+     // Llenamos la celda
+     Find(cell2Fill).sendKeys(text2Send);
+  } 
 ```
