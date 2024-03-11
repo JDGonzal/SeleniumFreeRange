@@ -1222,9 +1222,9 @@ dependencies {
 Feature: Test Google seach functionality
 
 Scenario: As a user I enter a search criteria in Google
-  Given I am on the Google seach page
+  Given I am on the Google search page
   When I enter a search criteria
-  And click on the seach button
+  And click on the search button
   Then the results match the criteria
 ```
 2. En la carpeta "src/test/java", crear dos carpetas "pages" y "steps".
@@ -1250,7 +1250,7 @@ dentro de **GoogleSteps.java**
 ```
 7. Completamos en **GoogleSteps.java** la sintaxis del `@Given`:
 ```java
-  @Given("^I am on the Google seach page$")
+  @Given("^I am on the Google search page$")
   public void navigateToGoogle(){
 
   }
@@ -1262,7 +1262,7 @@ dentro de **GoogleSteps.java**
 
   }
 
-  @And("^click on the seach button$")
+  @And("^click on the search button$")
   public void clickSearchButton(){
 
   }
@@ -1499,7 +1499,7 @@ con un argumento para el texto a buscar:
 `enterSeachCriteria` con el argumento `"Google"`, así quedan el `@Given`,
 `@When` y `@And`:
 ```java
-  @Given("^I am on the Google seach page$")
+  @Given("^I am on the Google search page$")
   public void navigateToGoogle(){
     google.navigateToGoogle();
   }
@@ -1509,7 +1509,7 @@ con un argumento para el texto a buscar:
     google.enterSeachCriteria("Google");
   }
 
-  @And("^click on the seach button$")
+  @And("^click on the search button$")
   public void clickSearchButton(){
     google.clickGoogleSearch();
   }
@@ -1903,3 +1903,34 @@ en `DEBUG CONSOLE`:
 >Como podrán ver, es muy fácil de usar. Solo una anotación agregada y estamos listos para salvar segundos (o recibir excepciones inesperadas si no me hicieron caso!).
 >
 >Espero que les resulte útil y lo apliquen en sus proyectos!
+
+## Paso 94
+>[!TIP]  
+> Dos opciones para hacer los `Assertion`, una en el el **BasePage.java**
+> poniendo alli una función.  
+> La otra manera es manejarlo dentro de **...Steps.java**, en el momento de 
+> hacer el `@Then`.  
+> Siendo la segunda, la q mejor se sugiere hacer.
+
+1. En **BasePage.java** crear un método llamado `textFromElement`:
+```java
+  public String textFromElement(String locator) {
+    return Find(locator).getText();
+  }
+```
+2. En **GooglePage.java** creamos un método llamado `firstResult`:
+```java
+  public String firstResult() {
+    return textFromElement(firstResult);
+  }
+```
+3. Nos falta la variable `firstResult`, dentro de **GooglePage.java**.
+4. En el **GoogleSteps.java** al `@Then` invocamos el `firstResult`, para 
+compararlo con un valor esperado, usando un `Assert`:
+```java
+  @Then("^the results match the criteria$")
+  public void validateResults() {
+    Assert.assertEquals("", google.firstResult());
+  }
+```
+5. No corremos la prueba  en este paso.
