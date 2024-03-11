@@ -1,7 +1,5 @@
 package pages;
 
-import net.bytebuddy.dynamic.loading.ClassReloadingStrategy.Strategy;
-
 public class GooglePage extends BasePage {
   // el locator del botón de Search
   // private String searchButton = "//div[@class='FPdoLc

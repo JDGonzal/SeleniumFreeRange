@@ -1724,6 +1724,7 @@ public class GridTestSteps {
 6. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al
 sitio de https://codesandbox.io/, luego el dato obtenido lo debes buscar abajo
 en `DEBUG CONSOLE`:  
+<a name="Debug-Console"></a>
 ![Debug-Console](images/section12-step_86-ResultPrint.png)
 
 7. Adicionamos un método en **BasePage.java**, llamado `setValueOnTable`:
@@ -1933,4 +1934,27 @@ compararlo con un valor esperado, usando un `Assert`:
     Assert.assertEquals("", google.firstResult());
   }
 ```
+>[!TIP]  
+>Pendiente q el que debe importar es el `import org.junit.Assert;`.
+
 5. No corremos la prueba  en este paso.
+
+## Paso 95
+1. Modificamos el archivo **GridTestSteps.java**, en vez de imprimir el resultado 
+lo comparamos con un `Assert`, 
+[Imagen del Paso 86 para el valor esperado](#Debug-Console):
+```java
+  @Then("^I can return the value I wanted$")
+  public void returnValue() {
+    // Obtenemos la Celda
+    String value = grid.getValueFromGrid(3, 2);
+    // Comparamos con un `Assert`
+    Assert.assertEquals("r: 2, c: 1", value);
+  }
+``` 
+>[!TIP]  
+>Pendiente q el que debe importar es el `import org.junit.Assert;`.
+
+2. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al
+sitio de https://codesandbox.io/, luego el dato obtenido se compara con el 
+esperado.

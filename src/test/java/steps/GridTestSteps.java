@@ -1,5 +1,7 @@
 package steps;
 
+import org.junit.Assert;
+
 import io.cucumber.java.en.*;
 import pages.GridPage;
 
@@ -17,7 +19,7 @@ public class GridTestSteps {
   public void returnValue() {
     // Obtenemos la Celda
     String value = grid.getValueFromGrid(3, 2);
-    // Imprimimos el valor obtenido
-    System.out.println(value);
+    // Comparamos con un `Assert`
+    Assert.assertEquals("r: 2, c: 1", value);
   }
 }
