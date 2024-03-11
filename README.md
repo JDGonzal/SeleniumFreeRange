@@ -1870,7 +1870,7 @@ en `DEBUG CONSOLE`:
 >
 >Para eso, vamos a añadir en la BasePage que estamos heredando en esta nueva clase que creamos, lo siguiente:
 >
->[heritege](images/section12-step_91-heritage.png)
+>![heritage](images/section12-step_91-heritage.png)
 >
 >En el constructor de la clase base, vamos a añadir lo que está en el recuadro. Esto va a permitir que, al instanciar las clases de página que heredan a ésta, los elementos con la anotación de PageFactory se inicialicen correctamente para ser usados.
 >
@@ -1879,3 +1879,27 @@ en `DEBUG CONSOLE`:
 >De nuevo les recuerdo: Esto es una alternativa al Framework que hicimos hasta ahora. Mi preferencia personal es usar lo que les enseñé hasta ahora. Les estoy enseñando esta opción ya que es muy usado y requerido en la industria.
 >
 >Prueben ésto en el framework que (espero!) ya tienen creado, fíjense qué les resulta mejor y elijan lo que les sea más útil. Es un tema muy subjetivo y he aprendido con los años que no hay una única respuesta a todos los problemas!
+
+## Paso 92
+
+>[!NOTE]
+>## PageFactory y un truco ingenioso.
+>Bienvenidos a una nueva lectura en este curo! En esta oportunidad les traigo un truco muy sencillo pero que, sobre todo, quiero explicarles el fundamento detrás. Como recordarán, en la lectura anterior estuvimos viendo la librería de Page Factory, una manera muy usada de manejar las clases de página cuando hablamos de Page Object Model.
+>
+>Para los que no recuerden, son las anotaciones @FindBy para localizar webelements. Bueno, acá viene la parte teórica para que entiendan lo que vamos a hacer:
+>
+>Con PageFactory, nosotros necesitamos inicializar los webelements con la función initElements que nos provee. Al hacer eso, se abren los proxies que comunican con el webdriver (sea Chrome, Firefox o cualquiera) pero aún no se busca ningún elemento. Esto ocurre cuando cada uno de ellos es usado.
+>
+>Ahora bien, PageFactory lo que hace es enviar básicamente un request REST a la API de Selenium preguntando por este elemento...cada vez que lo tengamos que usar. Se imaginan que si hablamos de decenas de elementos siendo usados cientos de veces, el tiempo de ejecución se ve incrementado de manera significativa! Cómo podemos solucionarlo? Es que acaso los creadores de Selenium no pensaron en esta debilidad catastrófica?!? Tranquilos amigos y amigas! Que si lo hicieron y ofrecen una solución por demás sencilla.
+>
+>![PageFactory](images/section12-step_92-PageFactory.png)
+>
+>Con ustedes, el **@CacheLookup!** Esta anotación, que la podemos poner arriba del @FindBy, arriba como en el caso de la screen, lo que hace es guardar en caché el elemento en cuestión para que, en posteriores usos, no tenga que hacerse esa llamada a la API de Selenium para buscar nuevamente algo que ya se había encontrado. Esto lo que hace es salvar preciosos segundos de ejecución que, si multiplicamos por casos de prueba, scenarios, ambientes y veces que se corre algo, termina generando una ganancia en tiempo para nada despreciable.
+>
+>### Pero esta solución también puede presentar un problema...
+>Y es que, si estamos tratando de un elemento dinámico, como lo puede ser un contador, algo que una vez cargada la página cambia...vamos a recibir un StaleElementException. Por eso es que solamente deben usar esta técnica cuando se trata de elementos que sabemos que, una vez la página cargó, permanecen iguales. Si es algo dinámico como lo mencionado anteriormente, dejen todo como ya lo aprendimos para que el elemento sea ubicado nuevamente con sus nuevas características.
+>
+>### Conclusión
+>Como podrán ver, es muy fácil de usar. Solo una anotación agregada y estamos listos para salvar segundos (o recibir excepciones inesperadas si no me hicieron caso!).
+>
+>Espero que les resulte útil y lo apliquen en sus proyectos!
