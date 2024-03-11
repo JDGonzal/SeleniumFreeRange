@@ -113,4 +113,22 @@ public class BasePage {
      // Llenamos la celda
      Find(cell2Fill).sendKeys(text2Send);
   } 
+
+  // Esta vez vamos al `driver` para cambiar el iFrame
+  public void swithcToiFrame(int iFrameIndex){
+    // Usando el `driver` hacemos el cambio 
+    driver.switchTo().frame(iFrameIndex);
+  }
+
+  // Esta vez vamos al `driver` para cambiar al iFrame padre.
+  public void swithcToParentFrame(){
+    // Usando el `driver` hacemos el cambio 
+    driver.switchTo().parentFrame();
+  }
+
+  // Esta vez vamos al `driver` para ignorar o cerrar alertas
+  public void dismissAlert(){
+    // Usando el `driver` desactivamos la alerta
+    driver.switchTo().alert().dismiss();
+  }
 }

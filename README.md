@@ -1762,12 +1762,14 @@ en `DEBUG CONSOLE`:
 >```
 
 ## Paso 89
->[NOTE]  
+>[!NOTE]  
 > ## Subir archivos en nuestra aplicación web con Selenium.
 >Bienvenidos a una nueva clase! En este caso, al ser rápido y sin mucho concepto que explicar, voy a dejar este atípico caso que quizás les toque alguna vez y no muchos saben cómo resolver. Uno de mis padawans preguntó porque le tocó en el trabajo y es, a ciencia cierta, uno de esos momentos en los que al comienzo decís "me sentía confiado con esto de Automation pero...no tengo idea cómo resolver esto!".
 >
->A qué me refiero? A hacer el upload de un archivo en una página. Y por qué es tan trágico? Porque una vez que hicimos el click con Selenium en el botoncito de Upload, nos aparece la ventana de Windows o Mac para buscar nuestro archivo. Y saben qué le dice esa ventanita a Selenium y su WebDriver?  
-![You have no powers here](images/section12_step_89.jpeg).
+>A qué me refiero? A hacer el upload de un archivo en una página. Y por qué es tan trágico? Porque una vez que hicimos el click con Selenium en el botoncito de Upload, nos aparece la ventana de Windows o Mac para buscar nuestro archivo. Y saben qué le dice esa ventanita a Selenium y su WebDriver?
+>
+>![You have no powers here](images/section12-step_89-noPower.png)
+>
 >Pero...por qué es esto? Y mejor aún...cómo lo resolvemos? Eso vamos a aprender en esta clase!
 >
 > ## Selenium está muy perdido fuera del DOM.
@@ -1777,16 +1779,20 @@ en `DEBUG CONSOLE`:
 >
 >### Primera solución: No siempre posible pero la más rápida.
 >El caso más feliz que nos podemos encontrar (y el menos probable diría), es que el botón que nos lleva a la fatídica ventana del sistema operativo tenga como tipo "file" y sea un elemento "input".
->Este caso es el de Filebin por ejemplo.  
-![Filebin](images/section12-step_89-filebin.png)
+>Este caso es el de Filebin por ejemplo.
+>
+>![Filebin](images/section12-step_89-filebin.png)
+>
 >En estos casos vamos a tener que hacer algo que no suena para nada intuitivo y nos va a tener dando vueltas en círculos si no se enteraban de cómo hacerlo.
 >
 >En estos casos lo único que vamos a necesitar es crear el webelement como ya vimos en los tutoriales y enviarle, con el método "sendKeys" de Selenium, el path definitivo del archivo. Si, ya se lo que están pensando. No tiene un campo de texto, a qué le estamos mandando entonces el texto?
 >
 >Lo que pasa acá es que cuando el sitio detecta que se le está mandando una ubicación de archivo (del tipo C:/MiCurriculum.docx), al elemento del tipo File, automáticamente procede a hacer el upload. Loco, no? Pero el problema es que el Type=File suele estar oculto y no vamos a tener cómo implementar esta solución. La alternativa? JavaScript. Si señores, para ser un Test Engineer todo terreno hay que saber un poco de todo. Así que ahora vamos a hacer uso de JavaScript para ejecutar lo necesario para hacer visible ese atributo!
 >
->Vamos a tener que inyectar unos scripts para habilitar ese atributo, y para eso vamos a tener que usar la clase JavaScriptExecutor, la cual va a trabajar en sincronía con nuestro Driver de Selenium. El código se va a ver así:  
-![](images/section12-step_89-filebin-code.png)
+>Vamos a tener que inyectar unos scripts para habilitar ese atributo, y para eso vamos a tener que usar la clase JavaScriptExecutor, la cual va a trabajar en sincronía con nuestro Driver de Selenium. El código se va a ver así:
+>
+>![filebin-code](images/section12-step_89-filebin-code.png)
+>
 >Esto suele ser suficiente. Pero...cada maestro con su librito, y cada Dev puede tener diferentes maneras de esconder este elemento y molestar a Selenium, el cual es incapaz de encontrar al WebElement en caso de:
 >
 >* No estar visible.
@@ -1815,3 +1821,61 @@ en `DEBUG CONSOLE`:
 >*("#fileField").style.marginBottom="100px";*  
 >
 >Creo que no me olvido de ninguno. Esta es una solución con la que di hace un tiempo en la comunidad Dev y me salvó las papas, como ahora espero les sirva a ustedes!
+
+## Paso 90
+1. En el archivo **BasePage.java** creo un método llamado `swithcToiFrame`:
+```java
+  public void swithcToiFrame(int iFrameIndex){
+    // Usando el `driver` hacemos el cambio 
+    driver.switchTo().frame(iFrameIndex);
+  }
+```
+2. En el archivo **BasePage.java** creo un método llamado `switchToParentFrame`:
+```java
+  public void swithcToParentFrame(){
+    // Usando el `driver` hacemos el cambio 
+    driver.switchTo().parentFrame();
+  }
+```
+3. En el archivo **BasePage.java** creo un método llamado `dismissAlert`:
+```java
+  public void dismissAlert(){
+    // Usando el `driver` desactivamos la alerta
+    driver.switchTo().alert().dismiss();
+  }
+```
+
+## Paso 91
+>[!NOTE]
+>## OPCIONAL: Otra manera de manejar los WebElements en nuestro Page Object Model.
+>Esta clase es opcional ya que representa OTRA MANERA de hacer lo que hicimos previamente en nuestras clases para página. En esta oportunidad vamos a aprender a utilizar PageFactory, una librería muy usada hoy en día en proyectos de automatización debido a la simplificación que supone para manejar nuestras clases de página.
+>
+>Recuerdan que estamos usando el Page Object Model (POM, por si les preguntan en una entrevista)? Bueno, esta librería lo que hace es darnos un par de trucos bajo la manga para que sea más fácil visualizar los webelements y tengamos que escribir menos código que lo que normalmente haríamos.
+>
+>De nuevo, para recordarles: El framework que hicimos hasta ahora NO NECESITA de PageFactory, de hecho funciona mejor, en mi opinión, y es más robusto. El tutorial apunta a que aprendan a usarlo porque se que es algo que le van a preguntar o exigir en muchos puestos de trabajo. Está en ustedes decir "No muchachos, tengo ésta manera de hacer las cosas que es mejor!" y PAF! Les muestran el framework que aprendieron acá. En caso que la idea no prenda, también habrán aprendido a usar Page Factory en esta clase.
+>
+>### Ahora si, manos a la obra! Instalemos las dependencias necesarias.
+>Vamos por partes, lo primero que vamos a hacer es crear una clase, bajo el paquete que tenemos de Páginas (o el nombre que le hayan puesto al directorio donde están creando las clases para las páginas y donde está la BasePage). Le pueden poner el nombre que quieran, en este ejemplo, para verlo claro, le puse PageFactoryPage.  
+>![dependencies](images/section12-step_91-dependencies.png)
+>
+>Observemos un par de cosas acá. Primero y principal, estamos usando dos librerías que vienen con Selenium, las cuales son FindBy y WebElement por supuesto. Estamos usando acá WebElement porque les recuerdo que no estamos más creando el WebElement en la BasePage como lo hacemos en nuestro Framework principal. Es por eso que necesitamos crearlos en esta clase. Ven ya una de las diferencias? Van a estar necesitando poner esto en todas las clases de página.
+>
+>La clase que creamos va a extender la clase base de la misma manera para la construcción del WebDriver. Luego, vemos el corazón de PageFactory: la anotación @FindBy!
+>
+>Esta anotación lo que va a hacer es ahorrarnos la creación de WebElements de la manera que tradicionalmente se hace. Por defecto, busca id o name iguales a lo que le digamos, pero podemos especificar otras maneras de localizar los webelements, como XPath, CSS, etc.
+>
+>Usando la anotación, diciendo cómo se llama el campo por el cual vamos a encontrar el elemento y diciendo abajo WebElement además del nombre que queramos darle, vamos a tener creado nuestro WebElement listo para usarse.
+>
+>Ahora, otra cosa...como no tenemos la inicialización de los WebElements por ningún lado, nuestros tests van a fallar diciendo "che...no hay ningún WebElement por acá!".
+>
+>Para eso, vamos a añadir en la BasePage que estamos heredando en esta nueva clase que creamos, lo siguiente:
+>
+>[heritege](images/section12-step_91-heritage.png)
+>
+>En el constructor de la clase base, vamos a añadir lo que está en el recuadro. Esto va a permitir que, al instanciar las clases de página que heredan a ésta, los elementos con la anotación de PageFactory se inicialicen correctamente para ser usados.
+>
+>Eso es todo el misterio detrás de PageFactory. La dificultad que tiene la mayoría es en saber dónde inicializar los elementos. Pueden hacerlo en el constructor de la clase de la página, pueden hacerlo en las step definitions...aunque mi consejo es que lo hagan en la clase base que instancia el WebDriver para que siempre esté hecho y no tengan que acordarse de arrancarlo ustedes a mano en cada lado que lo quieran usar.
+>
+>De nuevo les recuerdo: Esto es una alternativa al Framework que hicimos hasta ahora. Mi preferencia personal es usar lo que les enseñé hasta ahora. Les estoy enseñando esta opción ya que es muy usado y requerido en la industria.
+>
+>Prueben ésto en el framework que (espero!) ya tienen creado, fíjense qué les resulta mejor y elijan lo que les sea más útil. Es un tema muy subjetivo y he aprendido con los años que no hay una única respuesta a todos los problemas!
