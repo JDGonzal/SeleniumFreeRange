@@ -107,28 +107,33 @@ public class BasePage {
   }
 
   // Usando el `Find` empezamos a aprovecharlo para llenar un dato de una tabla
-  public void setValueOnTable(String locator, int row, int column, String text2Send){
-     // Encadenamos junto con el `locator` lo requerido para el dato en cuestión
-     String cell2Fill = locator + "/table/tbody/tr[" + row + "]/td [" + column + "]";
-     // Llenamos la celda
-     Find(cell2Fill).sendKeys(text2Send);
-  } 
+  public void setValueOnTable(String locator, int row, int column, String text2Send) {
+    // Encadenamos junto con el `locator` lo requerido para el dato en cuestión
+    String cell2Fill = locator + "/table/tbody/tr[" + row + "]/td [" + column + "]";
+    // Llenamos la celda
+    Find(cell2Fill).sendKeys(text2Send);
+  }
 
   // Esta vez vamos al `driver` para cambiar el iFrame
-  public void swithcToiFrame(int iFrameIndex){
-    // Usando el `driver` hacemos el cambio 
+  public void swithcToiFrame(int iFrameIndex) {
+    // Usando el `driver` hacemos el cambio
     driver.switchTo().frame(iFrameIndex);
   }
 
   // Esta vez vamos al `driver` para cambiar al iFrame padre.
-  public void swithcToParentFrame(){
-    // Usando el `driver` hacemos el cambio 
+  public void swithcToParentFrame() {
+    // Usando el `driver` hacemos el cambio
     driver.switchTo().parentFrame();
   }
 
   // Esta vez vamos al `driver` para ignorar o cerrar alertas
-  public void dismissAlert(){
+  public void dismissAlert() {
     // Usando el `driver` desactivamos la alerta
     driver.switchTo().alert().dismiss();
+  }
+
+  // Usando el `Find` devolvemos el texto de un Elemento
+  public String textFromElement(String locator) {
+    return Find(locator).getText();
   }
 }
