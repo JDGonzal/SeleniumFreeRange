@@ -1698,6 +1698,7 @@ public class GridPage extends BasePage {
 >[!TIP]  
 > El sitio [simple-html-table-example(https://1v2njkypo4.csb.app/)](https://1v2njkypo4.csb.app/), se origina en [Sandbox](https://codesandbox.io/) y
 > Este es el código fuente [blakestone95](https://codesandbox.io/p/sandbox/1v2njkypo4?file=%2Fsrc%2Findex.js).
+>
 >![index.js](images/section12-step_86-index_js.png)
 >![package.json](images/section12-step_86-package_json.png)
 >![Table.js-1](images/section12-step_86-Table_js1.png)
@@ -2034,5 +2035,162 @@ disponible
 ```java
   public boolean elementIsSelected(String locator){
     return Find(locator).isSelected();
+  }
+```
+
+## Paso 97
+1. Eliminar el tag `@Test` de **Sandbox.feature**.
+2. Adicionar un escenario en **Sandbox.feature**:
+```feature
+@Test
+Scenario: As a Test Engineer, I want to validate that a text is present inside the list.
+  Given I navigate to the list page
+  When I search the list
+  Then I can find the text in the list
+```
+3. Agregar en **BasePage.java** un método llamado `bringMeAllElements` e 
+importar `import java.util.List;`:
+```java
+  public List<WebElement> bringMeAllElements(String locator){
+    return driver.findElements(By.className(locator));
+  }
+```
+4. Creamos una nueva clase llamada **ListPage.java** en "src/test/java/pages":
+```java
+package pages;
+
+public class ListPage extends BasePage {
+  // Usamos el Contructor del padre
+  public ListPage() {
+    super(driver);
+  }
+}
+```
+5. Crear dos variable y asignarles los valores en **ListPage.java**:
+```java
+  private String searchField ="//body/form[1]/input[1]";
+  private String searchResults = "name";
+```
+6. Adiciono en **ListPage.java** dos funciones:
+```java
+  public void navigateToListPage() {
+    navigateTo("https://andreidbr.github.io/JS30/06AjaxTypeAhead/index.html");
+  }
+
+  // Escribir el elemento para luego extraer la lista
+  public void enterSearchCriteria() throws InterruptedException {
+    Thread.sleep(600);
+    writeElement(searchField, "Washington");
+  }
+```
+7. En el archivo **ListPage.java**, se pone el método para traer todos los 
+elementos de dicha lista:
+```java
+  public List<String> getAllSearchResults() {
+    // Traigo WebElements de Selenium
+    List<WebElement> list = bringMeAllElements(searchResults);
+    // instancio una variable de tipo `List<String>`
+    List<String> stringsFromList = new ArrayList<String>();
+    // Debo convertirlos cada uno a `String` en el for
+    for (WebElement e : list) {
+      stringsFromList.add(e.getText());
+    }
+    // Devuelvo la lista de `String`
+    return stringsFromList;
+  }
+```
+8. Creamos el archivo **ListSteps.java** dentr0 de "src/test/java/steps":
+```java
+package steps;
+
+public class ListSteps {
+  
+}
+```
+9. Instanciamos la variable `list` con base en la clase **ListPage.java**:
+  `ListPage list = new ListPage();`
+10. Se crean los `@Given`, `@When` y el `@Then`:
+```java
+  @Given("^I navigate to the list page$")
+  public void navigateToListPage() {
+    // Navegamos al sitio
+    list.navigateToListPage();
+  }
+
+  @When("^I search the list$")
+  public void searchTheList() throws InterruptedException {
+    // Escribe el dato a buscar o el criterio
+    list.enterSearchCriteria();
+  }
+
+  @Then("^I can find the text in the list$")
+  public void theTableIsThere() {
+    // Se obtiene toda la lista
+    List<String> lista = list.getAllSearchResults();
+    boolean textIsThere = lista.contains("Seattle, Washington");
+    // Si cumple con hallar alguno de los criterios es OK, sino es error
+    if (textIsThere) {
+      System.out.println("The text is on the list: PASSED.");
+    } else {
+      throw new Error("The text is not on the list: FAILED!");
+    }
+  }
+```
+
+>[!CAUTION]  
+> Tocó hacer algunos arreglos basados en que el sitio propuesto por el instructor
+> [06AjaxTypeAhead](https://andreidbr.github.io/JS30/06AjaxTypeAhead/index.html)
+> Ya no existe o genera error 404.  
+> Entonces tocó cambiar la url a esta otra 
+>[Complete List Of All US Cities](https://digitalmarketingwebdesign.com/complete-list-us-cities-cities-united-states/).  
+> Abajo los cambios realizados:
+
+11. En el archivo **ListPage.java**, las variables apuntan a otros elementos:
+```java
+  private String searchField = "//input[@type='search']";// "//body/form[1]/input[1]";
+  private String searchResults = "column-2";// "name";
+```
+12. La navegacion en **ListPage.java**, es a otra url:
+```java
+  public void navigateToListPage() {
+    // Este sitio ya no existe
+    // navigateTo("https://andreidbr.github.io/JS30/06AjaxTypeAhead/index.html");
+    // Probamos en este otro
+    navigateTo("https://digitalmarketingwebdesign.com/complete-list-us-cities-cities-united-states/");
+  }
+```
+13. Añadía en **ListPage.java** a modo de pruebas pero luego lo puse en 
+comentarios, el contenido de la lista que se puede ver en `DEBUG CONSOLE`
+```java
+  public List<String> getAllSearchResults() {
+    // Traigo WebElements de Selenium
+    List<WebElement> list = bringMeAllElements(searchResults);
+    // instancio una variable de tipo `List<String>`
+    List<String> stringsFromList = new ArrayList<String>();
+    // int i = 0;
+    // Debo convertirlos cada uno a `String` en el for
+    for (WebElement e : list) {
+      // System.out.println(String.format("%02d", i) + " " + e.getText());
+      stringsFromList.add(e.getText());
+      // i++;
+    }
+    // Devuelvo la lista de `String`
+    return stringsFromList;
+  }
+```
+14. En **ListSteps.java**, cambio el valor esperado del `@Then`:
+```java
+  @Then("^I can find the text in the list$")
+  public void theTableIsThere() {
+    // Se obtiene toda la lista
+    List<String> lista = list.getAllSearchResults();
+    // boolean textIsThere = lista.contains("Seattle, Washington");
+    boolean textIsThere = lista.contains("Washington,Kansas,United States");
+    // Si cumple con hallar el contenido es OK, sino es error
+    if (textIsThere) {
+      System.out.println("The text is on the list: PASSED.");
+    } else {
+      throw new Error("The text is not on the list: FAILED!");
+    }
   }
 ```

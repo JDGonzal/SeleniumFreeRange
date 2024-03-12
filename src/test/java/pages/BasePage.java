@@ -1,6 +1,7 @@
 package pages;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -138,17 +139,22 @@ public class BasePage {
   }
 
   // Usando el `Find` verificamos si el elemento está disponible
-  public boolean elementIsEnabled(String locator){
+  public boolean elementIsEnabled(String locator) {
     return Find(locator).isEnabled();
   }
 
   // Usando el `Find` verificamos si el elemento está en pantalla
-  public boolean elementIsDisplayed(String locator){
+  public boolean elementIsDisplayed(String locator) {
     return Find(locator).isDisplayed();
   }
 
   // Usando el `Find` verificamos si el elemento está seleccionado
-  public boolean elementIsSelected(String locator){
+  public boolean elementIsSelected(String locator) {
     return Find(locator).isSelected();
+  }
+
+  // Esta vez vamos al `driver` para obtener toda la lista
+  public List<WebElement> bringMeAllElements(String locator) {
+    return driver.findElements(By.className(locator));
   }
 }
