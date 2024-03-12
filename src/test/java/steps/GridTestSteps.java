@@ -9,7 +9,7 @@ public class GridTestSteps {
 
   GridPage grid = new GridPage();
 
-  @Given("^I navigate to the static table Then I can return the value I wanted$")
+  @Given("^I navigate to the static table$")
   public void navigateToGridPage() {
     // Navegamos al sitio
     grid.navigateToGrid();
@@ -21,5 +21,11 @@ public class GridTestSteps {
     String value = grid.getValueFromGrid(3, 2);
     // Comparamos con un `Assert`
     Assert.assertEquals("r: 2, c: 1", value);
+  }
+
+  @Then("^I can validate the table is displayed$")
+  public void theTableIsThere(){
+    // El compartivo debe dar falso y poner un mensaje
+    Assert.assertTrue("Explotó todo", grid.cellStatus());
   }
 }

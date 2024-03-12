@@ -136,4 +136,19 @@ public class BasePage {
   public String textFromElement(String locator) {
     return Find(locator).getText();
   }
+
+  // Usando el `Find` verificamos si el elemento está disponible
+  public boolean elementIsEnabled(String locator){
+    return Find(locator).isEnabled();
+  }
+
+  // Usando el `Find` verificamos si el elemento está en pantalla
+  public boolean elementIsDisplayed(String locator){
+    return Find(locator).isDisplayed();
+  }
+
+  // Usando el `Find` verificamos si el elemento está seleccionado
+  public boolean elementIsSelected(String locator){
+    return Find(locator).isSelected();
+  }
 }

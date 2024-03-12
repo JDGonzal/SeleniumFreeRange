@@ -1696,7 +1696,14 @@ public class GridPage extends BasePage {
 ```
 
 >[!TIP]  
-> El sitio [simple-html-table-example(https://1v2njkypo4.csb.app/)](https://1v2njkypo4.csb.app/), se origina en [Sandbox](https://codesandbox.io/).
+> El sitio [simple-html-table-example(https://1v2njkypo4.csb.app/)](https://1v2njkypo4.csb.app/), se origina en [Sandbox](https://codesandbox.io/) y
+> Este es el código fuente [blakestone95](https://codesandbox.io/p/sandbox/1v2njkypo4?file=%2Fsrc%2Findex.js).
+>![index.js](images/section12-step_86-index_js.png)
+>![package.json](images/section12-step_86-package_json.png)
+>![Table.js-1](images/section12-step_86-Table_js1.png)
+>![Table.js-2](images/section12-step_86-Table_js2.png)
+>![TableStyle.css](images/section12-step_86-TableStyle_css.png)
+>![Info-Tree](images/section12-step_86-info_tree.png)
 
 5. Crear un archivo **GridTestSteps.java** en "src/test/java/steps":
 ```java
@@ -1721,10 +1728,11 @@ public class GridTestSteps {
   }
 }
 ```
+<a name="Debug-Console"></a>
 6. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al
 sitio de https://codesandbox.io/, luego el dato obtenido lo debes buscar abajo
 en `DEBUG CONSOLE`:  
-<a name="Debug-Console"></a>
+
 ![Debug-Console](images/section12-step_86-ResultPrint.png)
 
 7. Adicionamos un método en **BasePage.java**, llamado `setValueOnTable`:
@@ -1935,7 +1943,7 @@ compararlo con un valor esperado, usando un `Assert`:
   }
 ```
 >[!TIP]  
->Pendiente q el que debe importar es el `import org.junit.Assert;`.
+>Verificar que lo que debe importar es `import org.junit.Assert;`.
 
 5. No corremos la prueba  en este paso.
 
@@ -1953,8 +1961,78 @@ lo comparamos con un `Assert`,
   }
 ``` 
 >[!TIP]  
->Pendiente q el que debe importar es el `import org.junit.Assert;`.
+>Verificar que lo que debe importar es `import org.junit.Assert;`.
 
 2. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al
 sitio de https://codesandbox.io/, luego el dato obtenido se compara con el 
 esperado.
+
+## Paso 96
+
+1. Crear en **BasePage.java** un método llamado `elementIsDisplayed`:
+```java
+  public boolean elementIsDisplayed(String locator){
+    return Find(locator).isDisplayed();
+  }
+```
+2. Crear en **GridPage.java** un método llamado ``:
+```java
+  public boolean cellStatus() {
+    return elementIsDisplayed(mainTable);
+  }
+```
+3. Elimino el `@Test` del archivo **Sandbox.feature** y corrijo el escenario existente:
+```feature
+Scenario: As a Test Engineer, I want to retrieve the value of an static table.
+  Given I navigate to the static table
+  Then I can return the value I wanted
+```
+4. Corrijo en **GridTestSteps.java** el `@Given`:
+```java
+  @Given("^I navigate to the static table$")
+  public void navigateToGridPage() {
+    // Navegamos al sitio
+    grid.navigateToGrid();
+  }
+```
+5. Añado en **Sandbox.feature** un nuevo escenario con un tag:
+```feature
+@Test
+Scenario: As a Test Engineer, I want to validate the static table is displayed.
+  Given I navigate to the static table
+  Then I can validate the table is displayed
+
+```
+6.  Adiciono un nuevo `@Then` en **GridTestSteps.java**:
+```java
+  @Then("^I can validate the table is displayed$")
+  public void theTableIsThere(){
+    // El compartivo debe dar falso y poner un mensaje
+    Assert.assertFalse("Explotó todo", grid.cellStatus());
+  }
+```
+7. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al
+sitio de https://codesandbox.io/, y sacar el error `"Explotó todo"`.
+8. Corregimos el `@Then` en **GridTestSteps.java**:
+```java
+  @Then("^I can validate the table is displayed$")
+  public void theTableIsThere(){
+    // El compartivo debe dar falso y poner un mensaje
+    Assert.assertTrue("Explotó todo", grid.cellStatus());
+  }
+```
+9. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al
+sitio de https://codesandbox.io/, y salir de forma correcta.
+10. Agregamos otra función en **BasePage.java**, para saber si el elemento está
+disponible
+```java
+  public boolean elementIsEnabled(String locator){
+    return Find(locator).isEnabled();
+  }
+```
+11. Lo mismo en **BasePage.java** por si el elemento esta seleccionado:
+```java
+  public boolean elementIsSelected(String locator){
+    return Find(locator).isSelected();
+  }
+```
