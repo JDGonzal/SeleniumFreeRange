@@ -2099,7 +2099,7 @@ elementos de dicha lista:
     return stringsFromList;
   }
 ```
-8. Creamos el archivo **ListSteps.java** dentr0 de "src/test/java/steps":
+8. Creamos el archivo **ListSteps.java** dentro de "src/test/java/steps":
 ```java
 package steps;
 
@@ -2141,7 +2141,7 @@ public class ListSteps {
 > Tocó hacer algunos arreglos basados en que el sitio propuesto por el instructor
 > [06AjaxTypeAhead](https://andreidbr.github.io/JS30/06AjaxTypeAhead/index.html)
 > Ya no existe o genera error 404.  
-> Entonces tocó cambiar la url a esta otra 
+> Entonces se debió cambiar la url a esta otra 
 >[Complete List Of All US Cities](https://digitalmarketingwebdesign.com/complete-list-us-cities-cities-united-states/).  
 > Abajo los cambios realizados:
 
@@ -2159,7 +2159,7 @@ public class ListSteps {
     navigateTo("https://digitalmarketingwebdesign.com/complete-list-us-cities-cities-united-states/");
   }
 ```
-13. Añadía en **ListPage.java** a modo de pruebas pero luego lo puse en 
+13. Añadí en **ListPage.java** a modo de pruebas, pero luego lo puse en 
 comentarios, el contenido de la lista que se puede ver en `DEBUG CONSOLE`
 ```java
   public List<String> getAllSearchResults() {
@@ -2194,3 +2194,20 @@ comentarios, el contenido de la lista que se puede ver en `DEBUG CONSOLE`
     }
   }
 ```
+
+## Paso 98
+>[!TIP]  
+> Definitivamente se debe miarar este paso o capítulo con detenimiento, para 
+>aprovechar las herramientas para hacer *Debug* dentro de nuestro código.  
+>Otros ejemplos que pueden consultar:
+>* [Como usar el debug de VSCode con Java](https://www.youtube.com/watch?v=nN7ejSWHcO8).
+>* [DEBUG 🪲 en Java ☕ con Eclipse 👨🏻_💻 Ejecutá tu CÓDIGO LÍNEA a LÍNEA 🐾](https://www.youtube.com/watch?v=FWaM8Ihz6pQ).
+>* [Debugging Java with Visual Studio Code (VSCode)](https://www.youtube.com/watch?v=R1F5ihQKL4U).
+
+## Paso 99
+>![!NOTE]  
+> Manejo de errores usando el `try{}catch(){}`.
+
+## Paso 100
+>[!NOTE]  
+> Mejores prácticas para usar el _Page Object Model_.
