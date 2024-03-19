@@ -12,6 +12,7 @@ import pages.BasePage;
   features = "src/test/resources/features",
   // glue = "src/test/java/steps"
   glue = "steps",
+  monochrome = true,
   tags = "@Test"
 )
 
