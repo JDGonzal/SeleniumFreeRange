@@ -2340,3 +2340,82 @@ y esta es la nueva respuesta:
   tags = "@Test"
 )
 ```
+6. Ejecutamos el último comando de la `TERMINAL`.
+
+## Paso 106
+1. Creamos el archivo **ListPageTest.feature** dentro de
+ "src/test/resources/features".
+2. Cortamos de **Sandbox.feature** la parte de list test y la llevamos para
+**ListPageTest.feature** añadiendo el tag `@List`:
+```feature
+Feature: I can find a city inside a state.
+
+@List
+Scenario: As a Test Engineer, I want to validate that a text is present inside the list.
+  Given I navigate to the list page
+  When I search the list
+  Then I can find the text in the list
+```
+3. En el archivo **ListPage.java**, cambiamos el método `enterSearchCriteria`,
+para q solicite un argumento `(String state)`.
+```java
+  public void enterSearchCriteria(String state) throws InterruptedException {
+    Thread.sleep(600);
+    writeElement(searchField, state);
+  }
+```
+4. En el archivo **ListSteps.java** ponemos el argumento requerido y también lo pedimos en el método `searchTheList`:
+```java
+  public void searchTheList(String state) throws InterruptedException {
+    // Escribe el dato a buscar o el criterio
+    list.enterSearchCriteria(state);
+  }
+```
+5. Completamos en **ListSteps.java**, el `@When`, así:
+```java
+ @When("^I search (.+) in the list$")
+```
+6. En el Archivo **ListPageTest.feature**, mejoramos el `When`:
+```feature
+  When I search <state> in the list
+```
+7. Añadimos un párametro para el método `theTableIsThere` de **ListSteps.java**:
+```java
+  public void theTableIsThere(String city) {
+    // Se obtiene toda la lista
+    List<String> lista = list.getAllSearchResults(); // "Washington,Kansas,United States"
+    boolean textIsThere = lista.contains(city);
+    // Si cumple con hallar el contenido es OK, sino es error
+    if (textIsThere) {
+      System.out.println("The text is on the list: PASSED.");
+    } else {
+      throw new Error("The text is not on the list: FAILED!");
+    }
+  }
+```
+8. Cambiamos el `@Then` de **ListSteps.java**:
+```java
+@Then("^I can find (.+) in the list$")
+```
+9. Cambiamos en **ListPageTest.feature** el paso de `Then`:
+```feature
+  Then I can find <city> in the list
+```
+10. Cambiamos el `Scenario` a `Scenario Outline`:
+```feature
+Scenario Outline: As a Test Engineer, I want to validate that a text is present inside the list.
+```
+11. Añadimos unos ejemplos en el archivo **ListPageTest.feature**:
+```feature
+  Examples:
+      |state|city|
+      |Washington|Washington,Kansas,United States|
+      |Chicago|Chicago,Illinois,United States|
+```
+12. En el archivo **Runner.java**, cambiamos el tag a `@List` y ejecutamos desde
+**Runner.java**.
+13. Mejoro el `Scenario Outline:` de **ListPAgeTest.feature**:
+```feature
+Scenario Outline: As a Test Engineer, I want to validate that a <city> is present inside the <state>.
+```
+Cuando vuelvo a ejecutar de **Runner.java**, las descripciones son mas claras.

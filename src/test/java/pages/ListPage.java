@@ -23,9 +23,9 @@ public class ListPage extends BasePage {
   }
 
   // Escribir el elemento para luego extraer la lista
-  public void enterSearchCriteria() throws InterruptedException {
+  public void enterSearchCriteria(String state) throws InterruptedException {
     Thread.sleep(600);
-    writeElement(searchField, "Washington");
+    writeElement(searchField, state);
   }
 
   public List<String> getAllSearchResults() {
@@ -33,10 +33,10 @@ public class ListPage extends BasePage {
     List<WebElement> list = bringMeAllElements(searchResults);
     // instancio una variable de tipo `List<String>`
     List<String> stringsFromList = new ArrayList<String>();
-    // int i = 0;
+    //  int i = 0;
     // Debo convertirlos cada uno a `String` en el for
     for (WebElement e : list) {
-      // System.out.println(String.format("%02d", i) + " " + e.getText());
+      //  System.out.println(String.format("%02d", i) + " " + e.getText());
       stringsFromList.add(e.getText());
       // i++;
     }
