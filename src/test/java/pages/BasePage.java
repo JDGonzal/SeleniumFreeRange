@@ -38,6 +38,11 @@ public class BasePage {
     driver.get(url);
   }
 
+  // Cerramos el Navegador
+  public static void closeBrowser(){
+    driver.quit();
+  }
+
   // Creamos un método para devolver el `WebElement`
   private WebElement Find(String locator) {
     return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
