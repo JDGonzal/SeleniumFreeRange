@@ -2205,9 +2205,37 @@ comentarios, el contenido de la lista que se puede ver en `DEBUG CONSOLE`
 >* [Debugging Java with Visual Studio Code (VSCode)](https://www.youtube.com/watch?v=R1F5ihQKL4U).
 
 ## Paso 99
->![!NOTE]  
+>[!NOTE]  
 > Manejo de errores usando el `try{}catch(){}`.
 
 ## Paso 100
 >[!NOTE]  
 > Mejores prácticas para usar el _Page Object Model_.
+
+## Paso 101
+>[!NOTE]
+> Importancia del archivo **runner.java**:  
+> * Dice donde estan los archivo en lenguaje Gherking
+> * Los *Steps* q traducen ese Huerking en lenguage `java`
+> * Y otras condiciones.  
+> **Gherkin** es un Lenguaje Específico de Dominio (DSL), que son lenguajes diseñados en concreto para resolver un problema muy específico. Y, en este caso, el problema que quiere solucionar Gherkin es un problema de comunicación entre los perfiles de negocio y los perfiles técnicos a la hora de trabajar bajo un enfoque BDD. También se podría trabajar Gherkin con otros enfoques de desarrollo de software, pero lo ideal y lo natural es hacerlo con BDD, al ser mejor práctica y para el enfoque de programación para el que se desarrolló Gherkin.   
+
+1. En el archivo **runner.java** adicionamos dentro de la deficiión de la clase
+lo siquiente e importamos `import org.junit.AfterClass;` e
+`import pages.BasePage;`:
+```java
+public class Runner {
+  @AfterClass
+  public static void cleanDriver(){
+    BasePage.closeBrowser();
+  }
+```
+2. en el archivo **BasePage.java** Agregamos el método `closeBrowser`:
+```java
+  public static void closeBrowser(){
+    driver.quit();
+  }
+```
+3. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al
+sitio de https://codesandbox.io/, salir de forma correcta y finalmenmte cerrar
+el browser.
