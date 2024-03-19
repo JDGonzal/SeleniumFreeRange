@@ -2197,7 +2197,7 @@ comentarios, el contenido de la lista que se puede ver en `DEBUG CONSOLE`
 
 ## Paso 98
 >[!TIP]  
-> Definitivamente se debe miarar este paso o capítulo con detenimiento, para 
+> Definitivamente se debe mirar este paso o capítulo con detenimiento, para 
 >aprovechar las herramientas para hacer *Debug* dentro de nuestro código.  
 >Otros ejemplos que pueden consultar:
 >* [Como usar el debug de VSCode con Java](https://www.youtube.com/watch?v=nN7ejSWHcO8).
@@ -2237,5 +2237,41 @@ public class Runner {
   }
 ```
 3. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al
-sitio de https://codesandbox.io/, salir de forma correcta y finalmenmte cerrar
+sitio de [Complete List Of All US Cities](https://digitalmarketingwebdesign.com/complete-list-us-cities-cities-united-states/), salir de forma correcta y finalmente cerrar
 el browser.
+
+## Paso 102
+1. Creamos el archivo **StaticTableTest.feature** dentro de
+ "src/test/resources/features".
+2. Movemos los de **Sandbox.feature** al nuevo archivo:
+```feature
+Feature: Test different actions on Static Table page.
+
+Scenario: As a Test Engineer, I want to retrieve the value of an static table.
+  Given I navigate to the static table
+  Then I can return the value I wanted
+
+Scenario: As a Test Engineer, I want to validate the static table is displayed.
+  Given I navigate to the static table
+  Then I can validate the table is displayed
+```
+3. Añadimos en **StaticTableTest.feature** un `Background` y elmento, que se 
+repite, en este caso el `Given` y el `@Test`;
+```feature
+@Test
+Feature: Test different actions on Static Table page.
+
+Background: Navigate to Table web app
+  Given I navigate to the static table
+
+Scenario: As a Test Engineer, I want to retrieve the value of an static table.
+  Then I can return the value I wanted
+
+Scenario: As a Test Engineer, I want to validate the static table is displayed.
+  Then I can validate the table is displayed
+```
+4. Quitamos de **Sandbox.feature**, el `@Test`.
+5. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al
+sitio de [Code Sandbox](https://1v2njkypo4.csb.app/), salir de forma correcta y finalmente cerrar
+el browser.
+
