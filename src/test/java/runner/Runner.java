@@ -13,7 +13,7 @@ import pages.BasePage;
   // glue = "src/test/java/steps"
   glue = "steps",
   monochrome = true,
-  tags = "@Test"
+  tags = "@List"
 )
 
 public class Runner {
