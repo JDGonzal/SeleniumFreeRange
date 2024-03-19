@@ -2255,7 +2255,7 @@ Scenario: As a Test Engineer, I want to validate the static table is displayed.
   Given I navigate to the static table
   Then I can validate the table is displayed
 ```
-3. Añadimos en **StaticTableTest.feature** un `Background` y elmento, que se 
+3. Añadimos en **StaticTableTest.feature** un `Background` y elemento, que se 
 repite, en este caso el `Given` y el `@Test`;
 ```feature
 @Test
@@ -2274,4 +2274,12 @@ Scenario: As a Test Engineer, I want to validate the static table is displayed.
 5. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al
 sitio de [Code Sandbox](https://1v2njkypo4.csb.app/), salir de forma correcta y finalmente cerrar
 el browser.
+
+## Paso 103
+>[!TIP]  
+> La importacia de la reglas `Rule:`, se agrega en el archivo de ***.feature**
+> paro el uso de mejores prácticas, ejemplo en **StaticTableTest.feature**:
+>```feature
+>Rule: The user can return values from the table and validate them.
+>```
 
