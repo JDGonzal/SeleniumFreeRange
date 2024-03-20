@@ -2507,3 +2507,61 @@ Cuando vuelvo a ejecutar de **Runner.java**, las descripciones son mas claras.
 ## Paso 108
 >[!NOTE]  
 > Explicacion y uso como una herramienta de colaboración.
+
+## Paso 110
+1. Crear el archivo **extent.properties** en la ruta "src/test/resources".
+2. el contenido de este archivo será el siguiente:
+```properties
+extent.reporter.avent.start=false
+extent.reporter.bdd.start=false
+extent.reporter.cards.start=false
+extent.reporter.email.start=true
+extent.reporter.html.start=true
+extent.reporter.klov.start=false
+extent.reporter.logger.start=true
+extent.reporter.tabular.start=false
+
+extent.reporter.avent.config=
+extent.reporter.bdd.config=
+extent.reporter.cards.config=
+extent.reporter.email.config=
+extent.reporter.html.config=
+extent.reporter.klov.config=
+extent.reporter.logger.config=
+extent.reporter.tabular.config=
+
+extent.reporter.avent.out=test-output/AventReport/
+extent.reporter.bdd.out=test-output/BddReport/
+extent.reporter.cards.out=test-output/CardsReport/
+extent.reporter.email.out=test-output/EmailReport/ExtentEmail.html
+extent.reporter.html.out=test-output/HtmlReport/ExtentHtml.html
+extent.reporter.logger.out=test-output/LoggerReport/
+extent.reporter.tabular.out=test-output/TabularReport/
+```
+## Paso 111
+1. En **build.gradle** añadir otra dependencia de [ExtendReports Cucumber7](https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter/1.14.0):
+```gradle
+// https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter
+implementation group: 'tech.grasshopper', name: 'extentreports-cucumber7-adapter', version: '1.14.0'
+```
+>[!TIP]  
+> Tener presente q el curso q dicta el instructor tiene un tiempo y se usaba 
+>"Cucumber 4", hoy trabajamos con "Cucumber 7" y se usa el adaptador con base
+> en la versión actualizada, lo mismo el cambio en el **Runner.java**.
+
+2. Añadir en **Runner.java** otra opción llamada `plugin` con esta extensa línea:
+```java
+@CucumberOptions(features = "src/test/resources/features",
+    glue = "steps", 
+    plugin = {"pretty",
+      "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
+      "timeline:test-output-thread/" }, 
+    monochrome = true, 
+    tags = "@List")
+```
+3. Ejecutamos comando en la `TERMINAL` de `bash`:
+```bash
+gradle test -Dcucumber.options="--tags @Grid, --tags @Smoke"
+```
+4. El reporte lo podemos buscar en la siguiente carpeta nueva 
+"test-output/HtmlReport" con este nombre de archivo **ExtentHtml.html**.
