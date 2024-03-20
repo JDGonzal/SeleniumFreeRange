@@ -2500,5 +2500,10 @@ Cuando vuelvo a ejecutar de **Runner.java**, las descripciones son mas claras.
 >```
 >Como verán, la diferencia es sutil, muy sutil. Simplemente agregamos el ?: al comienzo del opcional lógico para indicar que no queremos que ésto se traduzca en un argumento requerido.
 >### Conclusión y machete:
->Como verán, hay todo un submundo para la construcción de Steps de manera eficiente y prolija con Cucumber. También tengan en cuenta lo que les dije sobre evitar el abuso de estos recursos, lo que puede terminar resultando en frases Gherkin demasiado complejas, uno de los grandes problemas en mi opinión en cualquier proyecto de Automation. Para que vean que hay mucho más por cubrir, les voy a dejar el siguiente machete, cortesía de algún sitio web de Automation de la red de redes
-![]()
+>Como verán, hay todo un submundo para la construcción de Steps de manera eficiente y prolija con Cucumber. También tengan en cuenta lo que les dije sobre evitar el abuso de estos recursos, lo que puede terminar resultando en frases Gherkin demasiado complejas, uno de los grandes problemas en mi opinión en cualquier proyecto de Automation. Para que vean que hay mucho más por cubrir, les voy a dejar el siguiente machete, cortesía de algún sitio web de Automation de la red de redes  
+>![Exp-Reg](images/section14-step_107-exp-reg1.png)
+>[Expresiones Regulares](images/section14-step_107-exp-reg.png)
+
+## Paso 108
+>[!NOTE]  
+> Explicacion y uso como una herramienta de colaboración.
