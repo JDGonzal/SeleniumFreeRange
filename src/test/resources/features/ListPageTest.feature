@@ -10,3 +10,4 @@ Scenario Outline: As a Test Engineer, I want to validate that a <city> is presen
       |state     |city                           |
       |Washington|Washington,Kansas,United States|
       |Chicago   |Chicago,Illinois,United States |
+      |California|Adelanto, California, United States|
