@@ -2510,7 +2510,7 @@ Cuando vuelvo a ejecutar de **Runner.java**, las descripciones son mas claras.
 
 ## Paso 110
 1. Crear el archivo **extent.properties** en la ruta "src/test/resources".
-2. el contenido de este archivo será el siguiente:
+2. El contenido de este archivo será el siguiente:
 ```properties
 extent.reporter.avent.start=false
 extent.reporter.bdd.start=false
@@ -2539,7 +2539,7 @@ extent.reporter.logger.out=test-output/LoggerReport/
 extent.reporter.tabular.out=test-output/TabularReport/
 ```
 ## Paso 111
-1. En **build.gradle** añadir otra dependencia de [ExtendReports Cucumber7](https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter/1.14.0):
+1. En **build.gradle** añadir otra dependencia de [ExtendReports Cucumber7](https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter/):
 ```gradle
 // https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter
 implementation group: 'tech.grasshopper', name: 'extentreports-cucumber7-adapter', version: '1.14.0'
@@ -2565,3 +2565,67 @@ gradle test -Dcucumber.options="--tags @Grid, --tags @Smoke"
 ```
 4. El reporte lo podemos buscar en la siguiente carpeta nueva 
 "test-output/HtmlReport" con este nombre de archivo **ExtentHtml.html**.
+
+## Paso 112
+1. Creamos una clase llamada **Hooks.java** en la carpeta "src/test/java/steps":
+2. Extendemos la clase de `BasePage`, por ende importamos `import pages.BasePage;`
+```java
+  public Hooks() {
+    super(driver);
+  }
+```
+3. Invocamos un `@After`, q importa `import io.cucumber.java.After;` y
+ponemos un método llamado `tearDown` con un argumento de tipo `Scenario` e
+importamos `import io.cucumber.java.Scenario;` y `import java.io.IOException;`:
+```java
+  @After
+  public void tearDown(Scenario scenario) throws IOException{
+
+  }
+```
+4. Añadimos una dependencia en **build.gradle**, de [Apache Commons IO](https://mvnrepository.com/artifact/commons-io/commons-io)
+para luego importar como `import org.apache.commons.io.FileUtils;`:
+```gradle
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation group: 'commons-io', name: 'commons-io', version: '2.15.1'
+```
+5. Colocamos un condicional si `scenario.isFailed()`, con cuatro tareas:
+* Poner un log.
+* Grabar el pantallazo en un archivo.
+* A una variable de tipo `BYTE[]`, caregamos la imagen del archivo.
+* Exponemos la imagen en el reporte.
+
+Importamos lo siguiente `import java.io.File;` e `import org.apache.commons.io.FileUtils;`:
+```java
+    if (scenario.isFailed()) {
+      // Añade el mensaje de error
+      scenario.log("Scenario failed, please refer to the image attached to this report");
+      // Alamacenamos el pantallazo en un archivo
+      File sourcePath = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+      // Ponemos el archivo en una variable 
+      byte[] fileContent = FileUtils.readFileToByteArray(sourcePath);
+      // La variable la voy a añadir al reporte
+      scenario.attach(fileContent, "image/png", "Screenshot of the error");
+    }
+```
+6. Añadimos elementos en **extent.properties**:
+```properties
+#Screenshot
+screenshot.dir=test-output/HtmlReport/screenshots
+screenshot.rel.path=./screenshots/
+```
+7. Provocamos una falla en **ListPageTest.feature** debajo de 
+`Examples:`, añadiendo una nueva línea, de la siguiente manera (con espacios):
+```feature
+    |California|Adelanto, California, United States|
+```
+8. Ejecutamos comando en la `TERMINAL` de `bash`:
+```bash
+gradle test -Dcucumber.options="--tags @Grid, --tags @Smoke"
+```
+9. El reporte lo podemos buscar en la siguiente carpeta 
+"test-output/HtmlReport" con este nombre de archivo **ExtentHtml.html**.
+
+La imagen sería similar a esta:
+
+![ExtentReports Cucumber7](images/section15-step_112-report.png)

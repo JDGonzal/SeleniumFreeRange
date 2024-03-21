@@ -24,6 +24,10 @@ dependencies {
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.12'
     // https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter
     implementation group: 'tech.grasshopper', name: 'extentreports-cucumber7-adapter', version: '1.14.0'
+    // // https://mvnrepository.com/artifact/commons-io/commons-io
+    // implementation group: 'commons-io', name: 'commons-io', version: '2.8.0'
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation group: 'commons-io', name: 'commons-io', version: '2.15.1'
 
 }
 

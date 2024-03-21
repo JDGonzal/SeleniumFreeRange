@@ -70,7 +70,7 @@ public class BasePage {
     dropdown.selectByValue(valueToSelect);
   }
 
-  // Usando el `Find` empezamos a aprovecharlo para un select Dropdown por Índice
+  // Usando el `Find` empezamos a aprovecharlo para un select Dropdown por Indice
   public void selectDropDownByIndex(String locator, int index) {
     // Instanciamos el elemento del dropdown
     Select dropdown = new Select(Find(locator));
