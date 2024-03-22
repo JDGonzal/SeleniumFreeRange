@@ -2570,9 +2570,12 @@ gradle test -Dcucumber.options="--tags @Grid, --tags @Smoke"
 1. Creamos una clase llamada **Hooks.java** en la carpeta "src/test/java/steps":
 2. Extendemos la clase de `BasePage`, por ende importamos `import pages.BasePage;`
 ```java
+public class Hooks extends BasePage {
+  // Ponemos el Constructor basado en el padre
   public Hooks() {
     super(driver);
   }
+}
 ```
 3. Invocamos un `@After`, q importa `import io.cucumber.java.After;` y
 ponemos un método llamado `tearDown` con un argumento de tipo `Scenario` e
@@ -2592,7 +2595,7 @@ para luego importar como `import org.apache.commons.io.FileUtils;`:
 5. Colocamos un condicional si `scenario.isFailed()`, con cuatro tareas:
 * Poner un log.
 * Grabar el pantallazo en un archivo.
-* A una variable de tipo `BYTE[]`, caregamos la imagen del archivo.
+* A una variable de tipo `BYTE[]`, cargamos la imagen del archivo.
 * Exponemos la imagen en el reporte.
 
 Importamos lo siguiente `import java.io.File;` e `import org.apache.commons.io.FileUtils;`:
@@ -2608,7 +2611,8 @@ Importamos lo siguiente `import java.io.File;` e `import org.apache.commons.io.F
       scenario.attach(fileContent, "image/png", "Screenshot of the error");
     }
 ```
-6. Añadimos elementos en **extent.properties**:
+6. Añadimos elementos en **extent.properties**, para q se sepa donde va a quedar
+el archivo resultante del pantallazo:
 ```properties
 #Screenshot
 screenshot.dir=test-output/HtmlReport/screenshots
@@ -2629,3 +2633,96 @@ gradle test -Dcucumber.options="--tags @Grid, --tags @Smoke"
 La imagen sería similar a esta:
 
 ![ExtentReports Cucumber7](images/section15-step_112-report.png)
+
+# Ejercicios
+
+## Paso 113
+## Ejercicio 1. Automation Engineer Assignment
+### Overview
+Complete the following automation test. This assignment can be done over the course of 2 days. Please make commits as often as possible so we can see the time you spent and please do not make all your changes in one big commit. We wil evaluate the code and time spent along with how your commits are split up.
+Email your solution as soon as you have completed the challenge or the time is up.
+### Key Goals
+As a Customer when I search for Alexa, I want to see if the third option on the second page is available for purchase and can be added to the cart.
+### Action
+* GIVEN the user navigates to www.amazon.com
+* AND Searches for 'Alexa'
+* AND navigates to the second page
+* AND selects the third item
+## Expected Result
+* THEN assert that the item would be available for purchase (the user would be able to add it to the cart)
+
+_Please use Selenium to write and run your tests. You can use any language of your choice, but we prefer that you use Java. Avoid the usage of "canned tools such as the Selenium IDE app extension, QTP, etc. We expect you to write the tests manually yourself._
+
+_Please place your code in a private Github repository and be prepared to give one of our testers access. Commit each step of your process so we can follow your thought process._
+
+1. Creamos un archivo llamado **AmazonSearch.feature** dentro de
+"src/test/resources/features" con esto:
+```feature
+@Amazon
+Feature: Test Amazon search functionality
+
+  @Cart
+  Scenario Outline: As a Customer when I search for <Product>, I want to see if the third option on the second page is available for purchase and can be added to the cart.
+    Given the user navigates to www.amazon.com
+    And Searches for <Product>
+    And navigates to the second page
+    And selects the third item
+    Then the user be able to add it to the cart
+
+    Examples:
+        |Product    | 
+        |Alexa      |
+        |Playstation|
+```
+2. Creamos un archivo llamado **AmazonSearchSteps.java** en la carpeta 
+"src/test/java/steps", con el siguiente esqueleto:
+```java
+package steps;
+import org.junit.Assert;
+
+import io.cucumber.java.en.*;
+public class AmazonSearchSteps {
+
+  @Given("^the user navigates to www.amazon.com$")
+  public void navigateToAmazon(){
+
+  }
+
+  @And("^Searches for (.+)$")
+  public void enterSearchCriteria(String criteria){
+
+  }
+  @And("^navigates to the second page$")
+  public void navigateToSecondPage(){
+
+  }
+
+  @And("^selects the third item$")
+  public void selectThirdItem(){
+
+  }
+
+  @Then("^the user be able to add it to the cart$")
+  public void itemCanBeAddedToChart(){
+
+  }
+  
+}
+```
+3. Creamos un archivo llamado **AmazonSearchPage.java** dentro de
+"src/test/java/pages", extendemos de `BasePage` con la respectiva 
+importación de este, y añadimos el contructor basado en el padre, creando
+un primer esqueleto como este:
+```java
+package pages;
+
+public class AmazonSearchPage extends BasePage {
+
+  // Usamos el Contructor del padre
+  public AmazonSearchPage() {
+    super(driver);
+  }
+
+}
+```
+4. Cambiamos en **Runner.java** el `tags` por el `@Amazon`
