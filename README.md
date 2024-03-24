@@ -2725,4 +2725,95 @@ public class AmazonSearchPage extends BasePage {
 
 }
 ```
-4. Cambiamos en **Runner.java** el `tags` por el `@Amazon`
+4. Cambiamos en **Runner.java** el `tags` por el `@Amazon`.
+5. En **AmazonSearchSteps.java** instanciamos a `AmazonSearchPage` una variable
+llamada `amazon`, por ende se importa `import pages.AmazonSearchPage;`.
+```java
+  AmazonSearchPage amazon = new AmazonSearchPage();
+```
+6. Creamos un método llamado `navigateToAmazon` en **AmazonSearchPage.java** 
+para luego ser llamado desde `navigateToAmazon` de **AmazonSearchSteps.java**.  
+
+|AmazonSearchPage.java|AmazonSearchSteps.java|
+|---|---|
+|  public void navegateToAmazon(){<br>  navigateTo("https://amazon.com"); <br>} |   @Given("^the user navigates to www.amazon.com$")<br>    public void navigateToAmazon(){<br>   amazon.navegateToAmazon();  <br>} |
+
+7. Creamos un método llamado `enterSearchCriteria` con el argumento
+de `criteria` y la variable `searchBox` en **AmazonSearchPage.java** 
+para luego ser llamado desde `enterSearchCriteria` de **AmazonSearchSteps.java**. 
+
+|AmazonSearchPage.java|AmazonSearchSteps.java|
+|---|---|
+|  public void enterSearchCriteria(String criteria){<br>    writeElement(searchBox, criteria); <br>} |   @And("^Searches for (.+)$")<br>  public void enterSearchCriteria(String criteria) {<br>    amazon.enterSearchCriteria(criteria);  <br>} |
+
+8. Creamos un método llamado `clickSearch` sin argumentos
+y la variable `searchButton` en **AmazonSearchPage.java** 
+para luego ser llamado desde `enterSearchCriteria` de **AmazonSearchSteps.java**. 
+
+|AmazonSearchPage.java|AmazonSearchSteps.java|
+|---|---|
+|  public void clickSearch() {<br>   clickElement(searchButton); <br>} |   @And("^Searches for (.+)$")<br>  public void enterSearchCriteria(String criteria) {<br>    amazon.enterSearchCriteria(criteria);  <br> amazon.clickSearch(); <br>} |
+
+9. Se añade un método en **BasePage.java**, para hacer uso del texto de un link:
+```java
+  public List<WebElement> gotoLinkText(String locator) {
+    return driver.findElements(By.linkText(locator));
+  }
+```
+10. Creamos un método llamado `goToPage2` sin argumentos
+y la variable `linkText` en **AmazonSearchPage.java** 
+para luego ser llamado desde `navigateToSecondPage` de **AmazonSearchSteps.java**. 
+
+|AmazonSearchPage.java|AmazonSearchSteps.java|
+|---|---|
+|  public void goToPage2() {<br>    gotoLinkText(linkText); <br>} |   @And("^navigates to the second page$")<br>  public void navigateToSecondPage() { <br>    amazon.goToPage2(); <br>} |
+
+11. Creamos un método llamado `pick3rdItem` sin argumentos
+y la variable `thirdResult` en **AmazonSearchPage.java** 
+para luego ser llamado desde `selectThirdItem` de **AmazonSearchSteps.java**. 
+
+|AmazonSearchPage.java|AmazonSearchSteps.java|
+|---|---|
+|  public void pick3rdItem() {<br>    clickElement(thirdItem); <br>} |   @And("^selects the third item$") <br>  public void selectThirdItem() {<br>    amazon.pick3rdItem(); <br>} |
+
+12. Creamos un método llamado `addToCart` sin argumentos
+y la variable `addtoCartButton` en **AmazonSearchPage.java** 
+para luego ser llamado desde `itemCanBeAddedToChart` de **AmazonSearchSteps.java**. 
+
+|AmazonSearchPage.java|AmazonSearchSteps.java|
+|---|---|
+|  public void addToCart(){<br>    clickElement(addtoCartButton); <br>} |   @Then("^the user be able to add it to the cart$") <br>  public void itemCanBeAddedToChart() {<br>    amazon.addToCart(); <br>} |
+
+13. Creamos un método llamado `addedToCartMessage` sin argumentos que
+devuelve un `String` 
+y la variable `addedMessageText` en **AmazonSearchPage.java** 
+para luego ser llamado desde `itemCanBeAddedToChart` de **AmazonSearchSteps.java**. 
+
+|AmazonSearchPage.java|AmazonSearchSteps.java|
+|---|---|
+|  public String addedToCartMessage(){<br>    return textFromElement(addedMessageText); <br>} |   @Then("^the user be able to add it to the cart$") <br>  public void itemCanBeAddedToChart() {<br>    amazon.addToCart(); <br> Assert.assertTrue(amazon.addedToCartMessage().contains("Agregado al carrito")); <br>} |
+
+> [!IMPORTANT]  
+>### Maximizar la Página para un resultado Correcto.  
+>Adicioné al momento de alcanzar la página, un Maximizar de la Ventana
+>en el archivo **BasePage.java** en el método `navigateTo`, porque sino
+>obtengo un menú tipo Hamburguesa y para la prueba requiero el menú o barra
+>de navegación completo con esto `driver.manage().window().maximize();`.
+
+>[!NOTE]
+>### Solución propuesta.
+> Dado que en varias pruebas la selección de la página puede cambiar los 
+>`xPath`, se debió poner opciones para varios de ellos en 
+>**AmazonSearchPage.java**:
+> * `goToPage2()`: Encontré hasta dos opciones diferentes, y las encapsulé en
+> un `try-catch`.
+> * `addToCart()`: Hallé tres opciones y se encapsularon en `try-catch`.
+> * `getLanguage()`: Debí separar posibles repuestas en español o en inglés.
+> * `addedToCartMessage()`: Habían cinco posibles respuestas para el producto.
+> Las mismas que luego validé en `itemCanBeAddedToChart()` de 
+>**AmazonSearchSteps.java**.
+>
+> El Primer ejercicio de _Amazon_, tiene varias posibles soluciones, y esta es una de
+>ellas. El reporte sería similar a la imagen siguiente:
+>
+>![Amazon](images/section15-step-113-report.png)

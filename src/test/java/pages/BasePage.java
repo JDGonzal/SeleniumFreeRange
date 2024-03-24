@@ -36,10 +36,11 @@ public class BasePage {
   // La navegación Genérica a cualquier página
   public static void navigateTo(String url) {
     driver.get(url);
+    driver.manage().window().maximize();
   }
 
   // Cerramos el Navegador
-  public static void closeBrowser(){
+  public static void closeBrowser() {
     driver.quit();
   }
 
@@ -145,21 +146,41 @@ public class BasePage {
 
   // Usando el `Find` verificamos si el elemento está disponible
   public boolean elementIsEnabled(String locator) {
-    return Find(locator).isEnabled();
+    try {
+      return Find(locator).isEnabled();
+    } catch (Exception e) {
+      return false;
+    }
+
   }
 
   // Usando el `Find` verificamos si el elemento está en pantalla
   public boolean elementIsDisplayed(String locator) {
-    return Find(locator).isDisplayed();
+    try {
+      return Find(locator).isDisplayed();
+    } catch (Exception e) {
+      return false;
+    }
+
   }
 
   // Usando el `Find` verificamos si el elemento está seleccionado
   public boolean elementIsSelected(String locator) {
-    return Find(locator).isSelected();
+    try {
+      return Find(locator).isSelected();
+    } catch (Exception e) {
+      return false;
+    }
+
   }
 
   // Esta vez vamos al `driver` para obtener toda la lista
   public List<WebElement> bringMeAllElements(String locator) {
     return driver.findElements(By.className(locator));
+  }
+
+  // Usando el `Find` vamos al Link por el texto
+  public List<WebElement> gotoLinkText(String locator) {
+    return driver.findElements(By.linkText(locator));
   }
 }
