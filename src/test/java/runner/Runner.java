@@ -14,7 +14,7 @@ import pages.BasePage;
       "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
       "timeline:test-output-thread/" }, 
     monochrome = true, 
-    tags = "@List")
+    tags = "@Amazon")
 
 public class Runner {
   @AfterClass
