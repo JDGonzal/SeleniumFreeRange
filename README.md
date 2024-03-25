@@ -2817,3 +2817,41 @@ para luego ser llamado desde `itemCanBeAddedToChart` de **AmazonSearchSteps.java
 >ellas. El reporte sería similar a la imagen siguiente:
 >
 >![Amazon](images/section15-step-113-report.png)
+
+## Paso 114
+## Ejercicio 2. 
+### Coding test.
+This is a test of how you go about producing a good, working, automation solution and how you consider and approach the different aspects of automation software. The tools and technologies are based on what we use at ACC.
+
+* It consists of two main parts, two web based tests and one APItest.
+* You do this test in your own time and you have up to **1 week** to submit the results. If you do need more time please contact me and this can be arranged.
+* You only need to complete what you feel comfortable with but you should complete it by yourself.
+* We do factor your experience into how we review the test.
+* Seeing your approach and now you do things is more important than getting the right answer.
+* Do as much as you can and submit your result even if it isn't finished or 'perfect' as a non working solution is better than no solution.
+* We all get stuck at times and need help so do as much as you can, note any difficulties or questions so we can discuss your approach.
+* Feel free to ask for clarification if needed.
+
+The requirements are as follows:
+
+1. Using the TradeMe website ([trademe](https://www.tmsandbox.co.nz/)) provide an automation solution that uses Selenium to verify the **number of named car makes available** in the **Make** drop down box on the **Cars** search tab on the **Motor** search page.
+2. And provides the number of cars returned when you search for each of the following makes: Ferrari, BMW, Mazda and Honda.
+3. Using the Trade Me API sandbox ([trademe](https://www.tmsandbox.co.nz/)) verify the **number of named car makes** available using the **tradeMe API**.
+4. Code must be written in Java.
+5. You solution needs to be put on [GitHub](www.github.com) so we can review it and download it.
+6. Your solution should ise documented so we are able to build and run it.
+
+### Notes and hints:
+1. At ACC or framework/tests are written in Java with Maven or Gradle, using TestNG and with Selenium for Ul and Karate/RestAssured for API,
+2. Use the real TradeMe site and Selenium for the UI tests.
+3. Unfortunately the TradeMe sandbox for Ul is broken. As this test has to use the live site the number of search results will always be changing so just use the number that works on the day you write the test. Those tests failing because the number has changed is fine.
+4. Use the TradeMe **sandbox** site for the APitests. The documentation is here:[trademe API Overview](https://developer.trademe.co.nz/api-overview/sandbox-environment)
+5. The API test may be done with or without authenticating.
+6. Consider how you would add more tests to your solution.
+7. At ACC we use BDD in our automation frameworks (Cucumber).
+8. At ACC all our automation is run via CICD pipelines (Azure Devops).
+9. At ACC our framework includes logging and reporting (Extent).
+
+Este se una imagen de captura del archivo **TradeMe.feature**:  
+![TradeMe.feature](images/section16-step_114_1-feature.png)
+
