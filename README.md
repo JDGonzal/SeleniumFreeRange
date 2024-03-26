@@ -1422,7 +1422,7 @@ google y ya.
 > Instalar el Gradle de esta página [Gradle](https://gradle.org/install/).
 >
 > Si el problema es q no aparece en **runner.java** la flecha verde o el 
-> cículo para ejecutar, persionar las teclas [Ctrl][Shift][P], y seleccionar
+> círculo para ejecutar, presionar las teclas [Ctrl][Shift][P], y seleccionar
 > `Java: Clean Java Language Server Workspace`.
 
 ## Paso 74
@@ -2855,3 +2855,165 @@ The requirements are as follows:
 Este se una imagen de captura del archivo **TradeMe.feature**:  
 ![TradeMe.feature](images/section16-step_114_1-feature.png)
 
+1. Creamos el archivo **TradeMe.feature**, dentro de
+ "src/test/resources/features", con los requerimient básicos de este ejercicio:
+```feature
+@TradeMe
+Feature: TradeMe UI and API Tests
+
+Rule: This is a good place to put which business rule we are testing with this feature.
+
+Scenario: "As a user, I can see all the car makes on the Make dropdown"
+  Given I navigate to the TradeMe Motor page 
+  Then I can verify that the number of car makes is 79
+
+Scenario Outline: "As a user, I can validate that each make has the right amount of cars listed"
+  Given I navigate to the TradeMe Motor page
+  When I select the car make <Make> 
+  Then I can see it has <Amount> records in the results
+  Examples:
+    | Make    | Amount  |
+    | Ferrari |32       |
+    | BMW     |3,660    |
+    | Mazda   |6,389    |
+    | Honda   |2,802    |
+
+Scenario: "As a user, I want to verify the amount of car makes throught the API"
+  Given I send the request to the endpoint 
+  Then I can see there are 78 car makes
+```
+2. Creamos el archivo **TradeMePage.java** en la ruta 
+"src/test/java/pages", con esto:
+```java
+package pages;
+
+public class TradeMePage extends BasePage {
+  private String makeDropdown = "(//select[@name='selectedMake'])";
+  private String searchButton = "//button[@type='submit']";
+  private String resultsLabel = "//h3 [@class='tm-search-header-result-count__heading ng-star-inserted']";
+
+  public TradeMePage() {
+    super(driver);
+  }
+
+  public void navigateToTradeMeMotor() {
+    navigateTo("https://www.trademe.co.nz/a/motors");
+  }
+
+  public void selectMakeFromDropdown(String make) {
+    selectDropDownByText(makeDropdown, make);
+  }
+
+  public void clickSearch() {
+    clickElement(searchButton);
+  }
+
+  public int makeDropdownSize() {
+    return dropdownSize(makeDropdown);
+  }
+
+  public String resultsAmount() {
+    return textFromElement(resultsLabel);
+  }
+}
+``` 
+3. Añadimos un método requerido en **BasePage.java** llamado `dropdownSize`:
+```java
+  public int dropdownSize(String locator) {
+    // Instanciamos el elemento del dropdown
+    Select dropdown = new Select(Find(locator));
+    // Tomamos las opciones del objeto `dropdwon`
+    List<WebElement> dropdownOptions = dropdown.getOptions();
+    // devolvemos el tamaño o `size`
+    return dropdownOptions.size();
+  }
+```
+4. Corrijo en **BasePage.java** el método `goToLinkText`:
+```java
+  public void goToLinkText(String linkText) {
+    driver.findElement(By.linkText(linkText)).click();
+  }
+```
+5. Creamos el archivo **TradeMeSteps.java** en 
+"src/test/java/steps", con esto:
+```javapackage steps;
+
+import org.junit.Assert;
+
+import io.cucumber.java.en.*;
+import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
+import io.restassured.specification.RequestSpecification;
+import pages.TradeMePage;
+import static io.restassured.RestAssured.*;
+
+import java.util.List;
+
+public class TradeMeSteps {
+
+  private ValidatableResponse json; //línea 16
+  private static RequestSpecification request;
+  private Response response;
+
+  TradeMePage trademe = new TradeMePage();
+
+  @Given("^I navigate to the TradeMe Motor page$")
+  public void navigateToTradeMeMotor() {
+    trademe.navigateToTradeMeMotor();
+  }
+
+  @When("^I select the car make (.+)$")
+  public void selectMake(String make) {
+    trademe.selectMakeFromDropdown(make);
+  }
+
+  @Then("^I can see it has (.+) records in the results$")
+  public void printAmount(String expectedAmountOfResults) {
+    trademe.clickSearch();
+    Assert.assertTrue(trademe.resultsAmount().contains(expectedAmountOfResults));
+    Assert.assertEquals("Showing " + expectedAmountOfResults + " results", trademe.resultsAmount());
+  }
+
+  @Then("^I can verify that the number of car makes is (\\d+)$")
+  public void returnAmountOfMakes(int makeAmount) {
+    int expectedAmount = makeAmount;
+    int actualAmount = trademe.makeDropdownSize();
+    Assert.assertEquals(expectedAmount, actualAmount);
+  }
+
+  @Given("^I send the request to the endpoint$")
+  public void sendGETRequest() {
+    request = given()
+        .log().all()
+        .param("", "");
+  }
+
+  @Then("^I can see there are (\\d+) car makes$")
+  public void validateAmountOfMakes(int expectedMakeAmount) {
+    response = request
+        .when()
+        .get("https://api.trademe.co.nz/v1/Categories/UsedCars.json");
+    json = response.then().statusCode(200);
+    List<String> jsonResponse = response.jsonPath().getList("Subcategories.Name");
+    Assert.assertEquals("Mismatch on the expected total.", expectedMakeAmount, jsonResponse.size());
+  }
+}
+```
+6. Adicionar de (REST Assured)[https://mvnrepository.com/artifact/io.rest-assured/rest-assured], lo mas reciente en **build.gradle**:
+```gradle
+    // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.4.0'
+
+```
+>[!TIP]
+> Muchas veces añadir dependencias requiere que se ejecute la limpieza del 
+> ambiente de dos maneras:
+> * Presionar las teclas [Ctrl][Shift][P], y seleccionar
+> `Java: Clean Java Language Server Workspace`, o
+> * En el Menú inferior izquierdo, seleccionar `JAVA PROJECT`, 
+>luego los puntos suspensivos y ahí está `Clean Workspace`.
+
+7. Cambiamos el `tags` de **Runner.java** a `@TradeMe`.
+8. Hay un archivo nuevo llamado **test.yml**, esta es su image
+
+![test.yml](images/section16-step_114_2-test_yml.png)
