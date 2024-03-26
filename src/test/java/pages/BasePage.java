@@ -63,6 +63,16 @@ public class BasePage {
     Find(locator).sendKeys(textToWrite);
   }
 
+  // Usando el `Find` empezamos a aprovecharlo para al final obtener el tamaño
+  public int dropdownSize(String locator) {
+    // Instanciamos el elemento del dropdown
+    Select dropdown = new Select(Find(locator));
+    // Tomamos las opciones del objeto `dropdwon`
+    List<WebElement> dropdownOptions = dropdown.getOptions();
+    // devolvemos el tamaño o `size`
+    return dropdownOptions.size();
+  }
+
   // Usando el `Find` empezamos a aprovecharlo para un select Dropdown por valor
   public void selectDropDownByValue(String locator, String valueToSelect) {
     // Instanciamos el elemento del dropdown
@@ -151,7 +161,6 @@ public class BasePage {
     } catch (Exception e) {
       return false;
     }
-
   }
 
   // Usando el `Find` verificamos si el elemento está en pantalla
@@ -161,7 +170,6 @@ public class BasePage {
     } catch (Exception e) {
       return false;
     }
-
   }
 
   // Usando el `Find` verificamos si el elemento está seleccionado
@@ -179,8 +187,8 @@ public class BasePage {
     return driver.findElements(By.className(locator));
   }
 
-  // Usando el `Find` vamos al Link por el texto
-  public List<WebElement> gotoLinkText(String locator) {
-    return driver.findElements(By.linkText(locator));
+  // Esta vez vamos al `driver` para obtener un link por texto
+  public void goToLinkText(String linkText) {
+    driver.findElement(By.linkText(linkText)).click();
   }
 }
