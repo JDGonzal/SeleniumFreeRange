@@ -18,7 +18,18 @@ https://perficient.udemy.com/course/selenium-con-java-y-cucumber-el-curso-defini
 * Snippets and Sintax High de Euclidity.
 * Test Runner for Java de Microsoft.
 
-## Paso 07
+# Section 1: Actualización 2024: Introducción
+
+## Paso 1. ¿Qué vamos a ver en este curso?
+## Paso 2. ¿Qué es Selenium WebDriver?
+## Paso 3. ¿Qué es Cucumber?
+## Paso 4. ¿Qué es Gradle?
+
+# Section 2: Actualización 2024: Instalaciones para el curso
+## Paso 5. Instalaciones de JDK, Gradle y extensiones
+## Paso 6. Instalaciones de JDK, Gradle y extensiones: Recurso
+
+## Paso 7. Creando un proyecto con Java y Gradle para Testing
 1. Crear un Proyecto con "Gradle: Create a Gradle Java Project".
 2. Seleccionamos la carpeta en:
 ```dos
@@ -31,7 +42,28 @@ https://perficient.udemy.com/course/selenium-con-java-y-cucumber-el-curso-defini
 7. Borramos el archivo "App.java" dentro de "/src/main/java/java/cucumber".
 8. Borramos el archivo "AppTest.java" dentro de "src/test/java/java/cucumber".
 
-## Paso 09
+## Paso 8. Creando un proyecto con Java y Gradle para Testing: Recurso
+>[!NOTE]  
+>## Creando un proyecto con Java y Gradle para Testing: Recurso
+>### Vamos a crear un proyecto con Gradle y Java!
+>1. Abrir la Terminal en VSCode:
+>    * Podés abrir la terminal en VSCode con Ctrl + `` o desde el menú Ver -> Terminal`.
+>
+> 2. Crear un Nuevo Directorio para el Proyecto:
+>    * Ejecutá mkdir nombre_del_proyecto para crear un nuevo directorio.
+>    * Navegá al directorio con cd nombre_del_proyecto.
+>
+> 3. Construir y Ejecutar el Proyecto:
+>    * En la terminal de VSCode, ejecuta gradle build para construir el proyecto.
+>    * Ejecuta tu aplicación con gradle run o utilizando las tareas de Gradle en VSCode.
+>
+>### Consideraciones Adicionales
+>    * Si es la primera vez que usas Gradle, el proceso de inicialización puede tardar un poco mientras descarga los componentes necesarios.
+>    * Es importante familiarizarse con el archivo build.gradle, ya que es allí donde se define la configuración de compilación, las dependencias del proyecto y otras configuraciones importantes. No se preocupen que vamos a verlo a fondo en este curso ?
+>    * La extensión "Java Extension Pack" en VSCode proporciona soporte adicional para proyectos Java, incluyendo características como depuración y autocompletado de código
+
+
+## Paso 9. Instalando las primeras librerías de nuestro framework
 1. Del archivo **build.gradle** borramos la sección "application".
 2. Del sitio [Maven Repository](https://mvnrepository.com/) buscamos "Selenium Java".
 3. Seleccionamos la última (para este ejercicio fue 4.17).
@@ -52,7 +84,7 @@ Y esto baja todas las dependencias, al final debe mostrar algo parecido a esto:
 + BUILD SUCCESSFUL in 29s
 4 actionable tasks: 4 executed
 ```
-## Paso 11
+## Paso 11. Creando carpetas y una decisión clave sobre la infraestructura
 > [!NOTE]  
 >Tenemos 2 arquitecturas  
 > Opción 1  
@@ -80,7 +112,7 @@ Y esto baja todas las dependencias, al final debe mostrar algo parecido a esto:
 4. Adicionar la carpeta "steps" dentro de "/src/test/java".
 5. Adicionar la carpeta "runner" dentro de "/src/test/java".
 
-## Paso 13
+## Paso 13. Una librería que simplifica todo y nuestro primer test
 1.  Del sitio [Maven Repository](https://mvnrepository.com/) buscamos "bonigarcia" y de alli seleccionamos el "WebDriverManager"
 2. Seleccionamos la última (para este ejercicio fue 5.6.3).
 3. Seleccionamos el "Gradle (Short)", con el click, esto queda en la memoria para darle "pegar" en cualquier parte.
@@ -164,7 +196,13 @@ tasks.named('test') {
 }
 ```
 
-## Paso 18
+# Section 3: Actualización 2024: Page Object Model: Teoría e implementación
+## Paso 16. Page Object Model: ¿Qué es y por qué usarlo?
+## Paso 17. Otra decisión importante de diseño: Screenplay vs POM
+
+# Section 4: Actualización 2024: Introducción a Cucumber - Instalación e implementación
+
+## Paso 18. Creando nuestro primer Feature y ejecutándolo
 > [!NOTE]  
 > Veamos que es el Page Object Model (POM)  
 > Pasando de esto:
@@ -254,7 +292,7 @@ y mi respuesta es similar a esto, debe salir una falla:
 include('app')
 ```
 
-## Paso 20
+## Paso 20. BasePage: Creando la configuración e instanciación del WebDriver
 1. Borramos las dos últimas líneas del archivo **FreeRangeNavegation.feature**, dejando solo esto:
 ```feature
 Feature: Navigation bar
@@ -292,7 +330,7 @@ El debió de importar lo siguiente: `import io.github.bonigarcia.wdm.WebDriverMa
     }
 ```
 
-## Paso 22
+## Paso 22. Conectando Feature, Step Def y Page Object Class
 1. Creamos archivo **PaginaPrincipal.java**, dentro de "src/test/java/pages".
 2. Conectamos la **BasePage.java** mediante un `extends`.
 3. Creamos un constructor:
@@ -330,13 +368,15 @@ Y el resultado obtenido debe ser, una ejecución exitosa:
  3 actionable tasks: 3 executed
 ```
 
+# Section 5: Actualización 2024: Localización de Elementos Web con XPath y CSS
 ## Paso 24
 > [!TIP]  
 > Descargamos para Chrome y/o FireFox una extensión llamado **selectorsHub**, 
 > luego ubicándonos en el botón requerido, click derecho, SelctorsHub
 > y `Copy Relative XPath`, el contenido lo usaremos en el paso siguiente.
 
-## Paso 25
+# Section 6: Actualización 2024: Selenium WebDriver - La librería para interactuar con la web
+## Paso 25. La BasePage: La columna vertebral de nuestro framework
 > [!NOTE]  
 > Vamos a enfocarnos en el archivo **BasePage.java**, dado q no pertenece a ninguna página en particular, 
 > utilizándose como un genérico para el Page Object Class (POC),
@@ -371,7 +411,7 @@ Que nos abre la página y da click en el botón deseado , finalizando en la pág
 3 actionable tasks: 3 executed
 ```
 
-## Paso 27
+## Paso 27. Limpiando la instancia del driver después de ejecutar pruebas
 1. En el archivo **BasePage.java**, vamos a implementar el cierre del browser:
 ```java
     public static void closeBrowser(){
@@ -392,7 +432,7 @@ public class TestRunner {
 3. Lo podemos probar corriendo en el triángulo verde dentro de **TestRunner.java**
 o ejecutando el comando en la `TERMINAL` de `gradle test`.
  
-## Paso 29
+## Paso 29. Llenando campos de texto: La función sendKeys() de Selenium
 1. Creamos un método en **BasePage.java**, llamado `writeElement` para escribir en un elemento, con `sendKeys`:
 ```java
     public void writeElement(String locator, String keysToSend){
@@ -405,7 +445,7 @@ o ejecutando el comando en la `TERMINAL` de `gradle test`.
 > [!NOTE] 
 > Definimos el `writeElement`, pero no lo usamos aún.
 
-## Paso 31
+## Paso 31. Dropdowns con Selenium: El objeto Select
 > [!NOTE]  
 > Elegimos de un *Dropdown* o por el valor del elemento o por su índice. 
 
@@ -429,7 +469,7 @@ Se debe importar lo siguiente `import java.util.List;`.
 > [!NOTE]  
 > Definimos estos tres nuevos métodos, pero no lo usamos aún.
 
-## Paso 33
+## Paso 33. Navegando a todos los links con un solo locator
 1. Añadimos a **FreeRangeNavigation.feature** lo siguiente:
 ```feature
         When I go to a section using the navigation bar
@@ -505,7 +545,7 @@ que queremos q seleccione:
 Scenario Outline: I can access the subpages through the navigation bar: <section>
 ```
 
-## Paso 35
+## Paso 35. Creando un nuevo scenario y Page Object Classes
 1. Comentamos del **FreeRangeNavigation.feature** todo el `Scenario`:
 ```feature
 # Scenario Outline: I can access the subpages through the navigation bar: <section>
@@ -590,7 +630,7 @@ Scenario: Courses are presented correctly to potential customers
 18. Podemos correr la prueba ejecutando en la `TERMINAL` el `gradle test` o el triángulo
 verde del archivo **TestRunner.java**.
 
-## Paso 37
+## Paso 37. Scenario 2: El usuario puede elegir un plan al suscribirse
 1. Volvemos a comentar en el archivo **FreeRangeNavigation.feature** todo el `Scenario`:
 ```feature
 # Scenario: Courses are presented correctly to potential customers
@@ -618,7 +658,8 @@ Scenario: Users can select a plan when signing up
 6. Podemos correr la prueba ejecutando en la `TERMINAL` el `gradle test` o el triángulo
 verde del archivo **TestRunner.java**.
 
-## Paso 39
+# Section 7: Actualización 2024: Assertions - Validando el comportamiento esperado
+## Paso 39. Nuestra primera validación: Todos los elementos de un dropdown
 
 > [!NOTE]  
 > Empezaremos a utilizar lo relacionado con dropdowns del archivo **BasePage.java**.
@@ -739,7 +780,7 @@ importamos `import java.util.Arrays;`:
 3 actionable tasks: 3 executed
 ```
 
-## Paso 41
+## Paso 41. Tipos de Assertions con TestNG
 
 > [!NOTE]  
 > Vamos a ahondar en el tema de las `Assert` que nos proporciona el `TestNG`.
@@ -754,33 +795,35 @@ importamos `import java.util.Arrays;`:
 >#### 1. assertEquals
 >
 >Verifica que dos valores sean iguales.
-```java
-  Assert.assertEquals(actualTitle, expectedTitle, "El título de la página no es el esperado.");
-```
+>```java
+>  Assert.assertEquals(actualTitle, expectedTitle, "El título de la página no es el esperado.");
+>```
 >#### 2. assertNotEquals
 >
 >Verifica que dos valores no sean iguales.
-```java
-   Assert.assertNotEquals(actualTitle, incorrectTitle, "El título de la página no debería ser este.");
-```
+>```java
+>   Assert.assertNotEquals(actualTitle, incorrectTitle, "El título de la página no debería ser este.");
+>```
 >#### 3. assertTrue
 >
 >Verifica que una condición sea verdadera.
-```java
-  Assert.assertTrue(isElementPresent, "El elemento debería estar presente.");
-```
+>```java
+>  Assert.assertTrue(isElementPresent, "El elemento debería estar presente.");
+>```
 >#### 4. assertFalse
 >
 >Verifica que una condición sea falsa.
-```java
-   Assert.assertFalse(isElementPresent, "El elemento no debería estar presente.");
-```
+>```java
+>   Assert.assertFalse(isElementPresent, "El elemento no debería estar presente.");
+>```
 >
->Estos son solo ejemplos básicos pero de los más usados. Tengan en cuenta lo que ya vimos en las clases, especialmente lo relacionado a cómo Selenium interactúa con elementos web y cómo nos "traemos" información de ellos para poder validar.
+>Estos son solo ejemplos básicos pero de los más usados. Tengan en cuenta lo que ya
+> vimos en las clases, especialmente lo relacionado a cómo Selenium interactúa con 
+>elementos web y cómo nos "traemos" información de ellos para poder validar.
 
-## Paso 43 
+## Paso 43. Las Soft Assertions: Una parte muy conveniente de la librería TestNG 
 
-> [!NOTE]  
+>[!NOTE]  
 > Los `SoftAssert` de `TestNG`.
 > ### Las Soft Assertions: Una parte muy conveniente de la librería TestNG: Recurso
 >Van a haber momentos en los que van a tener que validar muchas pequeñas cosas que no son como para hacer un scenario por cada una. Digamos, por ejemplo, un formulario con muchos campos. 
@@ -788,29 +831,30 @@ importamos `import java.util.Arrays;`:
 >Queremos tener un test que valide que los campos están presentes y en el estado que los requerimientos dicen, pero no vamos a hacer 25 tests distintos para cada campo. Ahí es donde entran las Soft Assertions. A continuación, dejo cómo implementarlas y un ejemplo: 
 >
 >Primero el import:
-```java
-import org.testng.asserts.SoftAssert;
-```
+>```java
+>import org.testng.asserts.SoftAssert;
+>```
 >Segundo crear la instancia del objeto SoftAssert
-```java
-SoftAssert soft = new SoftAssert();
-Y así se ven (exactamente como las assertions comunes, pero con el potente assertAll(); al final!
-public void Ejemplulis() {
-        String palabraEsperada = "Pepe";
-        String palabraEncontrada = "Papa";
- 
-        // Soft Assertions: No detienen la ejecución al fallar. Ideal para verificar
-        // muchas cosas pequeñas a la vez.
-        soft.assertEquals(palabraEsperada, palabraEncontrada);
-        soft.assertTrue(palabraEncontrada.contains(palabraEsperada));
-        soft.assertNotEquals(palabraEncontrada,palabraEsperada);
- 
-        soft.assertAll();
- 
-    }
-```
+>```java
+>SoftAssert soft = new SoftAssert();
+>// Y así se ven (exactamente como las assertions comunes, pero con el potente assertAll(); al final!
+>public void Ejemplulis() {
+>   String palabraEsperada = "Pepe";
+>   String palabraEncontrada = "Papa";
+> 
+>        // Soft Assertions: No detienen la ejecución al fallar. Ideal para verificar
+>        // muchas cosas pequeñas a la vez.
+>   soft.assertEquals(palabraEsperada, palabraEncontrada);
+>   soft.assertTrue(palabraEncontrada.contains(palabraEsperada));
+>   soft.assertNotEquals(palabraEncontrada,palabraEsperada);
+> 
+>   soft.assertAll();
+> 
+> }
+>```
 
-## Paso 45
+# Section 8: Actualización 2024: Cucumber Avanzado - Tags, parámetros y mejores prácticas
+## Paso 45. Tags en Cucumber
 1. del archivo **FreeRangeNavegation.feature** quitamos los comentarios.
 2. Justo arriga de `Scenario: Users can select a plan when signing up`, agregamos un espacio
 y el *tag* llamado `@Plans`.
@@ -894,7 +938,7 @@ gradle test -Dcucumber.filter.tags="@Plans and not @Courses"
 >|cucumber.object-factory=        |# object factory class name. example: com.example.MyObjectFactory|
 >|cucumber.snippet-type=          |# underscore or camelcase. default: underscore|
 
-## Paso 47
+## Paso 47. Backgrounds en Cucumber
 
 >[!NOTE]  
 > **Backgrounds**: Serían como prerrequisitos o pre-steps, o un conjunto de 
@@ -927,7 +971,7 @@ Llamado `Classes` y luego al link de abajo llamado `Navigation bar`:
 > Los `Background` no deben tener mas de dos steps, sino hay un problema de
 > estructuración.
 
-## Paso 49
+## Paso 49. Expresiones para mejorar nuestros Features Files
 >[!NOTE]  
 >Mejorar los steps permitiendo usar uno u otro texto.
 
@@ -979,7 +1023,7 @@ requiero ejecutar los q he hecho cambios.
 >```
 > Despues de estos cambios se debe cerrar y abrir el Visual Studio Code.
 
-## Paso 51
+## Paso 51. Expresiones regulares parte 2
 
 >[!NOTE]  
 > Resulta q hasta acá el no va a ejecutar de forma satisfactoria las pruebas
@@ -1009,7 +1053,8 @@ un signo de prgunta y dos puntos `?:`.
 3 actionable tasks: 2 executed, 1 up-to-date
 ```
 
-## Paso 53
+# Section 9: Actualización 2024: Generación de Reportes con Cucumber
+## Paso 53. Reportes en Cucumber
 
 >[!NOTE]  
 > Es probable q el reporte a ver basado en una API, no esté disponible para
@@ -1088,7 +1133,7 @@ colección q bautizamos como: "SeleniumFreeRange", nos aparece nuestro primer
 reporte.  
 Jugamos y le damos click en varias partes para conocer este nuevo reporte.
 
-## Paso 55
+## Paso 55. ¿Cómo agregar screenshots de la falla a nuestro reporte?
 
 1. Creamos un archivo llamado **Hooks.java** dentro de la carpeta 
 "src/test/java/steps".
@@ -1146,6 +1191,7 @@ reciente reporte.
 
 ![ReportFail_Screenshot](images/section09-step_55-ReportFail_Screenshot.png)
 
+# Section 10: Introducción
 ## Paso 57 a Paso 67
 >[!NOTE]  
 > Esto es un breve repaso de todos los pasos q hicimos anteriormente
@@ -1170,7 +1216,8 @@ reciente reporte.
 `gradle build`.
 9. De nuevo [Ctrl][Shift][P], para ver `java: Configure Java Runtime`.
 
-## Paso 68
+# Section 11: Introducción a Cucumber y su implementación.
+## Paso 68. Creación de nuestro primer Feature file.
 1. Sacamos la carpeta "src" y el archivo **build.gradle** a la raiz del proyecto y borramos la carpeta sobrante "app".
 2. Creamos el archivo **Google.feature** dentro de la carpeta 
 "src/test/resources", con este texto:
@@ -1216,7 +1263,7 @@ dependencies {
 2 actionable tasks: 2 executed
 ```
 
-## Paso 69
+## Paso 69. Creación de nuestra primer clase para Step Definitions con Java.
 1. Ajusto el archivo **Google.feature**:
 ```feature
 Feature: Test Google seach functionality
@@ -1315,11 +1362,11 @@ para que podamos hacer `run` o `debug`.
 )
 ```
 
-## Paso 70
+## Paso 70. Qué es el Page Object Model y por qué es tan importante?
 >[!NOTE]  
 > Explicación del P.O.M. Page Object Model, como patrón de diseño.
 
-## Paso 71
+## Paso 71. Configuración de ChromeDriver en Windows y MacOS.
 >[!NOTE]  
 Configuración de ChromeDriver en Windows y MacOS.
 Previo a la creación la clase principal en la próxima clase, sobre la que las demás clases de nuestro Page Object Model van a descansar y heredar, tienen que prestar atención a esta clase sobre cómo configurar ChromeDriver tanto en Windows como Mac! 
@@ -1345,7 +1392,7 @@ Previo a la creación la clase principal en la próxima clase, sobre la que las 
 >
 >Para chequear que quedó bien, cierren y vuelvan a abrir la terminal y ejecuten "echo $PATH". Deberían poder el nuevo path que agregaron junto a los otros.
 
-## Paso 72
+## Paso 72. Creación de nuestra Base Page: ¿Por qué hacer esto?
 1. Crear el archivo **BasePage.java** dentro de "src/test/java".
 2. Creamos la variable `driver` de tipo `WebDriver`, e importa 
 `import org.openqa.selenium.WebDriver;`.
@@ -1412,7 +1459,7 @@ extendemos la herencia de `BasePage.`.
 11. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser a
 google y ya.
 
-## Paso 73
+## Paso 73. Troubleshooting: Problemas comunes con Java, Gradle y Cucumber en VSCode
 >[!TIP]  
 > Como puede solucionar JVM (Java) desde la pagina de [Visual Studio Code](https://code.visualstudio.com/docs/java/java-tutorial).
 > Luego dentro de Visual Studio Code instalamos las extensiones faltantes:
@@ -1425,17 +1472,20 @@ google y ya.
 > círculo para ejecutar, presionar las teclas [Ctrl][Shift][P], y seleccionar
 > `Java: Clean Java Language Server Workspace`.
 
-## Paso 74
+# Section 12: Selenium Webdriver: Nuestra forma de interactuar con aplicaciones web.
+## Paso 74. ¿Qué son los WebElements?
 >[!NOTE]  
 > Explicación de que es un WebElement, y para mas información aquí:
 >[Elements](https://www.selenium.dev/documentation/webdriver/elements/).
 
-## Paso 75
+## Paso 75. ¿Qué son los locators?
 >[!NOTE]  
 > Explicación de Locators, y el recurso en español no está disponible, pero
 > se puede acceder a este otro: [Locators](https://www.selenium.dev/documentation/webdriver/elements/locators/).
 
-## Paso 76 a  80 
+## Paso 76. Explorando el HTML para encontrar WebElements
+## a  
+## Paso 80. Locators: El XPath.
 >[!NOTE]  
 > Jugando con los WebElements de cualquier página HTML.
 > * Locators por ID.
@@ -1443,12 +1493,12 @@ google y ya.
 > * Locators por CSS.
 > * Locators por XPATH.
 
-## Paso 81
+## Paso 81. Herramientas para ayudarnos con los Locators.
 > [!NOTE]  
 > Extensión de Chrome se llama [ChroPath](https://addons.mozilla.org/es/firefox/addon/chropath-for-firefox/) , pero ya hemos usado antes una 
 > extensión llamada [SelectorsHub](https://selectorshub.com/selectorshub/), que es mucho mejor. 
 
-## Paso 82
+## Paso 82. Selenium: El Click y el método que nos devuelve un WebElement.
 1. En el archivo **BasePage.java**, creamos un método llamado `Find` 
 que devolverá un `WebElement` y que sea `private`:
 ```java
@@ -1476,7 +1526,7 @@ llamada `searchButton` y le asignamos el valor `xPath` de ese botón.
 google, hacer el click (no se ve nada nuevo, pues no hemos escrito que buscar) y
  deja abierto el browser.
 
-## Paso 83
+## Paso 83. Llenar campos de texto.
 1. Creamos en **BasePage.java** un método `public` llamado `writeElement`:
 ```java
   public void writeElement(String locator, String textToWrite){
@@ -1517,7 +1567,7 @@ con un argumento para el texto a buscar:
 6. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser a
 google, escribir el texto, hacer el click y dejar abierto el browser.
 
-## Paso 84
+## Paso 84. Los dropdowns y el Select de Selenium.
 1. En el archivo **BasePage.java** creamos un método para el manejo de 
 dropdows, llamado `selectDropDownByValue`.
 2. En el nuevo método, seleccionamos el elemento en la variable
@@ -1626,7 +1676,7 @@ public class TestSandboxSteps {
 12. Ejecutamos la prueba desde **Runner.java**, debe abrir el browser al 
 sitio de pruebas y cambiar el dropdown y ya.
 
-## Paso 85
+## Paso 85. Selenium Actions: Click Derecho, Doble Click, Hover Over.
 1. En el archivo **BasePage.java**, creamos una variable llamada `action` del
 tipo `Actions` y se importa `import org.openqa.selenium.interactions.Actions`.
 2. Añadimos un método en **BasePage.java**, llamado `hoverOverElement`.
@@ -1653,7 +1703,7 @@ tipo `Actions` y se importa `import org.openqa.selenium.interactions.Actions`.
     action.contextClick(Find(locator));
   }
 ```
-## Paso 86
+## Paso 86. Las grillas estáticas y cómo manejarlas.
 1. Quitamos de **Sandbox.feature**, el primer `@Test` (línea 1).
 2. Adiciono un nuevo Escenario en **Sandbox.feature**:
 ```feture
@@ -1746,7 +1796,7 @@ en `DEBUG CONSOLE`:
   } 
 ```
 
-## Paso 87
+## Paso 87. Las esperas implícitas y las esperas explícitas.
 >[!NOTE]  
 > Lo que hicimos en el archivo **BasePage.java** con este tema: 
 >`wait.until(ExpectedConditions.visibilityOfElementLocated(...));`
@@ -1757,7 +1807,7 @@ en `DEBUG CONSOLE`:
 > pero genera un error:  
 > `The method implicitlyWait(long, TimeUnit) from the type WebDriver.Timeouts is deprecated`.
 
-## Paso 88
+## Paso 88. El comando Sleep.
 >[!NOTE]  
 > La espera prohibida es el **SLEEP**, ejemplo este `Thread.sleep(2000);`,
 > se va a qiuedar esperando 2 segundos donde lo invoques, y el sugiere encerrar
@@ -1771,7 +1821,7 @@ en `DEBUG CONSOLE`:
 >    }
 >```
 
-## Paso 89
+## Paso 89. Subir archivos en nuestra aplicación web con Selenium.
 >[!NOTE]  
 > ## Subir archivos en nuestra aplicación web con Selenium.
 >Bienvenidos a una nueva clase! En este caso, al ser rápido y sin mucho concepto que explicar, voy a dejar este atípico caso que quizás les toque alguna vez y no muchos saben cómo resolver. Uno de mis padawans preguntó porque le tocó en el trabajo y es, a ciencia cierta, uno de esos momentos en los que al comienzo decís "me sentía confiado con esto de Automation pero...no tengo idea cómo resolver esto!".
@@ -1832,7 +1882,7 @@ en `DEBUG CONSOLE`:
 >
 >Creo que no me olvido de ninguno. Esta es una solución con la que di hace un tiempo en la comunidad Dev y me salvó las papas, como ahora espero les sirva a ustedes!
 
-## Paso 90
+## Paso 90. Los iFrames y popups.
 1. En el archivo **BasePage.java** creo un método llamado `swithcToiFrame`:
 ```java
   public void swithcToiFrame(int iFrameIndex){
@@ -1855,7 +1905,7 @@ en `DEBUG CONSOLE`:
   }
 ```
 
-## Paso 91
+## Paso 91. OPCIONAL: Otra manera de manejar los WebElements en nuestro Page Object Model.
 >[!NOTE]
 >## OPCIONAL: Otra manera de manejar los WebElements en nuestro Page Object Model.
 >Esta clase es opcional ya que representa OTRA MANERA de hacer lo que hicimos previamente en nuestras clases para página. En esta oportunidad vamos a aprender a utilizar PageFactory, una librería muy usada hoy en día en proyectos de automatización debido a la simplificación que supone para manejar nuestras clases de página.
@@ -1890,7 +1940,7 @@ en `DEBUG CONSOLE`:
 >
 >Prueben ésto en el framework que (espero!) ya tienen creado, fíjense qué les resulta mejor y elijan lo que les sea más útil. Es un tema muy subjetivo y he aprendido con los años que no hay una única respuesta a todos los problemas!
 
-## Paso 92
+## Paso 92. PageFactory y un truco ingenioso.
 
 >[!NOTE]
 >## PageFactory y un truco ingenioso.
@@ -1914,7 +1964,8 @@ en `DEBUG CONSOLE`:
 >
 >Espero que les resulte útil y lo apliquen en sus proyectos!
 
-## Paso 94
+# Section 13: Assertions: Validando los resultados esperados.
+## Paso 94. Assertions: ¿Qué son y para qué sirven?
 >[!TIP]  
 > Dos opciones para hacer los `Assertion`, una en el el **BasePage.java**
 > poniendo alli una función.  
@@ -1948,7 +1999,7 @@ compararlo con un valor esperado, usando un `Assert`:
 
 5. No corremos la prueba  en este paso.
 
-## Paso 95
+## Paso 95. AssertEquals: ¿Qué es y cuándo usarlo?
 1. Modificamos el archivo **GridTestSteps.java**, en vez de imprimir el resultado 
 lo comparamos con un `Assert`, 
 [Imagen del Paso 86 para el valor esperado](#Debug-Console):
@@ -1968,7 +2019,7 @@ lo comparamos con un `Assert`,
 sitio de https://codesandbox.io/, luego el dato obtenido se compara con el 
 esperado.
 
-## Paso 96
+## Paso 96. assertTrue y assertFalse: ¿Qué son y cuándo usarlos?
 
 1. Crear en **BasePage.java** un método llamado `elementIsDisplayed`:
 ```java
@@ -2038,7 +2089,7 @@ disponible
   }
 ```
 
-## Paso 97
+## Paso 97. Validando listas usando loops: Una de las técnicas más importantes.
 1. Eliminar el tag `@Test` de **Sandbox.feature**.
 2. Adicionar un escenario en **Sandbox.feature**:
 ```feature
@@ -2195,7 +2246,7 @@ comentarios, el contenido de la lista que se puede ver en `DEBUG CONSOLE`
   }
 ```
 
-## Paso 98
+## Paso 98. Debugging en VS Code y cómo nos ayuda a resolver problemas.
 >[!TIP]  
 > Definitivamente se debe mirar este paso o capítulo con detenimiento, para 
 >aprovechar las herramientas para hacer *Debug* dentro de nuestro código.  
@@ -2204,15 +2255,16 @@ comentarios, el contenido de la lista que se puede ver en `DEBUG CONSOLE`
 >* [DEBUG 🪲 en Java ☕ con Eclipse 👨🏻_💻 Ejecutá tu CÓDIGO LÍNEA a LÍNEA 🐾](https://www.youtube.com/watch?v=FWaM8Ihz6pQ).
 >* [Debugging Java with Visual Studio Code (VSCode)](https://www.youtube.com/watch?v=R1F5ihQKL4U).
 
-## Paso 99
+## Paso 99. Manejo de errores con Selenium.
 >[!NOTE]  
 > Manejo de errores usando el `try{}catch(){}`.
 
-## Paso 100
+## Paso 100. Las mejores prácticas a la hora de crear tests con el Page Object Model.
 >[!NOTE]  
 > Mejores prácticas para usar el _Page Object Model_.
 
-## Paso 101
+# Section 14: Cucumber avanzado: Tags, parámetros, mejores prácticas y más!
+## Paso 101. El archivo runner: ¿Qué es y cómo usarlo?
 >[!NOTE]
 > Importancia del archivo **runner.java**:  
 > * Dice donde estan los archivo en lenguaje Gherking
@@ -2240,7 +2292,7 @@ public class Runner {
 sitio de [Complete List Of All US Cities](https://digitalmarketingwebdesign.com/complete-list-us-cities-cities-united-states/), salir de forma correcta y finalmente cerrar
 el browser.
 
-## Paso 102
+## Paso 102. Background: Qué son y cómo usarlos?
 1. Creamos el archivo **StaticTableTest.feature** dentro de
  "src/test/resources/features".
 2. Movemos los de **Sandbox.feature** al nuevo archivo:
@@ -2275,7 +2327,7 @@ Scenario: As a Test Engineer, I want to validate the static table is displayed.
 sitio de [Code Sandbox](https://1v2njkypo4.csb.app/), salir de forma correcta y finalmente cerrar
 el browser.
 
-## Paso 103
+## Paso 103. Rule: ¿Qué es y cómo usarlo?
 >[!TIP]  
 > La importacia de la reglas `Rule:`, se agrega en el archivo de ***.feature**
 > paro el uso de mejores prácticas, ejemplo en **StaticTableTest.feature**:
@@ -2283,11 +2335,11 @@ el browser.
 >Rule: The user can return values from the table and validate them.
 >```
 
-## Paso 104
+## Paso 104. Tags: ¿Qué son y cómo usarlos?
 >[!NOTE]  
 > Explicación y ejemplo de los `tags`.
 
-## Paso 105
+## Paso 105. Ejecutar tags desde la línea de comando: ¿Cómo y por qué hacerlo?
 1. Cambiamos el **StaticTableTest.feature**, de la siguiente manera:
 ```feature
 @Grid
@@ -2342,7 +2394,7 @@ y esta es la nueva respuesta:
 ```
 6. Ejecutamos el último comando de la `TERMINAL`.
 
-## Paso 106
+## Paso 106. Tablas de Examples: ¿Qué son y cómo usarlas?
 1. Creamos el archivo **ListPageTest.feature** dentro de
  "src/test/resources/features".
 2. Cortamos de **Sandbox.feature** la parte de list test y la llevamos para
@@ -2420,7 +2472,7 @@ Scenario Outline: As a Test Engineer, I want to validate that a <city> is presen
 ```
 Cuando vuelvo a ejecutar de **Runner.java**, las descripciones son mas claras.
 
-## Paso 107
+## Paso 107. Expresiones regulares en Cucumber: ¡Cómo potenciar nuestra creación con ellas!
 >[!NOTE]  
 >## Expresiones regulares en Cucumber: Cómo potenciar nuestra creación con ellas!
 >### Expresiones Regulares: Qué son?
@@ -2504,11 +2556,13 @@ Cuando vuelvo a ejecutar de **Runner.java**, las descripciones son mas claras.
 >![Exp-Reg](images/section14-step_107-exp-reg1.png)
 >[Expresiones Regulares](images/section14-step_107-exp-reg.png)
 
-## Paso 108
+## Paso 108. Mejores prácticas para Cucumber y BDD.
 >[!NOTE]  
 > Explicacion y uso como una herramienta de colaboración.
 
-## Paso 110
+# Section 15: Generación de reportes con Cucumber.
+## Paso 110. Archivo para los reportes (crearlo antes de configurarlos en la siguiente clase)
+
 1. Crear el archivo **extent.properties** en la ruta "src/test/resources".
 2. El contenido de este archivo será el siguiente:
 ```properties
@@ -2538,7 +2592,7 @@ extent.reporter.html.out=test-output/HtmlReport/ExtentHtml.html
 extent.reporter.logger.out=test-output/LoggerReport/
 extent.reporter.tabular.out=test-output/TabularReport/
 ```
-## Paso 111
+## Paso 111. Configuración de reportes con Cucumber.
 1. En **build.gradle** añadir otra dependencia de [ExtendReports Cucumber7](https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter/):
 ```gradle
 // https://mvnrepository.com/artifact/tech.grasshopper/extentreports-cucumber7-adapter
@@ -2566,7 +2620,7 @@ gradle test -Dcucumber.options="--tags @Grid, --tags @Smoke"
 4. El reporte lo podemos buscar en la siguiente carpeta nueva 
 "test-output/HtmlReport" con este nombre de archivo **ExtentHtml.html**.
 
-## Paso 112
+## Paso 112. Agregando screenshots a nuestros reportes.
 1. Creamos una clase llamada **Hooks.java** en la carpeta "src/test/java/steps":
 2. Extendemos la clase de `BasePage`, por ende importamos `import pages.BasePage;`
 ```java
@@ -2634,9 +2688,9 @@ La imagen sería similar a esta:
 
 ![ExtentReports Cucumber7](images/section15-step_112-report.png)
 
-# Ejercicios
+# Section 16: Ejercicios aplicando el framework creado.
 
-## Paso 113
+## Paso 113. Ejercicio número 1: Búsqueda, paginación y carrito de compras.
 ## Ejercicio 1. Automation Engineer Assignment
 ### Overview
 Complete the following automation test. This assignment can be done over the course of 2 days. Please make commits as often as possible so we can see the time you spent and please do not make all your changes in one big commit. We wil evaluate the code and time spent along with how your commits are split up.
@@ -2818,7 +2872,7 @@ para luego ser llamado desde `itemCanBeAddedToChart` de **AmazonSearchSteps.java
 >
 >![Amazon](images/section15-step-113-report.png)
 
-## Paso 114
+## Paso 114. Ejercicio número 2: Cucumber, ids dinámicos y más
 ## Ejercicio 2. 
 ### Coding test.
 This is a test of how you go about producing a good, working, automation solution and how you consider and approach the different aspects of automation software. The tools and technologies are based on what we use at ACC.
